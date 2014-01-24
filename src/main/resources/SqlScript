@@ -1,6 +1,6 @@
 drop table if exists library.User;
 
-    create table library.User (
+    create table library.user (
         Id bigint not null auto_increment,
         firstName varchar(255),
         lastName varchar(255),

@@ -37,7 +37,7 @@ public class UserDaoTest {
 	@Test
 	public void testUserSave()
 	{
-		User user = new User("Sandarbh","Bhadauria","Student");
+		User user = new User("something","1","something");
 		this.userDao.saveOrUpdate(user);
 		
 		Assert.assertNotNull(userDao.getAll());

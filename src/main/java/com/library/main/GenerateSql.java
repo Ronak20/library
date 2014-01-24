@@ -19,7 +19,7 @@ public class GenerateSql {
 	properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 	properties.put("hibernate.connection.url", "jdbc:mysql://localhost:3306/library"); 
 	properties.put("hibernate.connection.username", "root");
-	properties.put("hibernate.connection.password", "root");
+	properties.put("hibernate.connection.password", "");
 	properties.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
 	properties.put("hibernate.show_sql", "true");
 	config.setProperties(properties);
