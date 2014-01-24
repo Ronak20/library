@@ -1,6 +1,6 @@
 /*
-  Library - sample system 
-  Last updated: June 8, 2010
+  Library System 
+  
 */
 //Namespace for core of the system.
 namespace com.library.model;
@@ -39,7 +39,9 @@ Time due;
 
 
 class Person {
-  name;
-  id;
+  firstName;
+  lastName;
+  role;
+  autounique id;
   
 }

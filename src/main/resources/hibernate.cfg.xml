@@ -15,6 +15,7 @@
   <property name="hibernate.search.autoregister_listeners">false</property>
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.connection.autocommit">true</property>
-  <mapping class="com.library.model.User"/>
+   
+   <mapping class="com.library.model.User"/> 
  </session-factory>
 </hibernate-configuration>

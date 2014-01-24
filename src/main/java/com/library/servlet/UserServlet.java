@@ -51,6 +51,8 @@ public class UserServlet extends HttpServlet {
 	    Session session = HibernateUtil.getSessionFactory().openSession();
 	    UserDao userDao = new UserDao(session);
 	    UserService userService = new UserService(userDao);
+	    //userDao.saveOrUpdate(user);
+	    userService.saveOrUpdate(user);
 	    session.close();
 	    System.out.println("User added");
 	}
