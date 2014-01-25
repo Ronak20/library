@@ -4,12 +4,16 @@
 package com.library.model;
 
 import java.util.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 
 // line 26 "../../../../../../ump/tmp369439/model.ump"
@@ -25,7 +29,9 @@ public class User
     //------------------------
     
     //User Associations
+    @OneToMany(targetEntity=Book.class, mappedBy="user", fetch=FetchType.EAGER)
     private List<Book> rent;
+    @ManyToMany(targetEntity=Loan.class, mappedBy="users", fetch=FetchType.EAGER)
     private List<Loan> loans;
     @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

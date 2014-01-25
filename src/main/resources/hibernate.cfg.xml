@@ -16,6 +16,9 @@
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.connection.autocommit">true</property>
    
-   <mapping class="com.library.model.User"/> 
+   <mapping class="com.library.model.User"/>
+   <mapping class="com.library.model.Loan"/>
+   <mapping class="com.library.model.Book"/>
+   <mapping class="com.library.model.Author"/>   
  </session-factory>
 </hibernate-configuration>

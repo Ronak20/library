@@ -4,7 +4,18 @@
 package com.library.model;
 import java.util.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 // line 19 "../../../../../../ump/tmp369439/model.ump"
+@Entity
+@Table(name = "author", catalog = "library")
 public class Author
 {
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
@@ -16,8 +27,12 @@ public class Author
 
   private String firstName;
   private String lastName;
+  @Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "idauthor", unique = true)
   private String aid;
   //Author Associations
+  @ManyToMany(targetEntity=Book.class, mappedBy="authors", fetch=FetchType.EAGER)
   private List<Book> books;
   
 

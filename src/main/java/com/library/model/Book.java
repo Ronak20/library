@@ -4,8 +4,22 @@
 package com.library.model;
 import java.util.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.metamodel.binding.CascadeType;
+
 // line 8 "../../../../../../ump/tmp369439/model.ump"
 // line 49 "../../../../../../ump/tmp369439/model.ump"
+@Entity
+@Table(name = "book", catalog = "library")
 public class Book
 {
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
@@ -17,12 +31,18 @@ public class Book
 
   //Book Attributes
   private int copies;
+  @Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "isbn", unique = true)
   private String isbn;
   private String name;
 
   //Book Associations
+  @ManyToMany(targetEntity=Author.class, fetch=FetchType.EAGER)
   private List<Author> authors;
+  @ManyToOne (fetch=FetchType.EAGER)
   private User user;
+  @ManyToMany(targetEntity=Loan.class, fetch=FetchType.EAGER)
   private List<Loan> loans;
 
   //------------------------

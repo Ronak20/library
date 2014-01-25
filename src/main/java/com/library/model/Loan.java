@@ -5,7 +5,19 @@ package com.library.model;
 import java.sql.Time;
 import java.util.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 // line 31 "../../../../../../ump/tmp369439/model.ump"
+@Entity
+@Table(name = "loan", catalog = "library")
 public class Loan
 {
   @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
@@ -16,11 +28,16 @@ public class Loan
   //------------------------
 
   //Loan Attributes
+  @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "idloan", unique = true)
   private String id;
   private Time due;
 
   //Loan Associations
+  @ManyToMany(targetEntity=User.class, fetch=FetchType.EAGER)
   private List<User> users;
+  @ManyToMany(targetEntity=Book.class, mappedBy="loans", fetch=FetchType.EAGER)
   private List<Book> books;
 
   //------------------------
