@@ -42,7 +42,7 @@
 	</servlet-mapping>
 	
 	<welcome-file-list>
-    	<welcome-file>jsp/createUser.jsp</welcome-file>
+    	<welcome-file>jsp/createBook.jsp</welcome-file>
   	</welcome-file-list>
   	
 	

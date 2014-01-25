@@ -9,16 +9,8 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.11/junit-4.11.jar">
 		<attributes>
@@ -106,8 +98,8 @@
 	<classpathentry kind="lib" path="/Users/sultaneid/Downloads/httpunit-1.7/jars/junit-3.8.1.jar"/>
 	<classpathentry kind="lib" path="/Users/sultaneid/Downloads/httpunit-1.7/jars/mail-1.4.jar"/>
 	<classpathentry kind="lib" path="/Users/sultaneid/Downloads/httpunit-1.7/jars/nekohtml-0.9.5.jar"/>
-	<classpathentry kind="lib" path="/Users/sultaneid/Downloads/httpunit-1.7/jars/servlet-api-2.4.jar"/>
 	<classpathentry kind="lib" path="/Users/sultaneid/Downloads/httpunit-1.7/jars/xercesImpl-2.6.1.jar"/>
 	<classpathentry kind="lib" path="/Users/sultaneid/Downloads/httpunit-1.7/jars/xmlParserAPIs-2.6.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
