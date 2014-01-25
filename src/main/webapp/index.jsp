@@ -6,7 +6,10 @@
 <body>
 <h2>Hello World!</h2>
 <%
-    response.sendRedirect("/LibraryManagement/user");
+
+
+	%><%@include file="jsp/createBook.jsp" %><% 
+    response.sendRedirect("/LibraryManagement/book");
 %>
 </body>
 </html>

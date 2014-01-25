@@ -11,6 +11,14 @@
 		<description></description>
 		<servlet-class>com.library.servlet.UserServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>BookServlet</servlet-name>
+		<display-name>BookServlet</display-name>
+		<description></description>
+		<servlet-class>com.library.servlet.BookServlet</servlet-class>
+	</servlet>
+	
 	<servlet>
 		<servlet-name>IndexServlet</servlet-name>
 		<display-name>IndexServlet</display-name>
@@ -22,6 +30,12 @@
 		<servlet-name>UserServlet</servlet-name>
 		<url-pattern>/user</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>BookServlet</servlet-name>
+		<url-pattern>/book</url-pattern>
+	</servlet-mapping>
+		
 	<servlet-mapping>
 		<servlet-name>IndexServlet</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -30,5 +44,6 @@
 	<welcome-file-list>
     	<welcome-file>jsp/createUser.jsp</welcome-file>
   	</welcome-file-list>
+  	
 	
 </web-app>
