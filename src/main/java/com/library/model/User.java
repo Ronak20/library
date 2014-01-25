@@ -39,17 +39,18 @@ public class User
     private String uid;
     private String firstName;
     private String lastName;
-    private Boolean hasOutstanding;
+    private String role;
+    
     
     //------------------------
     // CONSTRUCTOR
     //------------------------
     
-    public User(String aFirstName, String aLastName, String aUid)
+    public User(String aFirstName, String aLastName, String aRole)
     {
         setFirstName(aFirstName);
        setLastName(aLastName);
-       uid = aUid;
+       role = aRole;
         
         rent = new ArrayList<Book>();
         loans = new ArrayList<Loan>();
@@ -319,13 +320,15 @@ public class User
 	}
 
 
-	public Boolean getHasOutstanding() {
-		return hasOutstanding;
+	public String getRole() {
+		return role;
 	}
 
 
-	public void setHasOutstanding(Boolean hasOutstanding) {
-		this.hasOutstanding = hasOutstanding;
+	public void setRole(String role) {
+		this.role = role;
 	}
+
+
     
 }
