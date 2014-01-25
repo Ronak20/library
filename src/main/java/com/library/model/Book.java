@@ -34,7 +34,7 @@ public class Book
   @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "isbn", unique = true)
-  private String isbn;
+  private int isbn;
   private String name;
 
   //Book Associations
@@ -49,7 +49,7 @@ public class Book
   // CONSTRUCTOR
   //------------------------
 
-  public Book(int aCopies, String aIsbn, String aName, User aUser)
+  public Book(int aCopies, int aIsbn, String aName, User aUser)
   {
     copies = aCopies;
     isbn = aIsbn;
@@ -58,16 +58,30 @@ public class Book
     boolean didAddUser = setUser(aUser);
     if (!didAddUser)
     {
-      throw new RuntimeException("Unable to create rent due to user");
+      throw new RuntimeException("Unable to create book due to user");
     }
     loans = new ArrayList<Loan>();
+  }
+  
+  public Book(int aCopies, int aIsbn, String aName)
+  {
+    copies = aCopies;
+    isbn = aIsbn;
+    name = aName;
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setCopies(int aCopies)
+  public Book(int aCopies, String aBookname) {
+	  
+	  copies = aCopies;
+	  name = aBookname;
+	// TODO Auto-generated constructor stub
+}
+
+public boolean setCopies(int aCopies)
   {
     boolean wasSet = false;
     copies = aCopies;
@@ -75,7 +89,7 @@ public class Book
     return wasSet;
   }
 
-  public boolean setIsbn(String aIsbn)
+  public boolean setIsbn(int aIsbn)
   {
     boolean wasSet = false;
     isbn = aIsbn;
@@ -96,7 +110,7 @@ public class Book
     return copies;
   }
 
-  public String getIsbn()
+  public int getIsbn()
   {
     return isbn;
   }

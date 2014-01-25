@@ -46,13 +46,13 @@ public class BookServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    System.out.println("Post received");
-		int copies = Integer.parseInt(request.getParameter("copies"));
+		String copies = request.getParameter("copies");
 	    String isbn = request.getParameter("isbn");
 	    String bookname = request.getParameter("bookname");
 	    
 	    
-	    Book book = new Book(copies,isbn,bookname,null);
-	    
+	    Book book = new Book(Integer.parseInt(copies),bookname);
+	    //System.out.print(copies); //testing conversion
 	    Session session = HibernateUtil.getSessionFactory().openSession();
 	    BookDao bookDao = new BookDao(session);
 	    BookService bookService = new BookService(bookDao);

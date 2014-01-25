@@ -122,7 +122,7 @@ public class User
         return 0;
     }
     
-    public Book addRent(int aCopies, String aIsbn, String aName)
+    public Book addRent(int aCopies, int aIsbn, String aName)
     {
         return new Book(aCopies, aIsbn, aName, this);
     }
