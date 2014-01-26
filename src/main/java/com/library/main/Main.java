@@ -4,6 +4,7 @@ import org.hibernate.Session;
 
 import com.library.config.HibernateUtil;
 import com.library.dao.UserDao;
+import com.library.model.Role;
 import com.library.model.User;
 import com.library.service.UserService;
 
@@ -17,7 +18,7 @@ public class Main {
 		UserDao userDao = new UserDao(session);
 		UserService userService = new UserService(userDao);
 		
-		User user = new User("Sultan","Eid","Student");
+		User user = new User("Sultan","Eid","sultan","password",Role.STUDENT);
 		userService.saveOrUpdate(user);
 		
 		session.close();

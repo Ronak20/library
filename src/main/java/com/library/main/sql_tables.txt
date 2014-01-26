@@ -33,3 +33,44 @@ CREATE TABLE `User` (
   `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+
+-- table by Ronak
+
+drop table if exists library.book;
+
+drop table if exists library.loan;
+
+drop table if exists library.user;
+
+    create table library.book (
+        bookid bigint not null auto_increment,
+        bookname varchar(255),
+        copies integer,
+        isbn varchar(255),
+        primary key (bookid)
+    );
+
+    create table library.loan (
+        loanid bigint not null auto_increment,
+        bookid bigint,
+        expirydate datetime,
+        islatefeepaid varchar(255),
+        latefee integer,
+        renewalcount integer,
+        userid bigint,
+        primary key (loanid)
+    );
+
+    create table library.user (
+        userid bigint not null auto_increment,
+        firstname varchar(255),
+        lastname varchar(255),
+        password varchar(255),
+        role varchar(255),
+        username varchar(255),
+        primary key (userid)
+    );
+
+   
+    

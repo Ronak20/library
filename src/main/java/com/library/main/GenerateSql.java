@@ -5,7 +5,10 @@ import java.util.Properties;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
+import com.library.model.Book;
+import com.library.model.Loan;
 import com.library.model.User;
+
 
 public class GenerateSql {
 
@@ -25,6 +28,8 @@ public class GenerateSql {
 	config.setProperties(properties);
 
 	config.addAnnotatedClass(User.class);
+	config.addAnnotatedClass(Book.class);
+	config.addAnnotatedClass(Loan.class);
 	
 	SchemaExport schemaExport = new SchemaExport(config);
 	schemaExport.setDelimiter(";");

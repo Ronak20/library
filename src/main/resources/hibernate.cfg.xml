@@ -5,10 +5,10 @@
  <session-factory name="">
   <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.password"></property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.connection.password">root</property>
   <property name="hibernate.connection.pool_size">1</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/library</property>
-  <property name="hibernate.connection.username">root</property>
   <property name="hibernate.current_session_context_class">thread</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <property name="hibernate.format_sql">false</property>
@@ -18,7 +18,6 @@
    
    <mapping class="com.library.model.User"/>
    <mapping class="com.library.model.Loan"/>
-   <mapping class="com.library.model.Book"/>
-   <mapping class="com.library.model.Author"/>   
+   <mapping class="com.library.model.Book"/>   
  </session-factory>
 </hibernate-configuration>

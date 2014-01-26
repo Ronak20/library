@@ -1,5 +1,160 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.19.0.3385 modeling language!*/
+package com.library.model;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "loan", catalog = "library")
+public class Loan
+{
+	private String loanId;
+	private String userId;
+	private String bookId;
+	private Date expiryDate ;
+	private int renewalCount;
+	private int lateFee;
+	private String isLateFeePaid;
+	
+	public Loan(String userId, String bookId, Date expiryDate,
+			int renewalCount, int lateFee, String isLateFeePaid) {
+		super();
+		this.userId = userId;
+		this.bookId = bookId;
+		this.expiryDate = expiryDate;
+		this.renewalCount = renewalCount;
+		this.lateFee = lateFee;
+		this.isLateFeePaid = isLateFeePaid;
+	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "loanid", unique = true)
+	public String getLoanId() {
+		return loanId;
+	}
+	public void setLoanId(String loanId) {
+		this.loanId = loanId;
+	}
+	
+	@Column(name = "userid", unique = true)
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@Column(name = "bookid", unique = true)
+	public String getBookId() {
+		return bookId;
+	}
+	public void setBookId(String bookId) {
+		this.bookId = bookId;
+	}
+	
+	@Column(name = "expirydate", unique = true)
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+	
+	@Column(name = "renewalcount", unique = true)
+	public int getRenewalCount() {
+		return renewalCount;
+	}
+	public void setRenewalCount(int renewalCount) {
+		this.renewalCount = renewalCount;
+	}
+	
+	@Column(name = "latefee", unique = true)
+	public int getLateFee() {
+		return lateFee;
+	}
+	public void setLateFee(int lateFee) {
+		this.lateFee = lateFee;
+	}
+	
+	@Column(name = "islatefeepaid", unique = true)
+	public String getIsLateFeePaid() {
+		return isLateFeePaid;
+	}
+	public void setIsLateFeePaid(String isLateFeePaid) {
+		this.isLateFeePaid = isLateFeePaid;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bookId == null) ? 0 : bookId.hashCode());
+		result = prime * result
+				+ ((expiryDate == null) ? 0 : expiryDate.hashCode());
+		result = prime * result
+				+ ((isLateFeePaid == null) ? 0 : isLateFeePaid.hashCode());
+		result = prime * result + lateFee;
+		result = prime * result + ((loanId == null) ? 0 : loanId.hashCode());
+		result = prime * result + renewalCount;
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Loan other = (Loan) obj;
+		if (bookId == null) {
+			if (other.bookId != null)
+				return false;
+		} else if (!bookId.equals(other.bookId))
+			return false;
+		if (expiryDate == null) {
+			if (other.expiryDate != null)
+				return false;
+		} else if (!expiryDate.equals(other.expiryDate))
+			return false;
+		if (isLateFeePaid == null) {
+			if (other.isLateFeePaid != null)
+				return false;
+		} else if (!isLateFeePaid.equals(other.isLateFeePaid))
+			return false;
+		if (lateFee != other.lateFee)
+			return false;
+		if (loanId == null) {
+			if (other.loanId != null)
+				return false;
+		} else if (!loanId.equals(other.loanId))
+			return false;
+		if (renewalCount != other.renewalCount)
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "Loan [loanId=" + loanId + ", userId=" + userId + ", bookId="
+				+ bookId + ", expiryDate=" + expiryDate + ", renewalCount="
+				+ renewalCount + ", lateFee=" + lateFee + ", isLateFeePaid="
+				+ isLateFeePaid + "]";
+	}
+}
+
+/*PLEASE DO NOT EDIT THIS CODE
+This code was generated using the UMPLE 1.19.0.3385 modeling language!
 
 package com.library.model;
 import java.sql.Time;
@@ -331,4 +486,5 @@ public class Loan
             "  " + "due" + "=" + (getDue() != null ? !getDue().equals(this)  ? getDue().toString().replaceAll("  ","    ") : "this" : "null")
      + outputString;
   }
-}
+}*/
+

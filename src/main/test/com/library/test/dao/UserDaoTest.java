@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.library.config.HibernateUtil;
 import com.library.dao.UserDao;
+import com.library.model.Role;
 import com.library.model.User;
 
 public class UserDaoTest {
@@ -37,11 +38,17 @@ public class UserDaoTest {
 	@Test
 	public void testUserSave()
 	{
-		User user = new User("something","1","something");
+		User user = new User("Sultan","Eid","sultan","password",Role.STUDENT);
 		this.userDao.saveOrUpdate(user);
 		
 		Assert.assertNotNull(userDao.getAll());
-		
+	}
+	
+	@Test
+	public void testUserDelete()
+	{
+		User user = new User("2");
+		this.userDao.delete(user);
 	}
 	
 }

@@ -16,7 +16,6 @@ public class UserDao {
 	}
 
 	public void saveOrUpdate(User user) {
-		System.out.println("saveOrUpdate : " + user.toString());
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
@@ -31,5 +30,18 @@ public class UserDao {
 	public List<User> getAll() {
 		List<User> userList = session.createCriteria(User.class).list();
 		return userList;
+	}
+
+	public void delete(User user) {
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+
+			session.delete(user);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
 	}
 }

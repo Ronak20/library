@@ -51,7 +51,7 @@ public class BookServlet extends HttpServlet {
 	    String bookname = request.getParameter("bookname");
 	    
 	    
-	    Book book = new Book(Integer.parseInt(copies),bookname);
+	    Book book = new Book(bookname,isbn,Integer.parseInt(copies));
 	    //System.out.print(copies); //testing conversion
 	    Session session = HibernateUtil.getSessionFactory().openSession();
 	    BookDao bookDao = new BookDao(session);

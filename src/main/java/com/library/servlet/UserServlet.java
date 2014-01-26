@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 
 import com.library.config.HibernateUtil;
 import com.library.dao.UserDao;
+import com.library.model.Role;
 import com.library.model.User;
 import com.library.service.UserService;
 
@@ -48,12 +49,11 @@ public class UserServlet extends HttpServlet {
 	    String password = request.getParameter("password");
 	    String role = request.getParameter("role");
 	    
-	    User user = new User(firstName,lastName,role);
+	    User user = new User(firstName,lastName,userName,password,Role.parse(role));
 	    
 	    Session session = HibernateUtil.getSessionFactory().openSession();
 	    UserDao userDao = new UserDao(session);
 	    UserService userService = new UserService(userDao);
-	    //userDao.saveOrUpdate(user);
 	    userService.saveOrUpdate(user);
 	    session.close();
 	    System.out.println("User added");

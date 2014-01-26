@@ -1,5 +1,112 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.19.0.3385 modeling language!*/
+package com.library.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "book", catalog = "library")
+public class Book
+{
+	
+	private String bookid;
+	private String bookName;
+	private String isbn;
+	private int copies;
+	
+	public Book(String bookName, String isbn, int copies) {
+		super();
+		this.bookName = bookName;
+		this.isbn = isbn;
+		this.copies = copies;
+	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "bookid", unique = true)
+	public String getBookid() {
+		return bookid;
+	}
+	public void setBookid(String bookid) {
+		this.bookid = bookid;
+	}
+	
+	@Column(name = "bookname", unique = true)
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+	
+	@Column(name = "isbn", unique = true)
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	
+	@Column(name = "copies", unique = true)
+	public int getCopies() {
+		return copies;
+	}
+	public void setCopies(int copies) {
+		this.copies = copies;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((bookName == null) ? 0 : bookName.hashCode());
+		result = prime * result + ((bookid == null) ? 0 : bookid.hashCode());
+		result = prime * result + copies;
+		result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (bookName == null) {
+			if (other.bookName != null)
+				return false;
+		} else if (!bookName.equals(other.bookName))
+			return false;
+		if (bookid == null) {
+			if (other.bookid != null)
+				return false;
+		} else if (!bookid.equals(other.bookid))
+			return false;
+		if (copies != other.copies)
+			return false;
+		if (isbn == null) {
+			if (other.isbn != null)
+				return false;
+		} else if (!isbn.equals(other.isbn))
+			return false;
+		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "Book [bookid=" + bookid + ", bookName=" + bookName + ", isbn="
+				+ isbn + ", copies=" + copies + "]";
+	}
+}
+
+/*PLEASE DO NOT EDIT THIS CODE
+This code was generated using the UMPLE 1.19.0.3385 modeling language!
 
 package com.library.model;
 import java.util.*;
@@ -398,4 +505,5 @@ public boolean setCopies(int aCopies)
             "  " + "user = "+(getUser()!=null?Integer.toHexString(System.identityHashCode(getUser())):"null")
      + outputString;
   }
-}
+}*/
+
