@@ -33,6 +33,10 @@ public class User
 		this.password = password;
 		this.role = role;
 	}
+	
+	
+	public User(){}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "userid", unique = true)

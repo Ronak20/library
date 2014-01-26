@@ -51,4 +51,17 @@ public class UserDaoTest {
 		this.userDao.delete(user);
 	}
 	
+	@Test
+	public void getUserById()
+	{
+		
+		User user = new User("getFirstTest","getLastTest","getByUNTest","sompass",null);
+		this.userDao.saveOrUpdate(user);
+		
+		
+		Assert.assertSame(user, this.userDao.getBookByName("getByUNTest"));
+		
+		userDao.delete(user);
+	}
+	
 }

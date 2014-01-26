@@ -2,9 +2,12 @@ package com.library.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.library.config.HibernateUtil;
+import com.library.model.Book;
 import com.library.model.User;
 
 public class UserDao {
@@ -25,6 +28,33 @@ public class UserDao {
 			e.printStackTrace();
 			tx.rollback();
 		}
+	}
+	
+	
+	/*public boolean isValid (String username, String pass)
+	{
+		boolean isValid = false;
+		
+		if this.
+		
+		return isValid;
+	}*/
+	
+	public User getBookByName(String aUsername){
+		try {
+		String hql = "FROM User U WHERE U.username = :user_name";
+		Query query = session.createQuery(hql);
+		
+		query.setParameter("user_name", aUsername);
+		List<User> userList = query.list();
+		User user = userList.get(0);
+		//Book bookInstance = session
+		System.out.println(user.toString());
+		return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;			
+			}
 	}
 
 	public List<User> getAll() {
