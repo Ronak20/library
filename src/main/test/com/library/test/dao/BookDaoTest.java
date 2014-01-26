@@ -40,6 +40,7 @@ public class BookDaoTest {
 		
 		Assert.assertSame("Pass", bookDao.getBookByID(book.getBookid()).getBookName(), book.getBookName());
 		System.out.println(book.getBookName());
+		bookDao.deleteBook(book);
 	}
 	
 	@Test
