@@ -29,8 +29,8 @@ public class BookDao {
 		}
 	}
 
-	public List<Book> getAll() {
-		List<Book> bookList = session.createCriteria(Book.class).list();
-		return bookList;
+	public List<User> getAll() {
+		List<User> userList = session.createCriteria(User.class).list();
+		return userList;
 	}
 }
