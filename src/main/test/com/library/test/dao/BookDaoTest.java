@@ -45,9 +45,12 @@ public class BookDaoTest {
 	
 	@Test
 	public void testDeleteBook(){
-		Book book = bookDao.getBookByName("MyFirstBook");
+		Book book = new Book("MyFirstBook","MyFirstBookisbn",10);
+		bookDao.saveOrUpdate(book);
+		book = bookDao.getBookByName("MyFirstBook");
 		bookDao.deleteBook(book);
 		Assert.assertNull(bookDao.getBookByID(book.getBookid()));
+		
 	}
 
 }
