@@ -35,10 +35,10 @@ public class BookDaoTest {
 	
 	@Test
 	public void testAddBook(){
-		Book book = new Book("MyFirstBook","MyFirstBookisbn",10);
+		Book book = new Book("MyFirstBook3","MyFirstBookisbn3",10);
 		this.bookDao.saveOrUpdate(book);
 		
-		Assert.assertSame("Pass", bookDao.getBookByID(book.getBookid()).getBookName(), book.getBookName());
+		Assert.assertSame(bookDao.getBookByName(book.getBookName()).getBookName(), book.getBookName());
 		System.out.println(book.getBookName());
 		bookDao.deleteBook(book);
 	}
