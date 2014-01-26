@@ -1,0 +1,52 @@
+package com.library.test.dao;
+
+import java.util.Date;
+
+import org.hibernate.Session;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.library.config.HibernateUtil;
+import com.library.dao.LoanDao;
+import com.library.model.Loan;
+
+public class LoanDaoTest {
+	
+	LoanDao loanDao;
+	Session session; 
+			
+	public LoanDaoTest()
+	{
+		
+	}
+	
+	@Before
+	public void setUp()
+	{
+		this.session = HibernateUtil.getSessionFactory().openSession();
+		this.loanDao = new LoanDao(this.session);
+	}
+	
+	@After
+	public void tearDown()
+	{
+		this.session.close();
+	}
+	
+	@Test
+	public void testLoanSave()
+	{
+		Loan loan = new Loan("4","1",new Date(System.currentTimeMillis()+5*60*1000),0,0,false);
+		this.loanDao.saveOrUpdate(loan);
+		Assert.assertNotNull(loanDao.getAll());
+	}
+	
+	@Test
+	public void testLoanDelete()
+	{
+		this.loanDao.delete("1","1");
+	}
+
+}
