@@ -49,7 +49,7 @@ public class Book
 		this.isbn = isbn;
 	}
 	
-	@Column(name = "copies", unique = true)
+	@Column(name = "copies")
 	public int getCopies() {
 		return copies;
 	}

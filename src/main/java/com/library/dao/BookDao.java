@@ -2,6 +2,7 @@ package com.library.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -29,8 +30,21 @@ public class BookDao {
 		}
 	}
 
-	public List<User> getAll() {
-		List<User> userList = session.createCriteria(User.class).list();
-		return userList;
+	public List<Book> getAll() {
+		List<Book> bookList = session.createCriteria(Book.class).list();
+		return bookList;
 	}
+	
+	public Book getBookByID(String bookid){
+		String hql = "FROM Book B WHERE B.bookid = :book_id";
+		Query query = session.createQuery(hql);
+		query.setParameter("book_id", bookid);
+		List<Book> bookList = query.list();
+		Book book = bookList.get(0);
+		//Book bookInstance = session
+		System.out.println(book.toString());
+		return book;
+	}
+	
+	 
 }
