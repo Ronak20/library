@@ -39,6 +39,14 @@ public class BookDaoTest {
 		this.bookDao.saveOrUpdate(book);
 		
 		Assert.assertSame("Pass", bookDao.getBookByID(book.getBookid()).getBookName(), book.getBookName());
+		System.out.println(book.getBookName());
+	}
+	
+	@Test
+	public void testDeleteBook(){
+		Book book = bookDao.getBookByName("MyFirstBook");
+		bookDao.deleteBook(book);
+		Assert.assertNull(bookDao.getBookByID(book.getBookid()));
 	}
 
 }

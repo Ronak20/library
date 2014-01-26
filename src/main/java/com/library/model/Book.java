@@ -17,6 +17,10 @@ public class Book
 	private String isbn;
 	private int copies;
 	
+	public Book(){
+		super();
+	}
+	
 	public Book(String bookName, String isbn, int copies) {
 		super();
 		this.bookName = bookName;

@@ -36,15 +36,49 @@ public class BookDao {
 	}
 	
 	public Book getBookByID(String bookid){
+		try {
 		String hql = "FROM Book B WHERE B.bookid = :book_id";
 		Query query = session.createQuery(hql);
+		
 		query.setParameter("book_id", bookid);
 		List<Book> bookList = query.list();
 		Book book = bookList.get(0);
 		//Book bookInstance = session
 		System.out.println(book.toString());
 		return book;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;			
+			}
 	}
 	
+	public Book getBookByName(String bookName){
+		try {
+		String hql = "FROM Book B WHERE B.bookName = :book_name";
+		Query query = session.createQuery(hql);
+		
+		query.setParameter("book_name", bookName);
+		List<Book> bookList = query.list();
+		Book book = bookList.get(0);
+		//Book bookInstance = session
+		System.out.println(book.toString());
+		return book;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;			
+			}
+	}
+	
+	public void deleteBook(Book book){
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.delete(book);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+	}
 	 
 }
