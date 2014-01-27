@@ -59,7 +59,7 @@ public class UserDaoTest {
 		this.userDao.saveOrUpdate(user);
 		
 		
-		Assert.assertSame(user, this.userDao.getBookByName("getByUNTest"));
+		Assert.assertSame(user, this.userDao.getUserByName("getByUNTest"));
 		
 		userDao.delete(user);
 	}

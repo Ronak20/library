@@ -16,10 +16,10 @@
 		<form action="login" method="post">
 <table align="center">
 		 	 		
-			<tr><td>Enter Username  <input type="text" name="un"/></td></tr>		
+			<tr><td>Enter Username  <input type="text" name="username"/></td></tr>		
 		
 			
-			<tr><td>Enter Password       <input type="text" name="pw"/></td></tr>
+			<tr><td>Enter Password       <input type="text" name="password"/></td></tr>
 			
 			<tr><td align="center"><input type="submit" value="submit"></td></tr>			
 		</table>

@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
+import java.sql.*;
 import com.library.config.HibernateUtil;
 import com.library.model.Book;
 import com.library.model.User;
@@ -33,20 +33,53 @@ public class UserDao {
 	
 	public boolean isValid (String aUsername, String pass)
 	{
+		Connection conn = null;
+		ResultSet result= null;
+		Statement st = null;
+		
+		String searchQuery =
+	               "select * from user where username='"
+	                        + aUsername
+	                        + "' AND password='"
+	                        + pass
+	                        + "'";
+		
 		boolean isValid = false;
 		
 		try {
-			String hql = "FROM User U WHERE U.username = :user_name AND U.password = :user_password";
+			//Hibernate Query
+			String hql = "FROM User U WHERE U.username = :user_name";
 			Query query = session.createQuery(hql);
 			
 			query.setParameter("user_name", aUsername);
-			query.setParameter("user_password", pass);
+			
+			//query.setParameter("user_password", pass); AND U.password = :user_password
 			
 			List<User> userList = query.list();
 			User user = userList.get(0);
 			
-			
+			System.out.println("");
 			System.out.println(user.toString());
+			System.out.println("");
+			
+			
+			//regular direct Query (just testing things)
+			/*
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "");
+	         st=conn.createStatement();
+	         result = st.executeQuery(searchQuery);	        
+	         //boolean more = result.next();
+	         
+	         User user = null;//(User) result;
+	         
+	         user.setUsername(result.getString("username"));
+	         user.setPassword(result.getString("password"));
+	         
+	         System.out.println("");
+				System.out.println(user.toString());
+				System.out.println("");
+	         
+	         */
 			
 			if (!user.equals(null))
 			{
@@ -67,7 +100,7 @@ public class UserDao {
 		
 	}
 	
-	public User getBookByName(String aUsername){
+	public User getUserByName(String aUsername){
 		try {
 		String hql = "FROM User U WHERE U.username = :user_name";
 		Query query = session.createQuery(hql);
