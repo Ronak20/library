@@ -13,16 +13,16 @@
 	</head>
 
 	<body>
-		<form action="LoginServlet">
-
-		 	Enter Username 		
-			<input type="text" name="un"/><br>		
+		<form action="login" method="post">
+<table align="center">
+		 	 		
+			<tr><td>Enter Username  <input type="text" name="un"/></td></tr>		
 		
-			Enter Password
-			<input type="text" name="pw"/>
 			
-			<input type="submit" value="submit">			
-		
+			<tr><td>Enter Password       <input type="text" name="pw"/></td></tr>
+			
+			<tr><td align="center"><input type="submit" value="submit"></td></tr>			
+		</table>
 		</form>
 	</body>
 </html>

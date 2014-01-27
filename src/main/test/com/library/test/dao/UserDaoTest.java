@@ -64,4 +64,19 @@ public class UserDaoTest {
 		userDao.delete(user);
 	}
 	
+	
+	@Test
+	public void isUserValid (){
+		
+		User user = new User("ValidFName","ValidLName","ValidUN","ValidPass",null);
+		this.userDao.saveOrUpdate(user);
+		
+		boolean isValid = userDao.isValid(user.getUsername(), user.getPassword());
+		System.out.println(isValid);
+		Assert.assertTrue(isValid);
+		
+		userDao.delete(user);
+		
+	}
+	
 }

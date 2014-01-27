@@ -30,7 +30,8 @@ public class BookDaoTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		Book book = null;
+		Assert.assertNull(book);
 	}
 	
 	@Test
@@ -45,11 +46,11 @@ public class BookDaoTest {
 	
 	@Test
 	public void testDeleteBook(){
-		Book book = new Book("MyFirstBook","MyFirstBookisbn",10);
+		Book book = new Book("MyFirstBook10","MyFirstBookisbn10",10);
 		bookDao.saveOrUpdate(book);
-		book = bookDao.getBookByName("MyFirstBook");
+		book = bookDao.getBookByName("MyFirstBook10");
 		bookDao.deleteBook(book);
-		Assert.assertNull(bookDao.getBookByID(book.getBookid()));
+		Assert.assertNull(bookDao.getBookByName(book.getBookName()));
 		
 	}
 

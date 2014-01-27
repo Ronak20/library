@@ -31,14 +31,41 @@ public class UserDao {
 	}
 	
 	
-	/*public boolean isValid (String username, String pass)
+	public boolean isValid (String aUsername, String pass)
 	{
 		boolean isValid = false;
 		
-		if this.
+		try {
+			String hql = "FROM User U WHERE U.username = :user_name AND U.password = :user_password";
+			Query query = session.createQuery(hql);
+			
+			query.setParameter("user_name", aUsername);
+			query.setParameter("user_password", pass);
+			
+			List<User> userList = query.list();
+			User user = userList.get(0);
+			
+			
+			System.out.println(user.toString());
+			
+			if (!user.equals(null))
+			{
+				isValid = true;
+				return isValid;
+			}
+			
+			else {
+				return isValid;
+			}
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+				isValid = false; 
+				return false;			
+				}
 		
-		return isValid;
-	}*/
+		
+	}
 	
 	public User getBookByName(String aUsername){
 		try {
