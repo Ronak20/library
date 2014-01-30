@@ -24,6 +24,7 @@ public class Loan {
 		super();
 		this.loanId = loanId;
 	}
+	public Loan(){}
 
 	public Loan(String userId, String bookId) {
 		super();

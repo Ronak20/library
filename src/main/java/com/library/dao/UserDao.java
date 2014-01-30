@@ -116,6 +116,22 @@ public class UserDao {
 			return null;			
 			}
 	}
+	public User getUserById(String aUserId){
+		try {
+		String hql = "FROM User U WHERE U.userId = :user_id";
+		Query query = session.createQuery(hql);
+		
+		query.setParameter("user_id", aUserId);
+		List<User> userList = query.list();
+		User user = userList.get(0);
+		//Book bookInstance = session
+		System.out.println(user.toString());
+		return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;			
+			}
+	}
 
 	public List<User> getAll() {
 		List<User> userList = session.createCriteria(User.class).list();

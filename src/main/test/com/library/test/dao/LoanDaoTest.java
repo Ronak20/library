@@ -46,7 +46,18 @@ public class LoanDaoTest {
 	@Test
 	public void testLoanDelete()
 	{
-		this.loanDao.delete("1","1");
+		Loan loan = new Loan("5","5",new Date(System.currentTimeMillis()+5*60*1000),0,0,false);
+		this.loanDao.saveOrUpdate(loan);
+		this.loanDao.delete("5","5");
+	}
+	
+	@Test
+	public void testLoanDeletebyId()
+	{
+		Loan loan = new Loan("7","3",new Date(System.currentTimeMillis()+5*60*1000),0,0,false);
+		
+		this.loanDao.saveOrUpdate(loan);
+		//this.loanDao.deleteById("2");
 	}
 
 }

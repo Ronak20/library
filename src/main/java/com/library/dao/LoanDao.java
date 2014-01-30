@@ -54,6 +54,18 @@ public class LoanDao {
 		System.out.println(loan.toString());
 		return loan;
 	}
+	
+	public Loan getLastLoanByUserId(String userid) {
+		String hql = "FROM Loan L WHERE L.userId = :userid";
+		Query query = session.createQuery(hql);
+		query.setParameter("userid", userid);
+		
+
+		List<Loan> loanList = query.list();
+		Loan loan = loanList.get(0);
+		System.out.println(loan.toString());
+		return loan;
+	}
 
 	public void delete(String userid, String bookid) {
 		Transaction tx = null;
@@ -63,11 +75,29 @@ public class LoanDao {
 			Query query = session.createQuery(hql);
 			query.setString("userid", userid);
 			query.setString("bookid", bookid);
+			query.executeUpdate();
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
 		}
+	}
+	
+	public void deleteById(String aLoanId) {
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String hql = "DELETE FROM Loan WHERE loanId = :loanid";
+			Query query = session.createQuery(hql);
+			query.setString("loanid", aLoanId);
+			query.executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		
+		
 	}
 
 	public void delete(Loan loan) {
