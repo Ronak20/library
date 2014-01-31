@@ -53,32 +53,24 @@ window.onunload = refreshParent;
 
 <!-- Codes by HTML.am -->
 
-<table>
-<c:out value="${currentUser}" />
-stuff 
 
-<c:set var="weight" value="10.05"/>
- <c:out value="${weight}"/> 
- 
-<c:forEach items="${loanList}" var="i" >
-  <td>
-  <c:out value="${i.userId}"></c:out>
-  </td> 
-  <br />
-</c:forEach>
-</table>
 
 <!-- End Styles -->
 
+
 <table align="center" class="myTable">
+
 <tr>
 <th>Rented Book ID</th><th>Expiry Date</th><th>Renew Count</th><th>Renew </th><th> </th>
 </tr>
 
-<c:forEach var="ln" items="${loanList}">
 
+
+
+
+<c:forEach var="ln" items="${loanList}">
 <tr>
-<td>${ln.bookId}</td>
+<td><c:out value="${ln.bookId}"></c:out></td>
  <td> ${ln.expiryDate} </td>
  <td> ${ln.renewalCount}</td>
  <td><a href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">

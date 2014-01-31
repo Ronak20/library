@@ -1,6 +1,7 @@
 package com.library.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -46,16 +47,22 @@ public class UnrentBook extends HttpServlet {
 		loanDao.deleteById((String) request.getParameter("aLoan"));
 		
 		user = userDao.getUserById(request.getParameter("currentUser"));
+		List<Loan> loans = loanDao.getLoanByUserId(user.getUserId());
+		
+		
 		System.out.println("received");
+		System.out.println(loans.toString());
 		
 		request.setAttribute("sessionCurrentUser", user);
+		request.setAttribute("loanList", loans);
+		
 		
 		System.out.println(user.toString());
-		
+		System.out.println(loans.toString());
 		//request.setAttribute("loanList", request.getParameter("aLoan"));
 		
 		
-		request.getRequestDispatcher("/jsp/userlogged.jsp").include(request, response);
+		request.getSession().getServletContext().getRequestDispatcher("/jsp/userlogged.jsp").include(request, response);
 		//response.sendRedirect("/login");
 		
 		
@@ -67,7 +74,9 @@ public class UnrentBook extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println(request.getParameter("aLoan"));
+		System.out.println("Post");
+		System.out.println(request.getParameter("username"));
+		//System.out.println(request.getParameter("aLoan"));
 		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Loan loan = null;
 		
@@ -77,9 +86,10 @@ public class UnrentBook extends HttpServlet {
 		System.out.print("Deleting..");
 		loanDao.delete((Loan) request.getAttribute("aLoan"));
 	
-		this.getServletContext().getRequestDispatcher("/jsp/userlogged.jsp").include(request, response);
+		
 		
 		*/
+		request.getSession().getServletContext().getRequestDispatcher("/jsp/userlogged.jsp").include(request, response);
 	}
 
 }

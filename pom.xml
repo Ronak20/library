@@ -104,5 +104,11 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>cactus</groupId>
+				<artifactId>cactus-maven</artifactId>
+			</plugin>
+		</plugins>
 	</build>
 </project>

@@ -55,6 +55,19 @@
 		<description></description>
 		<servlet-class>com.library.servlet.UserServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>FrontController</servlet-name>
+		<display-name>FrontController</display-name>
+		<description></description>
+		<servlet-class>com.library.controller.FrontController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RenewBook</servlet-name>
+		<display-name>RenewBook</display-name>
+		<description></description>
+		<servlet-class>com.library.servlet.UnrentBook</servlet-class>
+	</servlet>
+	
 		
 	<servlet-mapping>
 		<servlet-name>UserServlet</servlet-name>
@@ -82,6 +95,15 @@
 		<servlet-name>HomeServlet</servlet-name>
 		<url-pattern>/HomeServlet</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FrontController</servlet-name>
+		<url-pattern>/FrontController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RenewBook</servlet-name>
+		<url-pattern>/RenewBook</url-pattern>
+	</servlet-mapping>
+
 
 	
 	<welcome-file-list>
