@@ -49,7 +49,7 @@ public class UnrentBook extends HttpServlet {
 		user = userDao.getUserById(request.getParameter("currentUser"));
 		List<Loan> loans = loanDao.getLoanByUserId(user.getUserId());
 		
-		
+		 
 		System.out.println("received");
 		System.out.println(loans.toString());
 		
