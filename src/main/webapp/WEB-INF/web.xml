@@ -65,8 +65,9 @@
 		<servlet-name>RenewBook</servlet-name>
 		<display-name>RenewBook</display-name>
 		<description></description>
-		<servlet-class>com.library.servlet.UnrentBook</servlet-class>
+		<servlet-class>com.library.servlet.RenewBook</servlet-class>
 	</servlet>
+	
 	
 		
 	<servlet-mapping>
@@ -99,6 +100,7 @@
 		<servlet-name>FrontController</servlet-name>
 		<url-pattern>/FrontController</url-pattern>
 	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>RenewBook</servlet-name>
 		<url-pattern>/RenewBook</url-pattern>

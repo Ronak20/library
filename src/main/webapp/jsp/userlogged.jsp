@@ -73,10 +73,9 @@ window.onunload = refreshParent;
 <td><c:out value="${ln.bookId}"></c:out></td>
  <td> ${ln.expiryDate} </td>
  <td> ${ln.renewalCount}</td>
- <td><a href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">
-							Delete
-						</a></td>
- <td><button type="button" onclick="">Renew </button></td>
+ <td><a href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">Delete</a></td>
+ <td><a href="${pageContext.request.contextPath}/RenewBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">Renew</a></td>
+ 
 
 </tr>
 

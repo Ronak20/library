@@ -99,6 +99,23 @@ public class LoanDao {
 		
 		
 	}
+	
+	
+	public void renewLoan (String aLoanId)
+	{
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String hql = "UPDATE Loan SET renewalCount = renewalCount + 1 WHERE loanId= :loanid";
+			Query query = session.createQuery(hql);
+			query.setString("loanid", aLoanId);
+			query.executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+	}
 
 	public void delete(Loan loan) {
 		Transaction tx = null;

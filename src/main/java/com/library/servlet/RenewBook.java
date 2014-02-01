@@ -3,8 +3,6 @@ package com.library.servlet;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,15 +17,15 @@ import com.library.model.Loan;
 import com.library.model.User;
 
 /**
- * Servlet implementation class UnrentBook
+ * Servlet implementation class RenewBook
  */
-public class UnrentBook extends HttpServlet {
+public class RenewBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UnrentBook() {
+    public RenewBook() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,6 +36,7 @@ public class UnrentBook extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		//Loan loan = null;
@@ -51,14 +50,13 @@ public class UnrentBook extends HttpServlet {
 		System.out.print(request.getParameter("currentUser"));
 		
 		
-		
-		
-		
-		
-			//Delete Loan
-			
-			loanDao.deleteById((String) request.getParameter("aLoan"));
 	
+	
+			//Renew Loan
+			
+			loanDao.renewLoan((String) request.getParameter("aLoan"));
+		
+		
 		
 		
 		
@@ -82,6 +80,8 @@ public class UnrentBook extends HttpServlet {
 		
 		request.getSession().getServletContext().getRequestDispatcher("/jsp/userlogged.jsp").include(request, response);
 		//response.sendRedirect("/login");
+
+		
 		
 		
 	}
@@ -91,23 +91,6 @@ public class UnrentBook extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		System.out.println("Post");
-		System.out.println(request.getParameter("username"));
-		//System.out.println(request.getParameter("aLoan"));
-		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Loan loan = null;
-		
-		
-		loan.setBookId((String) request.getAttribute("aLoan"));
-		LoanDao loanDao = new LoanDao (session);		
-		System.out.print("Deleting..");
-		loanDao.delete((Loan) request.getAttribute("aLoan"));
-	
-		
-		
-		*/
-		request.getSession().getServletContext().getRequestDispatcher("/jsp/userlogged.jsp").include(request, response);
 	}
 
 }
