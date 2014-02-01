@@ -2,6 +2,9 @@ package com.library.service;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
+import com.library.config.HibernateUtil;
 import com.library.dao.LoanDao;
 import com.library.model.Loan;
 
@@ -12,6 +15,8 @@ public class LoanService {
 	public LoanService(LoanDao loanDao) {
 		this.loanDao = loanDao;
 	}
+	
+	
 
 	/**
 	 * @param loan
@@ -73,6 +78,19 @@ public class LoanService {
 	public List<Loan> getExpiredLoanByUserId(String userId) {
 		List<Loan> loanList = this.loanDao.getExpiredLoanByUserId(userId);
 		return loanList;
+	}
+	
+	public List<Loan> getLoanByuserId(String userId) {
+		List<Loan> loanList = this.loanDao.getLoanByUserId(userId);
+		return loanList;
+	}
+	
+	public Boolean OkayToDelete(String userId)
+	{
+		if(getLoanByuserId(userId).size()>0)
+			return false;
+		else
+			return true;
 	}
 
 }
