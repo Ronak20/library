@@ -78,13 +78,13 @@ public class LoginServlet extends HttpServlet {
 				request.setAttribute("sessionCurrentUser", user);
 				request.setAttribute("loanList", loans);
 
-				RequestDispatcher rDispatch = request
+				RequestDispatcher rDispatch = this.getServletContext()
 						.getRequestDispatcher("/jsp/userlogged.jsp");
 				rDispatch.forward(request, response);
 			} else if (user.getRole().equals(Role.ADMIN)) {
 				session.close();
 				request.setAttribute("sessionCurrentUser", user);
-				RequestDispatcher rDispatch = request
+				RequestDispatcher rDispatch = this.getServletContext()
 						.getRequestDispatcher("/jsp/admincontrol.jsp");
 				rDispatch.forward(request, response);
 			}

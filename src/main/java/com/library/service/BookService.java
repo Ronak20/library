@@ -25,5 +25,9 @@ public class BookService {
 	public void deleteBook(Book book){
 		bookDao.deleteBook(book);
 	}
+	
+	public Book getBookByID(String bookid){
+		return bookDao.getBookByID(bookid);
+	}
 
 }

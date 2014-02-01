@@ -32,8 +32,6 @@
 		<servlet-class>com.library.servlet.LoginServlet</servlet-class>
 	</servlet>
 
-
-
 	<servlet>
 		<servlet-name>LoggedUserServlet</servlet-name>
 		<display-name>LoggedUserServlet</display-name>

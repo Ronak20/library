@@ -24,6 +24,14 @@ public class Book {
 		this.bookid = bookid;
 	}
 
+	public Book(String bookid, String bookName, String isbn, int copies) {
+		super();
+		this.bookid = bookid;
+		this.bookName = bookName;
+		this.isbn = isbn;
+		this.copies = copies;
+	}
+
 	public Book(String bookName, String isbn, int copies) {
 		super();
 		this.bookName = bookName;

@@ -14,11 +14,11 @@
 			</H3></TH>
 	</TR>
 	<TR>
-		<TH><a href="jsp/createUser.jsp">Create Users</a></TH>
-		<TH><a href="/LibraryManagement/jsp/DeleteUser">Delete Users</a></TH>
+		<TH><a href="<%=request.getContextPath()%>/jsp/createUser.jsp">Create Users</a></TH>
+		<TH><a href="<%=request.getContextPath()%>/jsp/DeleteUser">Delete Users</a></TH>
 	</TR>
 	<tr>
-		<th><a href="jsp/createBook.jsp">Add Books</a></th>
+		<th><a href="<%=request.getContextPath()%>/jsp/createBook.jsp">Add Books</a></th>
 		<th><a href="book">Show Books</a></th>
 	</tr>
 </TABLE>

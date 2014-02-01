@@ -59,9 +59,7 @@ window.onunload = refreshParent;
 		<c:otherwise>
 		</c:otherwise>
 	</c:choose>
-	<!--  <h2>You have //loan.getLateFee()  %> Late Fees </h2> -->
-	<!-- Codes by HTML.am -->
-	<!-- End Styles -->
+	
 	<table align="center" class="myTable">
 		<tr>
 			<th>Rented Book ID</th>

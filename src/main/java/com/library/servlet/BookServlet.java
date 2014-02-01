@@ -40,13 +40,31 @@ public class BookServlet extends HttpServlet {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		BookDao bookDao = new BookDao(session);
 		BookService bookService = new BookService(bookDao);
-		List<Book> bookList = bookService.getAll();
-		logger.debug("bookList : "+bookList);
-		request.setAttribute("bookList", bookList);
-		logger.debug("Redirected to /jsp/bookList.jsp");
-		session.close();
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/bookList.jsp");
-		rd.forward(request, response);
+
+		String bookid = request.getParameter("bookid");
+		logger.debug("bookid : " + bookid);
+
+		if (bookid == null) {
+			logger.debug("book list");
+			List<Book> bookList = bookService.getAll();
+			logger.debug("bookList : " + bookList);
+			request.setAttribute("bookList", bookList);
+			logger.debug("Redirected to /jsp/bookList.jsp");
+			session.close();
+			RequestDispatcher rd = this.getServletContext()
+					.getRequestDispatcher("/jsp/bookList.jsp");
+			rd.forward(request, response);
+		} else {
+			logger.debug("book update");
+			Book book = bookService.getBookByID(bookid);
+			logger.debug("book : " + book);
+			request.setAttribute("book", book);
+			logger.debug("Redirected to /jsp/createBook.jsp");
+			session.close();
+			RequestDispatcher rd = this.getServletContext()
+					.getRequestDispatcher("/jsp/createBook.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -56,25 +74,30 @@ public class BookServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("Post received");
+		String bookid = request.getParameter("bookid");
 		String copies = request.getParameter("copies");
 		String isbn = request.getParameter("isbn");
 		String bookname = request.getParameter("bookname");
 
-		Book book = new Book(bookname, isbn, Integer.parseInt(copies));
+		logger.debug("bookid : " + bookid + " copies : " + copies + " isbn : "
+				+ isbn + " bookname :" + bookname);
+
+		Book book = new Book(bookid, bookname, isbn, Integer.parseInt(copies));
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		BookDao bookDao = new BookDao(session);
 		BookService bookService = new BookService(bookDao);
 		bookService.saveOrUpdate(book);
 		logger.debug("Book added");
-		
+
 		List<Book> bookList = bookService.getAll();
-		logger.debug("bookList : "+bookList);
+		logger.debug("bookList : " + bookList);
 		request.setAttribute("bookList", bookList);
 		logger.debug("Redirected to /jsp/bookList.jsp");
-		
+
 		session.close();
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/bookList.jsp");
+
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher(
+				"/jsp/bookList.jsp");
 		rd.forward(request, response);
 	}
 
