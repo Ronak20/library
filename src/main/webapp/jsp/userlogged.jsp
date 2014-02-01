@@ -36,6 +36,8 @@
       <body>
       <jsp:useBean id="cart" scope="session" class="com.library.model.User" />
       <c:set var="currentUser" value="${sessionCurrentUser.firstName}" scope="session"></c:set>
+      <c:set var="message" value="${message}" scope="session"></c:set>
+      
  <script type="text/javascript">
 window.onunload = refreshParent;
             function refreshParent() {
@@ -44,7 +46,23 @@ window.onunload = refreshParent;
          <center>
          
          
-<h2>Welcome  to your  page</h2>
+<h2>Welcome <c:out value="${currentUser}"/> to your  page</h2>
+
+<c:choose>
+    <c:when test="${message == 'unallowed'}">
+       
+       <font color="red" >Unallowed to rent books !</font>
+    </c:when>
+    <c:when test="${message == 'renewed'}">
+        <font color="green">Book was Renewed !</font>
+    </c:when>
+    <c:otherwise>
+       
+    </c:otherwise>
+</c:choose>
+
+
+
 
 
  <!--  <h2>You have //loan.getLateFee()  %> Late Fees </h2> -->   

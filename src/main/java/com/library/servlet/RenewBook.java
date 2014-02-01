@@ -45,6 +45,13 @@ public class RenewBook extends HttpServlet {
 		LoanDao loanDao = new LoanDao (session);
 		UserDao userDao = new UserDao(session);
 		
+		
+
+		user = userDao.getUserById(request.getParameter("currentUser"));
+		List<Loan> loans = loanDao.getLoanByUserId(user.getUserId());
+		Loan loan = loanDao.getLoanByID(request.getParameter("aLoan"));
+		
+		
 		//printing for tracing
 		
 		System.out.print(request.getParameter("currentUser"));
@@ -52,21 +59,27 @@ public class RenewBook extends HttpServlet {
 		
 	
 	
-			//Renew Loan
+		//Renew Loan
+		
 			
+		
+		if (loan.getRenewalCount() <3 && !loan.getIsLateFeePaid())
+		{ 
 			loanDao.renewLoan((String) request.getParameter("aLoan"));
+			System.out.println("Renewed");
+			request.setAttribute("message", "renewed");
+			
+		}
+		else
+		{
+			request.setAttribute("message", "unallowed");
+			System.out.println("Unallowed");
+		}
 		
 		
-		
-		
-		
-		
-		
-		user = userDao.getUserById(request.getParameter("currentUser"));
-		List<Loan> loans = loanDao.getLoanByUserId(user.getUserId());
 		
 		//printing for tracing
-		System.out.println("received");
+		
 		System.out.println(loans.toString());
 		
 		request.setAttribute("sessionCurrentUser", user);

@@ -17,6 +17,8 @@ public class Loan {
 	private String bookId;
 	private Date expiryDate;
 	private int renewalCount;
+	private int maxRenewalCount;
+	private int loanTime;
 	private int lateFee;
 	private boolean isLateFeePaid;
 
@@ -167,6 +169,20 @@ public class Loan {
 				+ bookId + ", expiryDate=" + expiryDate + ", renewalCount="
 				+ renewalCount + ", lateFee=" + lateFee + ", isLateFeePaid="
 				+ isLateFeePaid + "]";
+	}
+	@Column(name = "maxrenewalcount")
+	public int getMaxRenewalCount() {
+		return maxRenewalCount;
+	}
+	public void setMaxRenewalCount(int maxRenewalCount) {
+		this.maxRenewalCount = maxRenewalCount;
+	}
+	@Column(name = "loantime")
+	public int getLoanTime() {
+		return loanTime;
+	}
+	public void setLoanTime(int loanTime) {
+		this.loanTime = loanTime;
 	}
 
 }
