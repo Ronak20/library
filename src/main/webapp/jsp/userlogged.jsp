@@ -112,45 +112,20 @@ window.onunload = refreshParent;
 <table align="Center">
 			
 			
-					<td>First Name: </td>
-					<td>${sessionCurrentUser.firstName }</td>
+					<td><b><font color="blue" >Name:</font></b> </td>
+					<td><i>${sessionCurrentUser.firstName } ${sessionCurrentUser.lastName }</i></td>
 			
 			
-					<td> || Last Name:   </td>
-					<td>${sessionCurrentUser.lastName }</td>
+					
+					
 			
 			
-					<td>||  Username: </td>
-					<td>${sessionCurrentUser.username}</td> 
+					<td><b><font color="blue" >   Username:</font></b></td>
+					<td><i>${sessionCurrentUser.username}</i></td> 
 			
 			
 		</table>       
-            
-            
-<!-- list 
 
-
- 
-  <table border="1">
-    <tr>
-      <th>ID</th>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Price</th>
-      <th>Qty</th>
-    </tr>
-    <c:forEach var="row" items="${rset.rows}">
-      <tr>
-        <td><c:out value="${row.id}" /></td>
-        <td><c:out value="${row.title}" /></td>
-        <td><c:out value="${row.author}" /></td>
-        <td><c:out value="${row.price}" /></td>
-        <td><c:out value="${row.qty}" /></td>
-      </tr>
-    </c:forEach>
-  </table>
-
-<!-- end of list -->
 
    </center>
 

@@ -63,7 +63,7 @@ public class RenewBook extends HttpServlet {
 		
 			
 		
-		if (loan.getRenewalCount() <3 && !loan.getIsLateFeePaid())
+		if (loan.getRenewalCount() <3 && loan.getIsLateFeePaid())
 		{ 
 			loanDao.renewLoan((String) request.getParameter("aLoan"));
 			System.out.println("Renewed");
