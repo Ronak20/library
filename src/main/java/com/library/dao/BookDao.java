@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.library.model.Book;
-import com.library.model.User;
 
 public class BookDao {
 

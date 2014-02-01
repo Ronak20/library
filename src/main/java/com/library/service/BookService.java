@@ -1,5 +1,7 @@
 package com.library.service;
 
+import java.util.List;
+
 import com.library.dao.BookDao;
 import com.library.model.Book;
 
@@ -14,6 +16,14 @@ public class BookService {
 	
 	public void saveOrUpdate(Book book) {
 		bookDao.saveOrUpdate(book);
+	}
+	
+	public List<Book> getAll() {
+		return bookDao.getAll();
+	}
+	
+	public void deleteBook(Book book){
+		bookDao.deleteBook(book);
 	}
 
 }

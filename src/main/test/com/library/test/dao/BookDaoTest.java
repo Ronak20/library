@@ -52,6 +52,9 @@ public class BookDaoTest {
 		bookDao.deleteBook(book);
 		Assert.assertNull(bookDao.getBookByName(book.getBookName()));
 		
+		//Book book1 = new Book("1");
+		//bookDao.deleteBook(book1);
+		
 	}
 
 }

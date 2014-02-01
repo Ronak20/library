@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form method="post" action="book">
+<form method="post" action="../book">
 <table align="center">
 	<tr><td>Book Name</td><td><input type="text" name="bookname"></td></tr>
 	<tr><td>Copies</td><td><input type="text" name="copies"></td></tr>

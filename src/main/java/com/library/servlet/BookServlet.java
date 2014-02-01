@@ -1,65 +1,81 @@
 package com.library.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-
-
 
 import com.library.config.HibernateUtil;
 import com.library.dao.BookDao;
-import com.library.dao.UserDao;
 import com.library.model.Book;
 import com.library.service.BookService;
-import com.library.service.UserService;
 
 /**
  * Servlet implementation class BookServlet
  */
 public class BookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    /**
-     * Default constructor. 
-     */
-    public BookServlet() {
-        
-    }
+	private static Logger logger = Logger.getLogger(BookServlet.class);
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Default constructor.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    System.out.println("Get received");
-		//response.sendRedirect("jsp/createUser.jsp");
+	public BookServlet() {
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    System.out.println("Post received");
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		BookDao bookDao = new BookDao(session);
+		BookService bookService = new BookService(bookDao);
+		List<Book> bookList = bookService.getAll();
+		logger.debug("bookList : "+bookList);
+		request.setAttribute("bookList", bookList);
+		logger.debug("Redirected to /jsp/bookList.jsp");
+		session.close();
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/bookList.jsp");
+		rd.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("Post received");
 		String copies = request.getParameter("copies");
-	    String isbn = request.getParameter("isbn");
-	    String bookname = request.getParameter("bookname");
-	    
-	    
-	    Book book = new Book(bookname,isbn,Integer.parseInt(copies));
-	    //System.out.print(copies); //testing conversion
-	    Session session = HibernateUtil.getSessionFactory().openSession();
-	    BookDao bookDao = new BookDao(session);
-	    BookService bookService = new BookService(bookDao);
-	    //userDao.saveOrUpdate(user);
-	    bookService.saveOrUpdate(book);
-	    session.close();
-	    System.out.println("Book added");
+		String isbn = request.getParameter("isbn");
+		String bookname = request.getParameter("bookname");
+
+		Book book = new Book(bookname, isbn, Integer.parseInt(copies));
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		BookDao bookDao = new BookDao(session);
+		BookService bookService = new BookService(bookDao);
+		bookService.saveOrUpdate(book);
+		logger.debug("Book added");
+		
+		List<Book> bookList = bookService.getAll();
+		logger.debug("bookList : "+bookList);
+		request.setAttribute("bookList", bookList);
+		logger.debug("Redirected to /jsp/bookList.jsp");
+		
+		session.close();
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/bookList.jsp");
+		rd.forward(request, response);
 	}
 
 }
