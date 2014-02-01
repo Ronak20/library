@@ -1,17 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@include file="layout/header.jsp" %>
+<%@include file="layout/head.jsp"%>
 <jsp:useBean id="sessionuser" class="com.library.model.User" scope="session"> 
 </jsp:useBean>
+<c:set var="currentUser" value="${sessionCurrentUser.firstName}"
+	scope="session"></c:set>
 <TABLE BORDER="5"    WIDTH="50%"   CELLPADDING="4" CELLSPACING="3">
    <TR>
-      <TH COLSPAN="2"><BR><H3>Welcome admin <jsp:getProperty property="username" name="sessionuser"/> </H3>
+      <TH COLSPAN="2"><BR><H3>Welcome admin <c:out value="${currentUser}" /></H3>
       </TH>
    </TR>
    <TR>
@@ -25,5 +20,4 @@
       <TD>Data 2</TD>
    </TR> -->
 </TABLE>
-</body>
-</html>
+<%@include file="layout/footer.jsp" %>

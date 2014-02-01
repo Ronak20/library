@@ -5,16 +5,13 @@
 <web-app>
 
 	<display-name>Library Management Web Application</display-name>
-	
-	
-	
 	<servlet>
 		<servlet-name>UserServlet</servlet-name>
 		<display-name>UserServlet</display-name>
 		<description></description>
 		<servlet-class>com.library.servlet.UserServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>BookServlet</servlet-name>
 		<display-name>BookServlet</display-name>
@@ -22,7 +19,6 @@
 		<servlet-class>com.library.servlet.BookServlet</servlet-class>
 	</servlet>
 
-	
 	<servlet>
 		<servlet-name>IndexServlet</servlet-name>
 		<display-name>IndexServlet</display-name>
@@ -34,14 +30,16 @@
 		<display-name>LoginServlet</display-name>
 		<description></description>
 		<servlet-class>com.library.servlet.LoginServlet</servlet-class>
-		</servlet>
+	</servlet>
+
+
 
 	<servlet>
 		<servlet-name>LoggedUserServlet</servlet-name>
 		<display-name>LoggedUserServlet</display-name>
 		<description></description>
 		<servlet-class>com.library.servlet.UserServlet</servlet-class>
-		
+
 	</servlet>
 	<servlet>
 		<servlet-name>UnrentBook</servlet-name>
@@ -79,18 +77,25 @@
 		<description></description>
 		<servlet-class>com.library.servlet.DeleteUserServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>LogoutServlet</servlet-name>
+		<display-name>LogoutServlet</display-name>
+		<description></description>
+		<servlet-class>com.library.servlet.LogoutServlet</servlet-class>
+	</servlet>
+
 	
-		
+
 	<servlet-mapping>
 		<servlet-name>UserServlet</servlet-name>
 		<url-pattern>/user</url-pattern>
-	</servlet-mapping>	
-	
+	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>BookServlet</servlet-name>
 		<url-pattern>/book</url-pattern>
 	</servlet-mapping>
-		
+
 	<servlet-mapping>
 		<servlet-name>IndexServlet</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -111,18 +116,22 @@
 		<servlet-name>FrontController</servlet-name>
 		<url-pattern>/FrontController</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>RenewBook</servlet-name>
 		<url-pattern>/RenewBook</url-pattern>
 	</servlet-mapping>
-<servlet-mapping>
-	<servlet-name>DeleteUserServlet</servlet-name>
-	<url-pattern>/jsp/DeleteUser</url-pattern>
-</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteUserServlet</servlet-name>
+		<url-pattern>/jsp/DeleteUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LogoutServlet</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+
 	<welcome-file-list>
-    	<welcome-file>jsp/login.jsp</welcome-file>
-  	</welcome-file-list>
-  	
-	
+		<welcome-file>jsp/login.jsp</welcome-file>
+	</welcome-file-list>
+
 </web-app>
