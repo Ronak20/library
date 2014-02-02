@@ -11,7 +11,7 @@
 <body>
 <a href="jsp/admincontrol.jsp">Admin Panel</a>
 <br>
-<TABLE BORDER="5"    WIDTH="50%"   CELLPADDING="4" CELLSPACING="3">
+<TABLE BORDER="5" id="userListTable"   WIDTH="50%"   CELLPADDING="4" CELLSPACING="3">
    <TR>
    <TH COLSPAN="1"><BR><H3>User ID</H3>
       </TH>
@@ -46,7 +46,7 @@
  %>
 	  <TR ALIGN="CENTER">
 	  <TD><%=userID %></TD>
-      <TD><%=userName %></TD>
+      <TD id="<%=userName%>"><%=userName %></TD>
       <!--  <TD><% userList.get(i).getUserId();%></TD> -->
       <TD><%=firstName %></TD>
       <TD><%=lastName %></TD>
