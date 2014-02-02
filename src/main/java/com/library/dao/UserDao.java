@@ -31,27 +31,33 @@ public class UserDao {
 	}
 
 	public boolean isValid(String username, String pass) {
-		logger.debug("isValid username : " + username + " pass  : " + pass);
+		logger.info("isValid username : " + username + " pass  : " + pass);
 		boolean isValid = false;
 
 		String hql = "FROM User U WHERE U.username = :user_name";
 		Query query = session.createQuery(hql);
 		query.setParameter("user_name", username);
 		List<User> userList = query.list();
-		User user = userList.get(0);
+		logger.debug("isValid userList : " + userList);
+		if (userList != null && !userList.isEmpty()) {
+			User user = userList.get(0);
 
-		if (!user.equals(null)) {
-			isValid = true;
-			logger.debug("return isValid : " + isValid);
-			return isValid;
+			if (!user.equals(null)) {
+				isValid = true;
+				logger.info("return isValid : " + isValid);
+				return isValid;
+			} else {
+				logger.info("return isValid : " + isValid);
+				return isValid;
+			}
 		} else {
-			logger.debug("return isValid : " + isValid);
+			logger.info("return isValid : " + isValid);
 			return isValid;
 		}
 	}
 
 	public User getUserByName(String username) {
-		logger.debug("isValid username : " + username);
+		logger.info("isValid username : " + username);
 		try {
 			String hql = "FROM User U WHERE U.username = :user_name";
 			Query query = session.createQuery(hql);
@@ -59,11 +65,11 @@ public class UserDao {
 			query.setParameter("user_name", username);
 			List<User> userList = query.list();
 			User user = userList.get(0);
-			logger.debug("return user : " + user);
+			logger.info("return user : " + user);
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("return user : " + null);
+			logger.info("return user : " + null);
 			return null;
 		}
 	}

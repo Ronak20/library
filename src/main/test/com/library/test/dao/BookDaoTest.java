@@ -1,7 +1,5 @@
 package com.library.test.dao;
 
-import static org.junit.Assert.*;
-
 import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Assert;
@@ -10,7 +8,6 @@ import org.junit.Test;
 
 import com.library.config.HibernateUtil;
 import com.library.dao.BookDao;
-import com.library.model.Role;
 import com.library.model.Book;
 
 public class BookDaoTest {

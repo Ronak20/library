@@ -2,34 +2,11 @@
 	import="com.library.model.Book"
 	import="com.library.service.UserService"%>
 <%@  taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.library.dao.BookDao"%>
 <%@ page isELIgnored="false"%>
 <%@include file="layout/header.jsp"%>
-
-<meta http-equiv="Content-Type"
-	content="text/html; charset=windows-1256">
-<!-- Start Styles. Move the 'style' tags and everything between them to between the 'head' tags -->
-<style type="text/css">
-.myTable {
-	width: 400px;
-	background-color: #eee;
-	border-collapse: collapse;
-}
-
-.myTable th {
-	background-color: #255;
-	color: white;
-	width: 8%;
-}
-
-.myTable td,.myTable th {
-	padding: 5px;
-	border: 1px solid #000;
-}
-</style>
-<title>User Logged Successfully</title>
+<title>Student Panel</title>
 <%@include file="layout/head.jsp"%>
 
 <jsp:useBean id="cart" scope="session" class="com.library.model.User" />

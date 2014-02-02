@@ -1,4 +1,5 @@
 <%@include file="layout/header.jsp"%>
+<title>Administrator Panel</title>
 <%@include file="layout/head.jsp"%>
 <jsp:useBean id="sessionuser" class="com.library.model.User"
 	scope="session">

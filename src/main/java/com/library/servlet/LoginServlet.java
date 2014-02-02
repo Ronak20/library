@@ -52,11 +52,11 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("Post received");
+		logger.info("Post received");
 
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
-		logger.debug("userName : " + userName + " password : " + password);
+		logger.info("userName : " + userName + " password : " + password);
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		UserDao userDao = new UserDao(session);
@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 
 		System.out.print(userName + " " + password);
 		if (userService.isValid(userName, password)) {
-			logger.debug("Logged In Successfully");
+			logger.info("Logged In Successfully");
 			User user = userService.getUserByName(userName);
 			logger.debug("user : " + user);
 
@@ -90,8 +90,9 @@ public class LoginServlet extends HttpServlet {
 			}
 
 		} else {
-			logger.debug("Login Failed!");
+			logger.info("Login Failed!");
 			session.close();
+			response.sendRedirect("jsp/login.jsp");
 		}
 	}
 }
