@@ -87,6 +87,18 @@
 		<description></description>
 		<servlet-class>com.library.servlet.DeleteBookServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>RentBook</servlet-name>
+		<display-name>RentBook</display-name>
+		<description></description>
+		<servlet-class>com.library.servlet.RentBook</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ListBooks</servlet-name>
+		<display-name>ListBooks</display-name>
+		<description></description>
+		<servlet-class>com.library.servlet.ListBooks</servlet-class>
+	</servlet>
 
 	
 
@@ -136,6 +148,14 @@
 	<servlet-mapping>
 		<servlet-name>DeleteBookServlet</servlet-name>
 		<url-pattern>/deleteBook</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RentBook</servlet-name>
+		<url-pattern>/rentBook</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ListBooks</servlet-name>
+		<url-pattern>/listBooks</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

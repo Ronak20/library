@@ -3,6 +3,7 @@ package com.library.service;
 import java.util.List;
 
 import com.library.dao.LoanDao;
+import com.library.dao.UserDao;
 import com.library.model.Loan;
 
 public class LoanService {
@@ -81,5 +82,31 @@ public class LoanService {
 		else
 			return true;
 	}
+	
+	public Boolean addLoan(String userId, String bookId) {
+		
+		
+		for ( Loan ln : getLoanByUserId(userId))
+		if(!ln.getIsLateFeePaid())
+		{
+			return false;
+		}
+		else
+		{
+			Loan newLoan = new Loan(userId, bookId);
+			//loanDao.addLoan(userId, bookId);
+			loanDao.saveOrUpdate(newLoan);
+			System.out.println("Book was successfully rented , Loan Id: ");
+			return true;
+		}
+	
+		
+		if (getLoanByUserId(userId).size() > 0)
+			return false;
+		else
+	
+			return true;
+	}
+	
 
 }

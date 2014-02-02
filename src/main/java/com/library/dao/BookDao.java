@@ -28,6 +28,47 @@ public class BookDao {
 			tx.rollback();
 		}
 	}
+	
+	
+	public boolean decreaseCopies(String bookid) {
+		
+		System.out.println("saveOrUpdate : " + bookid.toString());
+		
+		
+		try{
+		String hql = "update Book set copies = copies + 1 where bookId = :book_id"; 
+				
+		Query query = session.createQuery(hql);
+		query.setParameter("book_id", bookid);
+		query.executeUpdate();
+		System.out.println("Copies -1 , updated !");
+		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Copies were not updated!");
+			return false;			
+			}
+	}
+	
+	public boolean increaseCopies(String bookid) {
+		
+		System.out.println("saveOrUpdate : " + bookid);
+		
+		
+		try{
+		String hql = "update Book set copies = copies + 1 where bookId = :book_id"; 
+				
+		Query query = session.createQuery(hql);
+		query.setParameter("book_id", bookid);
+		query.executeUpdate();
+		System.out.println("Copies -1 , updated !");
+		return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Copies were not updated!");
+			return false;			
+			}
+	}
 
 	public List<Book> getAll() {
 		List<Book> bookList = session.createCriteria(Book.class).list();

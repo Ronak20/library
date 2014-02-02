@@ -1,11 +1,15 @@
 package com.library.dao;
 
+
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import quicktime.std.clocks.TimeBase;
 
 import com.library.model.Loan;
 
@@ -153,5 +157,21 @@ public class LoanDao {
 		query.setParameter("isLateFee", isLateFee);
 		List<Loan> loanList = query.list();
 		return loanList;
+	}
+
+	public void addLoan(String userId, String bookId) {
+		// TODO Auto-generated method stub
+		/*String ts = new String("00:00:00");
+		
+		String hql = "INSERT INTO Loan (userId =:userid, bookId = :bookid)";
+		Query query = session.createQuery(hql);
+		query.setParameter("userid", userId);
+		query.setParameter("bookid", bookId);
+		query.setParameter("ts", ts);
+		
+		List<Loan> loanList = query.list();
+		query.executeUpdate();*/
+		
+		
 	}
 }

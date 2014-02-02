@@ -18,6 +18,16 @@ public class BookService {
 		bookDao.saveOrUpdate(book);
 	}
 	
+	public void increaseCopies (String bookid)
+	{
+		bookDao.increaseCopies(bookid);
+	}
+	public void decreaseCopies (String bookid)
+	{
+		bookDao.decreaseCopies(bookid);
+	}
+	
+	
 	public List<Book> getAll() {
 		return bookDao.getAll();
 	}

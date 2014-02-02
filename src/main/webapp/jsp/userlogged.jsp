@@ -57,6 +57,9 @@ window.onunload = refreshParent;
 			</tr>
 		</c:forEach>
 	</table>
+	
+	<a href="${pageContext.request.contextPath}/listBooks?currentUser=${sessionCurrentUser.userId}"><b>Rent new book here </b></a>
+	
 	<table align="Center">
 		<td><b><font color="blue">Name:</font></b></td>
 		<td><i>${sessionCurrentUser.firstName }
