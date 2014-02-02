@@ -7,6 +7,7 @@
 <a href="jsp/admincontrol.jsp">Admin Panel</a>
 <table id="bookListTable" align="center" class="myTable">
 	<tr>
+		<th>Book ID</th>
 		<th>ISBN</th>
 		<th>Book name</th>
 		<th>Copies</th>
@@ -14,6 +15,7 @@
 	</tr>
 	<c:forEach var="ln" items="${bookList}">
 		<tr>
+			<td id="<c:out value="${ln.bookid}"></c:out>"><c:out value="${ln.bookid}"></c:out></td>
 			<td id="<c:out value="${ln.isbn}"></c:out>"><c:out value="${ln.isbn}"></c:out></td>
 			<td>${ln.bookName}</td>
 			<td>${ln.copies}</td>

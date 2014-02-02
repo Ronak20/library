@@ -50,7 +50,7 @@
 						value="<c:out value="${book.isbn}"></c:out>" readonly></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="submit"></td>
+					<td colspan="2"><input name="updateBookSubmit" type="submit"></td>
 				</tr>
 			</table>
 		</form>

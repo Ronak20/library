@@ -2,6 +2,7 @@ package com.library.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,6 +11,7 @@ import com.library.model.Book;
 
 public class BookDao {
 
+	private static Logger logger = Logger.getLogger(BookDao.class);
 	Session session;
 
 	public BookDao(Session session) {
@@ -17,7 +19,7 @@ public class BookDao {
 	}
 
 	public void saveOrUpdate(Book book) {
-		System.out.println("saveOrUpdate : " + book.toString());
+		logger.info("saveOrUpdate : "+book);
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
