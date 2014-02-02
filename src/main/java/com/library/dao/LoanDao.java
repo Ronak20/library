@@ -1,8 +1,12 @@
 package com.library.dao;
 
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -22,9 +26,44 @@ public class LoanDao {
 	public void saveOrUpdate(Loan loan) {
 		Transaction tx = null;
 		try {
+			/*
+			 * TODO map date with database fields
+			 */
+			
+			Calendar cal = Calendar.getInstance();
+			
+			
+			
+			//Formatting the time to string so we can trace it 
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+			String utcTime = df.format(new Date());
+			
+			System.out.println(df.format(new Date()));
+			
+			System.out.println("printing UTC: " + utcTime);
+			
+			
+			
+			//setting loan time (this is indicating it is three minutes, we can make it modifiable later)
+			loan.setLoanTime(600001*3);
+
+			//calculating Expiry Time: current time plus 3 minutes (which is 60k ms * 3)
+			Date expiryTime = new Date ( System.currentTimeMillis() + loan.getLoanTime());
+			//loan.setExpiryDate(utcTime);
+			
+			//setting expiry time 
+			loan.setExpiryDate(expiryTime);
+			
+			
+			System.out.println(df.format(cal.getTime()));
+			System.out.println("Adding this loan:" + loan.toString());
+			
+			
 			tx = session.beginTransaction();
 			session.saveOrUpdate(loan);
+			session.flush();
 			tx.commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();

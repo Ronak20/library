@@ -44,7 +44,7 @@ public class RentBook extends HttpServlet {
 		BookService bs = new BookService (bookDao);
 		UserDao userDao = new UserDao(session); 
 		String userId = request.getParameter("auserid");
-		String bookId = request.getParameter("bookId");
+		String bookId = request.getParameter("bookid");
 		
 		ls.addLoan(userId, bookId);
 		bs.increaseCopies(bookId);

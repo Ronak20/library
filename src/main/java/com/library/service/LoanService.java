@@ -86,26 +86,26 @@ public class LoanService {
 	public Boolean addLoan(String userId, String bookId) {
 		
 		
-		for ( Loan ln : getLoanByUserId(userId))
+		/*for ( Loan ln : getLoanByUserId(userId))
 		if(!ln.getIsLateFeePaid())
 		{
 			return false;
 		}
 		else
-		{
+		{*/
 			Loan newLoan = new Loan(userId, bookId);
 			//loanDao.addLoan(userId, bookId);
 			loanDao.saveOrUpdate(newLoan);
 			System.out.println("Book was successfully rented , Loan Id: ");
 			return true;
-		}
+		//}
 	
 		
-		if (getLoanByUserId(userId).size() > 0)
+		/*if (getLoanByUserId(userId).size() > 0)
 			return false;
 		else
 	
-			return true;
+			return true;*/
 	}
 	
 
