@@ -45,7 +45,7 @@ public class LoanDao {
 			
 			
 			//setting loan time (this is indicating it is three minutes, we can make it modifiable later)
-			loan.setLoanTime(600001*3);
+			loan.setLoanTime(60000*3);
 
 			//calculating Expiry Time: current time plus 3 minutes (which is 60k ms * 3)
 			Date expiryTime = new Date ( System.currentTimeMillis() + loan.getLoanTime());
