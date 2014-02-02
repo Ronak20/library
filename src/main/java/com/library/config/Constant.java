@@ -17,8 +17,13 @@ public class Constant {
 			+ "/jsp/createUser.jsp";
 	public static final String USER_GET_URL = DOMAIN + PORT + APP_NAME
 			+ "/UserList";
+	public static final String USERBOOKS_GET_URL = DOMAIN + PORT + APP_NAME
+			+ "/listBooks";
+	public static final String RENT_BOOK_URL = DOMAIN + PORT + APP_NAME
+			+ "/rentBook";
 	public static final String ADMIN_USERNAME = "admin";
 	public static final String ADMIN_PASSWORD = "admin";
 	public static final String STUDENT_USERNAME = "student";
 	public static final String STUDENT_PASSWORD = "student";
+	
 }

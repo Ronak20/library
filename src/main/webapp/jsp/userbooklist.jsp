@@ -4,7 +4,7 @@
 <%@ page isELIgnored="false"%>
 <%@include file="layout/header.jsp"%>
 <%@include file="layout/head.jsp"%>
-<table align="center" class="myTable">
+<table align="center" id="userBookListTable" class="myTable">
 	<tr>
 		<th>ISBN</th>
 		<th>Book name</th>
