@@ -88,6 +88,12 @@
 		<servlet-class>com.library.servlet.DeleteBookServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>UserListServlet</servlet-name>
+		<display-name>UserListServlet</display-name>
+		<description></description>
+		<servlet-class>com.library.servlet.UserListServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>RentBook</servlet-name>
 		<display-name>RentBook</display-name>
 		<description></description>
@@ -139,7 +145,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DeleteUserServlet</servlet-name>
-		<url-pattern>/jsp/DeleteUser</url-pattern>
+		<url-pattern>/DeleteUser</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>LogoutServlet</servlet-name>
@@ -148,6 +154,10 @@
 	<servlet-mapping>
 		<servlet-name>DeleteBookServlet</servlet-name>
 		<url-pattern>/deleteBook</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserListServlet</servlet-name>
+		<url-pattern>/UserList</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>RentBook</servlet-name>

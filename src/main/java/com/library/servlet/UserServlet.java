@@ -56,6 +56,7 @@ public class UserServlet extends HttpServlet {
 	    userService.saveOrUpdate(user);
 	    session.close();
 	    System.out.println("User added");
+	    this.getServletContext().getRequestDispatcher("/UserList").forward(request, response);
 	}
 
 }

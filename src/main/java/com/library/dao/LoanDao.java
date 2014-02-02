@@ -1,7 +1,6 @@
 package com.library.dao;
 
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -9,9 +8,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import quicktime.std.clocks.TimeBase;
-
 import com.library.model.Loan;
+//import quicktime.std.clocks.TimeBase;
 
 public class LoanDao {
 

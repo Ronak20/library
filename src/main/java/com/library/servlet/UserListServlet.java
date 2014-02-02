@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 
 import com.library.config.HibernateUtil;
-import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
 import com.library.model.User;
-import com.library.service.UserService;
+import org.apache.log4j.Logger;
 
 /**
- * Servlet implementation class DeleteUser
+ * Servlet implementation class UserListServlet
  */
-public class DeleteUserServlet extends HttpServlet {
+public class UserListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = Logger.getLogger(UserListServlet.class);
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteUserServlet() {
+    public UserListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,55 +34,27 @@ public class DeleteUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 
-		System.out.println("Get recieved at DeleteUser servlet");
+		logger.debug("Get recieved at UserList servlet");
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		UserDao userDao = new UserDao(session);
 		List<User> userList = userDao.getAll();
 		request.setAttribute("userlist", userList);
 		session.close();
-		this.getServletContext().getRequestDispatcher("/jsp/deleteuser.jsp").forward(request, response);
-		
+		this.getServletContext().getRequestDispatcher("/jsp/UserList.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Post recieved at deleteUser servelet");
+		logger.debug("Post recieved at UserList servlet");
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		UserDao userDao = new UserDao(session);
-		UserService userservice = new UserService(userDao);
-		LoanDao loanDao = new LoanDao(session);
-		String[] userToDelete= request.getParameterValues("deleteThisUser");
-		
-		String notDeletedUsers=null; 
-		if(userToDelete != null)
-		{
-		  for(int i =0; i< userToDelete.length ; i++)
-		  {
-			  if(!userservice.deleteUser(userToDelete[i], loanDao))
-			  {
-				  if(notDeletedUsers == null)
-					  notDeletedUsers = userToDelete[i];
-				  else
-				 notDeletedUsers = notDeletedUsers +","+userToDelete[i];
-			  }
-		  }
-			
-		}
 		List<User> userList = userDao.getAll();
 		request.setAttribute("userlist", userList);
 		session.close();
-		if(notDeletedUsers != null)
-		{
-			request.setAttribute("notDeletedUsers", notDeletedUsers);
-		this.getServletContext().getRequestDispatcher("/jsp/deleteuser.jsp").forward(request, response);
-		}
-		else
-			this.getServletContext().getRequestDispatcher("/jsp/UserList.jsp").forward(request, response);
-		
-		
+		this.getServletContext().getRequestDispatcher("/jsp/UserList.jsp").forward(request, response);
 	}
 
 }

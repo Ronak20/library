@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.List" import="com.library.model.User" %>
+    pageEncoding="ISO-8859-1" import="java.util.List" import="com.library.model.User"  import="java.lang.System"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,8 +9,9 @@ function checkBoxValidation()
 {
 	
 	event.preventDefault();
+	
 	var j = 0;
-for(var i=0; i < document.Deleteform.deleteThisUser.length; i++)
+for(var i=0; i <= (document.Deleteform.deleteThisUser.length); i++)
 {
 if(document.Deleteform.deleteThisUser[i].checked)
 	{
@@ -33,11 +34,12 @@ else
 <title>Insert title here</title>
 </head>
 <body>
-
-<form name="Deleteform" action="DeleteUser" method="post" onsubmit="return checkBoxValidation()">
+<a href="jsp/admincontrol.jsp">Admin Panel</a>
+<form name="Deleteform" action="./DeleteUser" method="post" onsubmit="return checkBoxValidation()">
 <%
 //<!-- String notDeletedUsers= request.getAttribute("notDeletedUsers").toString();
 //notDeletedUsers = "somedummyvalue";-->
+System.out.println("no problem till now");
 if((request.getAttribute("notDeletedUsers")) != null)
 {%>
 <h6>UserIds: <% request.getAttribute("notDeletedUsers").toString(); %> could not be deleted because they may have outstanding lone</h6>
@@ -55,7 +57,9 @@ if((request.getAttribute("notDeletedUsers")) != null)
    </TR>
   <%
   List<User> userList = (List<User>) request.getAttribute("userlist");
-  int size = userList.size();
+  int size = 0;
+  if(userList != null )
+	  size = userList.size();
   String userName;
   String userID;
   for(int i= 0; i < size; i++)

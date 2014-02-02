@@ -9,6 +9,16 @@
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
 <title>Login Page</title>
+<!-- <link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-theme.min.css"></script> -->
+
+
+<!-- <link rel="stylesheet" href="css/jquery-ui.min.css" />
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-ui.min.js"></script> -->
+
+
 </head>
 
 <body>
@@ -21,7 +31,8 @@
 				<td>Enter Password <input type="text" name="password" /></td>
 			</tr>
 			<tr>
-				<td align="center"><input type="submit" name="loginSubmit" value="submit"></td>
+				<td align="center"><input type="submit" name="loginSubmit"
+					value="submit"></td>
 			</tr>
 		</table>
 	</form>

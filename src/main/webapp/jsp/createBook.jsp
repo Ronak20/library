@@ -9,7 +9,7 @@
 <a href="<%=request.getContextPath()%>/jsp/admincontrol.jsp">Admin Panel</a>
 <c:choose>
 	<c:when test="${book == null}">
-		<form method="post" action="../book">
+		<form id="addBookForm" method="post" action="../book">
 			<table align="center">
 				<tr>
 					<td>Book Name</td>
@@ -24,13 +24,13 @@
 					<td><input type="text" name="isbn"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="submit"></td>
+					<td colspan="2"><input name="addBookSubmit" type="submit"></td>
 				</tr>
 			</table>
 		</form>
 	</c:when>
 	<c:when test="${book != null}">
-		<form method="post" action="book">
+		<form id="editBookForm" method="post" action="book">
 			<table align="center">
 				<input type="hidden" name="bookid"
 					value="<c:out value="${book.bookid}"></c:out>">

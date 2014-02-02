@@ -1,6 +1,7 @@
 <%@include file="layout/header.jsp"%>
 <title>Administrator Panel</title>
 <%@include file="layout/head.jsp"%>
+<title>Admin Control Page</title>
 <jsp:useBean id="sessionuser" class="com.library.model.User"
 	scope="session">
 </jsp:useBean>
@@ -16,7 +17,7 @@
 	</TR>
 	<TR>
 		<TH><a href="<%=request.getContextPath()%>/jsp/createUser.jsp">Create Users</a></TH>
-		<TH><a href="<%=request.getContextPath()%>/jsp/DeleteUser">Delete Users</a></TH>
+		<TH><a href="<%=request.getContextPath()%>/DeleteUser">Delete Users</a></TH>
 	</TR>
 	<tr>
 		<th><a href="<%=request.getContextPath()%>/jsp/createBook.jsp">Add Books</a></th>
