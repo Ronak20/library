@@ -62,4 +62,10 @@ public class LoanDaoTest {
 	{
 		Assert.assertTrue(this.loanDao.getLateFeeLoanByUserId(18+""));
 	}
+	
+	@Test
+	public void testUpdateLateFees()
+	{
+		loanDao.updateLateFees(2+"");
+	}
 }

@@ -56,7 +56,7 @@ public class Loan {
 		this.loanId = loanId;
 	}
 
-	@Column(name = "userid", unique = true)
+	@Column(name = "userid")
 	public String getUserId() {
 		return userId;
 	}
@@ -65,7 +65,7 @@ public class Loan {
 		this.userId = userId;
 	}
 
-	@Column(name = "bookid", unique = true)
+	@Column(name = "bookid")
 	public String getBookId() {
 		return bookId;
 	}
@@ -74,7 +74,7 @@ public class Loan {
 		this.bookId = bookId;
 	}
 
-	@Column(name = "expirydate", unique = true)
+	@Column(name = "expirydate")
 	public Date getExpiryDate() {
 		return expiryDate;
 	}
@@ -92,7 +92,7 @@ public class Loan {
 		this.renewalCount = renewalCount;
 	}
 
-	@Column(name = "latefee", unique = true)
+	@Column(name = "latefee")
 	public int getLateFee() {
 		return lateFee;
 	}
@@ -101,7 +101,7 @@ public class Loan {
 		this.lateFee = lateFee;
 	}
 
-	@Column(name = "islatefeepaid", unique = true)
+	@Column(name = "islatefeepaid")
 	public boolean getIsLateFeePaid() {
 		return isLateFeePaid;
 	}

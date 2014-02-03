@@ -69,10 +69,14 @@ public class LoginServlet extends HttpServlet {
 			logger.info("Logged In Successfully");
 			User user = userService.getUserByName(userName);
 			logger.debug("user : " + user);
+			request.getSession().setAttribute("user", user);
 
 			if (user.getRole().equals(Role.STUDENT)) {
 				List<Loan> loans = loanService
 						.getLoanByUserId(user.getUserId());
+				
+				loanService.updateLateFees(user.getUserId());
+				
 				logger.debug("loans : " + loans);
 				session.close();
 				request.setAttribute("sessionCurrentUser", user);

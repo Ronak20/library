@@ -1,18 +1,17 @@
 package com.library.dao;
 
-
-import java.sql.Time;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.library.model.Loan;
+
 //import quicktime.std.clocks.TimeBase;
 
 public class LoanDao {
@@ -29,45 +28,42 @@ public class LoanDao {
 			/*
 			 * TODO map date with database fields
 			 */
-			
-			Calendar cal = Calendar.getInstance();
-			
-			
-			
-			//Formatting the time to string so we can trace it 
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
-			String utcTime = df.format(new Date());
-			
-			System.out.println(df.format(new Date()));
-			
-			System.out.println("printing UTC: " + utcTime);
-			
-			
-			
-			//setting loan time (this is indicating it is three minutes, we can make it modifiable later)
-			loan.setLoanTime(60000*3);
 
-			//calculating Expiry Time: current time plus 3 minutes (which is 60k ms * 3)
-			Date expiryTime = new Date ( System.currentTimeMillis() + loan.getLoanTime());
-			//loan.setExpiryDate(utcTime);
-			
-			//setting expiry time 
+			Calendar cal = Calendar.getInstance();
+
+			// Formatting the time to string so we can trace it
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String utcTime = df.format(new Date());
+
+			System.out.println(df.format(new Date()));
+
+			System.out.println("printing UTC: " + utcTime);
+
+			// setting loan time (this is indicating it is three minutes, we can
+			// make it modifiable later)
+			loan.setLoanTime(60000 * 3);
+
+			// calculating Expiry Time: current time plus 3 minutes (which is
+			// 60k ms * 3)
+			Date expiryTime = new Date(System.currentTimeMillis()
+					+ loan.getLoanTime());
+			// loan.setExpiryDate(utcTime);
+
+			// setting expiry time
 			loan.setExpiryDate(expiryTime);
-			
+
 			loan.setIsLateFeePaid(true);
-			
-			
+
 			System.out.println(df.format(cal.getTime()));
 			System.out.println("Adding this loan:" + loan.toString());
-			
-			
+
 			tx = session.beginTransaction();
 			session.saveOrUpdate(loan);
 			session.flush();
 			tx.commit();
 			session.refresh(loan);
 			return loan.getLoanId();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
@@ -100,12 +96,11 @@ public class LoanDao {
 		System.out.println(loan.toString());
 		return loan;
 	}
-	
+
 	public Loan getLastLoanByUserId(String userid) {
 		String hql = "FROM Loan L WHERE L.userId = :userid";
 		Query query = session.createQuery(hql);
 		query.setParameter("userid", userid);
-		
 
 		List<Loan> loanList = query.list();
 		Loan loan = loanList.get(0);
@@ -128,7 +123,7 @@ public class LoanDao {
 			tx.rollback();
 		}
 	}
-	
+
 	public void deleteById(String aLoanId) {
 		Transaction tx = null;
 		try {
@@ -142,19 +137,28 @@ public class LoanDao {
 			e.printStackTrace();
 			tx.rollback();
 		}
-		
-		
+
 	}
-	
-	
-	public void renewLoan (String aLoanId)
-	{
+
+	public void renewLoan(String aLoanId) {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			String hql = "UPDATE Loan SET renewalCount = renewalCount + 1 WHERE loanId= :loanid and expiryDate <= current_date() ";
+			String hql = "UPDATE Loan SET renewalCount = renewalCount + 1,expiryDate =:ed WHERE loanId=:loanid and expiryDate >= current_timestamp() ";
 			Query query = session.createQuery(hql);
 			query.setString("loanid", aLoanId);
+			/*
+			 * SimpleDateFormat df = new
+			 * SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); String utcTime =
+			 * df.format(new Date());
+			 */
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			cal.add(Calendar.MINUTE, 2);
+			String newTime = df.format(cal.getTime());
+			System.out.println(newTime);
+			query.setString("ed", newTime);
 			query.executeUpdate();
 			tx.commit();
 		} catch (Exception e) {
@@ -183,19 +187,19 @@ public class LoanDao {
 		List<Loan> loanList = query.list();
 		return loanList;
 	}
-	
+
 	public boolean getLateFeeLoanByUserId(String userId) {
 		String hql = "FROM Loan L WHERE L.userId =:userid and L.lateFee>0 and L.isLateFeePaid=false";
 		Query query = session.createQuery(hql);
 		query.setParameter("userid", userId);
 		List<Loan> lateFeeList = query.list();
-		if(lateFeeList.size()>0)
+		if (lateFeeList.size() > 0)
 			return true;
 		else
 			return false;
-		
+
 	}
-	
+
 	public List<Loan> getLoanByUserId(String userId) {
 		String hql = "FROM Loan L WHERE L.userId = :userid";
 		Query query = session.createQuery(hql);
@@ -203,7 +207,7 @@ public class LoanDao {
 		List<Loan> loanList = query.list();
 		return loanList;
 	}
-	
+
 	public List<Loan> getLoanByBookId(String bookId) {
 		String hql = "FROM Loan L WHERE L.bookId = :bookid";
 		Query query = session.createQuery(hql);
@@ -211,8 +215,8 @@ public class LoanDao {
 		List<Loan> loanList = query.list();
 		return loanList;
 	}
-	
-	public List<Loan> getLoanByUserIdIsLateFee(String userId,boolean isLateFee) {
+
+	public List<Loan> getLoanByUserIdIsLateFee(String userId, boolean isLateFee) {
 		String hql = "FROM Loan L WHERE L.isLateFeePaid = :isLateFee";
 		Query query = session.createQuery(hql);
 		query.setParameter("userid", userId);
@@ -223,18 +227,17 @@ public class LoanDao {
 
 	public void addLoan(String userId, String bookId) {
 		// TODO Auto-generated method stub
-		/*String ts = new String("00:00:00");
-		
-		String hql = "INSERT INTO Loan (userId =:userid, bookId = :bookid)";
-		Query query = session.createQuery(hql);
-		query.setParameter("userid", userId);
-		query.setParameter("bookid", bookId);
-		query.setParameter("ts", ts);
-		
-		List<Loan> loanList = query.list();
-		query.executeUpdate();*/
-		
-		
+		/*
+		 * String ts = new String("00:00:00");
+		 * 
+		 * String hql = "INSERT INTO Loan (userId =:userid, bookId = :bookid)";
+		 * Query query = session.createQuery(hql); query.setParameter("userid",
+		 * userId); query.setParameter("bookid", bookId);
+		 * query.setParameter("ts", ts);
+		 * 
+		 * List<Loan> loanList = query.list(); query.executeUpdate();
+		 */
+
 	}
 
 	public void payFees(String loanId) {
@@ -243,17 +246,38 @@ public class LoanDao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-		String hql = "UPDATE Loan SET isLateFeePaid = 1 WHERE loanId= :loanid";
-		
-		Query query = session.createQuery(hql);
-		query.setString("loanid", loanId);
-		query.executeUpdate();
-		tx.commit();
+			String hql = "UPDATE Loan l SET l.isLateFeePaid = 1,l.lateFee=0 WHERE l.loanId= :loanid";
+
+			Query query = session.createQuery(hql);
+			query.setString("loanid", loanId);
+			query.executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+
 		}
-	 catch (Exception e) {
-		e.printStackTrace();
-		tx.rollback();
-	
 	}
+
+	public int updateLateFees(String userid) {
+
+		// Date twentyDaysInFuture = new
+		// Date(Calendar.getInstance().add(Calendar.DAY_OF_MONTH,
+		// 20).getTime());
+
+		// query =
+		// session.createQuery("SELECT x FROM XYZ x WHERE xyzDateTime > :endDate").setParameter("endDate",
+		// twentyDaysInFuture);
+
+		String hql = "UPDATE Loan l set l.isLateFeePaid = 0,l.lateFee = 100"
+				+ " WHERE userid = :userid and l.expiryDate <= current_timestamp()";
+		Query query = session.createQuery(hql);
+		query.setParameter("userid", userid);
+		// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		// Date date = new Date();
+		// query.setParameter("current_date",dateFormat.format(date).toString()
+		// );
+		int result = query.executeUpdate();
+		return result;
 	}
 }

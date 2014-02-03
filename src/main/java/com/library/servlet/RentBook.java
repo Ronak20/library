@@ -48,26 +48,24 @@ public class RentBook extends HttpServlet {
 		String userId = request.getParameter("auserid");
 		String bookId = request.getParameter("bookid");
 
-		if(!ls.addnewLoan(userId, bookId))
-		{
+		if (!ls.addnewLoan(userId, bookId)) {
 			request.setAttribute("HasOutStandingLoan", "true");
 			request.setAttribute("currentUser", userId);
-			this.getServletContext().getRequestDispatcher("/listBooks").forward(request, response);
-		}
-		
-		else
-		{
-		//ls.addLoan(userId, bookId);
-		bs.decreaseCopies(bookId);
+			this.getServletContext().getRequestDispatcher("/listBooks")
+					.forward(request, response);
+		} else {
+			// ls.addLoan(userId, bookId);
+			bs.decreaseCopies(bookId);
 
-		// request.setAttribute("bookList", bs.getAll());
-		request.setAttribute("sessionCurrentUser", userDao.getUserById(userId));
-		request.setAttribute("loanList", loanDao.getLoanByUserId(userId));
+			// request.setAttribute("bookList", bs.getAll());
+			request.setAttribute("sessionCurrentUser",
+					userDao.getUserById(userId));
+			request.setAttribute("loanList", loanDao.getLoanByUserId(userId));
 
-		this.getServletContext().getRequestDispatcher("/jsp/userlogged.jsp")
-				.include(request, response);
+			this.getServletContext()
+					.getRequestDispatcher("/jsp/userlogged.jsp")
+					.include(request, response);
 		}
-		
 
 	}
 

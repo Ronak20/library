@@ -85,7 +85,8 @@ public class TC19 {
 	@Test
 	public void testTC19PayFine() throws InterruptedException
 	{
-		Thread.sleep(3*60*1000);
+		Thread.sleep(4*60*1000);
+		
 	}
 
 }

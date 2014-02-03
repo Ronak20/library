@@ -134,5 +134,9 @@ public class LoanService {
 		}
 		
 	}
+	
+	public int updateLateFees(String userid) {
+		return loanDao.updateLateFees(userid);
+	}
 
 }
