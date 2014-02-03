@@ -1,5 +1,8 @@
 package com.library.test.http;
 
+import static org.junit.Assert.*;
+
+import java.util.Calendar;
 
 import junit.framework.TestCase;
 
@@ -11,7 +14,11 @@ import org.junit.Test;
 
 import com.library.config.Constant;
 import com.library.config.HibernateUtil;
-import com.meterware.httpunit.FormControl;
+import com.library.dao.LoanDao;
+import com.library.dao.UserDao;
+import com.library.model.Role;
+import com.library.model.User;
+import com.library.service.UserService;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.SubmitButton;
@@ -21,15 +28,13 @@ import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
-import com.library.model.User;
-import com.library.model.Role;
-import com.library.service.UserService;
-import com.library.dao.UserDao;
+import com.library.model.Loan;
 
-public class TC16  extends TestCase{
+public class TC18DeleteUserWithLoan extends TestCase {
+
 	private static Logger logger = Logger.getLogger(BookServletTest.class);
-
-	public TC16(String s) {
+	
+	public TC18DeleteUserWithLoan(String s) {
 		super(s);
 	}
 	
@@ -52,8 +57,8 @@ public class TC16  extends TestCase{
 	public void tearDown() throws Exception {
 	}
 
-	public void testDeleteUser() throws Exception {
-		logger.debug("Entered TC16 testDeleteUser");
+	public void testDeleteUserWithLoan() throws Exception {
+		logger.debug("Entered TC18 testDeleteUserWithLoan");
 		User user;
 		WebConversation conversation = new WebConversation();
 		WebRequest request = new GetMethodWebRequest(Constant.DELETE_USER_URL);		
@@ -63,8 +68,16 @@ public class TC16  extends TestCase{
 		 UserDao userDao = new UserDao(session);
 		 UserService userService = new UserService(userDao);
 		 userService.saveOrUpdate(user);
-		 session.close();
+		 
 		 logger.debug("User added"+ user.getUsername());
+		 //now create loan for this user
+		 Calendar now = Calendar.getInstance();
+		 now.add(Calendar.MINUTE, 5);
+		 Loan loan = new Loan(user.getUserId(),"1",now.getTime(),0,0,true);
+		 LoanDao loandao = new LoanDao(session);
+		 loandao.saveOrUpdate(loan);
+		 logger.debug("Loan "+loan.getLoanId()+" created for user "+ user.getUserId());
+		 session.close();
 		 WebResponse response = conversation.getResponse(request);
 		 logger.debug("Delete User Form : \n" + response.getText());
 		WebForm deleteUserForm = response.getFormWithName("Deleteform");
@@ -79,8 +92,8 @@ public class TC16  extends TestCase{
 		WebTable userListTable = responseUserList.getTableWithID("userListTable");
 		logger.info("Looking for username" + parameterUserName + "in the existing user list");
 		TableCell tableCell = userListTable.getTableCellWithID(parameterUserName);
-		assertNull(tableCell);
-		logger.info("Exited TC16 testDeleteUser");
+		assertEquals(parameterUserName, tableCell.getText());
+		logger.info("Exited TC18 testDeleteUserWithLoan");
 	}
 
 }
