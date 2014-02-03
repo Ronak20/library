@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("Get received");
+		logger.info("Get received");
 	}
 
 	/**
