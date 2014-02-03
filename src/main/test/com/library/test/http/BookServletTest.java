@@ -14,6 +14,12 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
+/**
+ * TC3 and TC4
+ * 
+ * @author Ronak
+ * 
+ */
 public class BookServletTest extends TestCase {
 	private static Logger logger = Logger.getLogger(BookServletTest.class);
 
@@ -23,15 +29,19 @@ public class BookServletTest extends TestCase {
 
 	public void setUp() throws Exception {
 		logger.info("Entered setUp");
-		WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
-		WebResponse response = conversation.getResponse(request);
-		logger.debug("Login Page : \n" + response.getText());
-		WebForm loginForm = response.getFormWithID("loginForm");
-		loginForm.setParameter("username", Constant.ADMIN_USERNAME);
-		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
-		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
-		loginForm.submit(submitButton);
+
+		// code for login
+		/*
+		 * WebConversation conversation = new WebConversation(); WebRequest
+		 * request = new GetMethodWebRequest(Constant.ROOT_URL); WebResponse
+		 * response = conversation.getResponse(request);
+		 * logger.debug("Login Page : \n" + response.getText()); WebForm
+		 * loginForm = response.getFormWithID("loginForm");
+		 * loginForm.setParameter("username", Constant.ADMIN_USERNAME);
+		 * loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
+		 * SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
+		 * loginForm.submit(submitButton);
+		 */
 		logger.info("Exited setUp");
 	}
 
@@ -55,14 +65,17 @@ public class BookServletTest extends TestCase {
 		SubmitButton addBookSubmitButton = addBookForm
 				.getSubmitButton("addBookSubmit");
 		addBookForm.submit(addBookSubmitButton);
-		
-		WebRequest requestBookList = new GetMethodWebRequest(Constant.BOOK_GET_URL);
-		WebResponse responseBookList = conversation.getResponse(requestBookList);
-		WebTable bookListTable = responseBookList.getTableWithID("bookListTable");
+
+		WebRequest requestBookList = new GetMethodWebRequest(
+				Constant.BOOK_GET_URL);
+		WebResponse responseBookList = conversation
+				.getResponse(requestBookList);
+		WebTable bookListTable = responseBookList
+				.getTableWithID("bookListTable");
 		TableCell tableCell = bookListTable.getTableCellWithID(isbn + "");
-		logger.info(isbn+" = "+ Integer.parseInt(tableCell.getText()));
+		logger.info(isbn + " = " + Integer.parseInt(tableCell.getText()));
 		assertEquals(isbn, Integer.parseInt(tableCell.getText()));
-		
+
 		logger.info("Exited testTC3AddTitle");
 	}
 
@@ -106,12 +119,12 @@ public class BookServletTest extends TestCase {
 		WebTable bookListTable = response3.getTableWithID("bookListTable");
 		TableCell tableCell1 = bookListTable.getTableCellWithID(isbn1 + "");
 		TableCell tableCell2 = bookListTable.getTableCellWithID(isbn2 + "");
-		logger.info(isbn1+" = "+ Integer.parseInt(tableCell1.getText()));
-		logger.info(isbn2+" = "+ Integer.parseInt(tableCell2.getText()));
+		logger.info(isbn1 + " = " + Integer.parseInt(tableCell1.getText()));
+		logger.info(isbn2 + " = " + Integer.parseInt(tableCell2.getText()));
 		assertEquals(isbn1, Integer.parseInt(tableCell1.getText()));
 		assertEquals(isbn2, Integer.parseInt(tableCell2.getText()));
 
 		logger.info("Exited testTC3AddTitle");
 	}
-	
+
 }
