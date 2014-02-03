@@ -37,7 +37,7 @@ window.onunload = refreshParent;
 		</c:otherwise>
 	</c:choose>
 	
-	<table align="center" class="myTable">
+	<table id="rentedBooks" align="center" class="myTable">
 		<tr>
 			<th>Rented Book ID</th>
 			<th>Expiry Date</th>

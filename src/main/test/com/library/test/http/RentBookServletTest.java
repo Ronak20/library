@@ -3,8 +3,11 @@ package com.library.test.http;
 import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import com.library.config.Constant;
+import com.library.config.HibernateUtil;
+import com.library.dao.LoanDao;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.SubmitButton;
 import com.meterware.httpunit.TableCell;
@@ -39,13 +42,13 @@ public class RentBookServletTest extends TestCase {
 
 	}
 
-	public void testRentBook() throws Exception {
-		logger.info("Entered testTC3AddTitle");
+	public void testRentBookListBooks() throws Exception {
+		logger.info("Entering testRentBookListBooks");
 		WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.USERBOOKS_GET_URL);
-		WebResponse response = conversation.getResponse(request);
+		//WebRequest request = new GetMethodWebRequest(Constant.USERBOOKS_GET_URL);
+		//WebResponse response = conversation.getResponse(request);
 		
-		request.setParameter("currentUser", "20");
+		
 		
 		WebRequest requestBookList = new GetMethodWebRequest(Constant.USERBOOKS_GET_URL);
 		WebResponse responseBookList = conversation.getResponse(requestBookList);
@@ -55,59 +58,56 @@ public class RentBookServletTest extends TestCase {
 		 * Testing number of books for user panel when clicked "RentBook"
 		 * FIXME : change '6' to the actualy number of books you have in your database
 		 */
-		assertEquals("coloumn count",6, userBookListTable.getRowCount());
-		//logger.info(isbn+" = "+ Integer.parseInt(tableCell.getText()));
-		//assertEquals(isbn, Integer.parseInt(tableCell.getText()));
 		
-		logger.info("Exited testTC3AddTitle");
+		requestBookList.setParameter("currentUser", "20");
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		LoanDao loanDao = new LoanDao(session);
+		
+		
+		
+		assertEquals("coloumn count",loanDao.getAll().size(), userBookListTable.getRowCount()-3);
+		logger.info("Getting Row Count" + " = " + userBookListTable.getRowCount());
+		logger.info("Exited testRentBook");
+		session.close();
 	}
 
-	/*public void testTC4AddTwoTitle() throws Exception {
+	public void testRentBookResult() throws Exception {
 		logger.info("Entered testTC3AddTitle");
 		WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.BOOK_ADD_URL);
-		WebResponse response = conversation.getResponse(request);
-		WebForm addBookForm = response.getFormWithID("addBookForm");
-		logger.debug("Add Book Form : \n" + response.getText());
-		addBookForm.setParameter("bookname",
-				"Mybook" + System.currentTimeMillis());
-		addBookForm.setParameter("copies",
-				"" + (int) (System.currentTimeMillis()));
-		int isbn1 = (int) System.currentTimeMillis();
-		addBookForm.setParameter("isbn", "" + isbn1);
-		SubmitButton addBookSubmitButton = addBookForm
-				.getSubmitButton("addBookSubmit");
-		addBookForm.submit(addBookSubmitButton);
+		//WebRequest request = new GetMethodWebRequest(Constant.RENT_BOOK_URL);
+		//WebResponse response = conversation.getResponse(request);
+		
+		//request.setParameter("currentUser", "20");
+		;
+		
+		WebRequest requestBookList = new GetMethodWebRequest(Constant.RENT_BOOK_URL);
+		WebResponse responseBookList = conversation.getResponse(requestBookList);
+		WebTable userRentedBooksTable = responseBookList.getTableWithID("rentedBooks");
+		
+		requestBookList.setParameter("auser", "4");
+		requestBookList.setParameter("bookid", "5");
+		//TableCell tableCell = userBookListTable.getTableCellWithID("isbn" + "");
+		/*
+		 * Testing whether the book was added and shown on the user panel
+		 * FIXME : 
+		 */
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		LoanDao loanDao = new LoanDao(session);
+		
+		
+		int aRow = loanDao.getAll().size();
+		
+		
+		System.out.println(aRow);
+		
+		assertEquals("Testing if book was added","5", userRentedBooksTable.getCellAsText(aRow, 0));
+		logger.info("Getting Row Count" + " = " + userRentedBooksTable.getTableCellWithID(requestBookList.getParameter("bookid")));
 
-		logger.info("One book added");
-
-		WebRequest request2 = new GetMethodWebRequest(Constant.BOOK_ADD_URL);
-		WebResponse response2 = conversation.getResponse(request2);
-		WebForm addBookForm2 = response.getFormWithID("addBookForm");
-		logger.debug("Add Book Form : \n" + response2.getText());
-		addBookForm2.setParameter("bookname",
-				"Mybook" + System.currentTimeMillis());
-		addBookForm2.setParameter("copies",
-				"" + (int) (System.currentTimeMillis()));
-		int isbn2 = (int) System.currentTimeMillis();
-		addBookForm2.setParameter("isbn", isbn2 + "");
-		SubmitButton addBookSubmitButton2 = addBookForm2
-				.getSubmitButton("addBookSubmit");
-		addBookForm.submit(addBookSubmitButton2);
-
-		logger.info("checking book list");
-
-		WebRequest request3 = new GetMethodWebRequest(Constant.BOOK_GET_URL);
-		WebResponse response3 = conversation.getResponse(request3);
-		WebTable bookListTable = response3.getTableWithID("bookListTable");
-		TableCell tableCell1 = bookListTable.getTableCellWithID(isbn1 + "");
-		TableCell tableCell2 = bookListTable.getTableCellWithID(isbn2 + "");
-		logger.info(isbn1+" = "+ Integer.parseInt(tableCell1.getText()));
-		logger.info(isbn2+" = "+ Integer.parseInt(tableCell2.getText()));
-		assertEquals(isbn1, Integer.parseInt(tableCell1.getText()));
-		assertEquals(isbn2, Integer.parseInt(tableCell2.getText()));
-
-		logger.info("Exited testTC3AddTitle");
-	}*/
+		
+		
+		
+		logger.info("Exited testRentBook");
+	}
 	
 }
