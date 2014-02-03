@@ -53,6 +53,7 @@ window.onunload = refreshParent;
 			<th>Expiry Date</th>
 			<th>Renew Count</th>
 			<th>Renew</th>
+			<th>Payment</th>
 			<th></th>
 		</tr>
 		<c:forEach var="ln" items="${loanList}">
@@ -64,6 +65,19 @@ window.onunload = refreshParent;
 					href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">Return</a></td>
 				<td><a
 					href="${pageContext.request.contextPath}/RenewBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">Renew</a></td>
+					<td>
+					<c:choose>
+		<c:when test="${not ln.isLateFeePaid}">
+			<font color="red">You have overdue books you need to return</font>
+	
+					<a
+					href="${pageContext.request.contextPath}/payFeesServlet?loanid=${ln.loanId}&userid=${ln.userId}">Pay Fees</a>
+					</td>
+		 </c:when>
+						
+		<c:otherwise>
+		</c:otherwise>
+	</c:choose>
 			</tr>
 		</c:forEach>
 	</table>

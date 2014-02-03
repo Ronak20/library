@@ -224,4 +224,24 @@ public class LoanDao {
 		
 		
 	}
+
+	public void payFees(String loanId) {
+		// TODO Auto-generated method stub
+
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+		String hql = "UPDATE Loan SET isLateFeePaid = 1 WHERE loanId= :loanid";
+		
+		Query query = session.createQuery(hql);
+		query.setString("loanid", loanId);
+		query.executeUpdate();
+		tx.commit();
+		}
+	 catch (Exception e) {
+		e.printStackTrace();
+		tx.rollback();
+	
+	}
+	}
 }

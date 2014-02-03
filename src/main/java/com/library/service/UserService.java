@@ -25,6 +25,15 @@ public class UserService {
 		userDao.saveOrUpdate(user);
 	}
 
+	
+	public void payFees(String loanId)
+	{
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		LoanDao loanDao = new LoanDao(session);
+		System.out.println(loanId);
+		loanDao.payFees(loanId);
+	}
+	
 	public Boolean deleteUser(String userId, LoanDao loandao) {
 		// admin should not be able to delete a user if he has outstanding lone
 

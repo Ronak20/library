@@ -105,6 +105,12 @@
 		<description></description>
 		<servlet-class>com.library.servlet.ListBooks</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>PayFeesServlet</servlet-name>
+		<display-name>PayFeesServlet</display-name>
+		<description></description>
+		<servlet-class>com.library.servlet.PayFeesServlet</servlet-class>
+	</servlet>
 
 	
 
@@ -166,6 +172,10 @@
 	<servlet-mapping>
 		<servlet-name>ListBooks</servlet-name>
 		<url-pattern>/listBooks</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PayFeesServlet</servlet-name>
+		<url-pattern>/payFeesServlet</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
