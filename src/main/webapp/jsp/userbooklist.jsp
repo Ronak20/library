@@ -4,6 +4,10 @@
 <%@ page isELIgnored="false"%>
 <%@include file="layout/header.jsp"%>
 <%@include file="layout/head.jsp"%>
+<% if(request.getAttribute("HasOutStandingLoan")=="true") 
+{%>
+<h5 style="color: red;">Loan can not be issued because you have outstanding loan fee</h5>
+<% }%>
 <table align="center" id="userBookListTable" class="gridtable">
 	<tr>
 		<th>ISBN</th>

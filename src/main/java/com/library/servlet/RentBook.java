@@ -48,7 +48,16 @@ public class RentBook extends HttpServlet {
 		String userId = request.getParameter("auserid");
 		String bookId = request.getParameter("bookid");
 
-		ls.addLoan(userId, bookId);
+		if(!ls.addnewLoan(userId, bookId))
+		{
+			request.setAttribute("HasOutStandingLoan", "true");
+			request.setAttribute("currentUser", userId);
+			this.getServletContext().getRequestDispatcher("/listBooks").forward(request, response);
+		}
+		
+		else
+		{
+		//ls.addLoan(userId, bookId);
 		bs.decreaseCopies(bookId);
 
 		// request.setAttribute("bookList", bs.getAll());
@@ -57,6 +66,8 @@ public class RentBook extends HttpServlet {
 
 		this.getServletContext().getRequestDispatcher("/jsp/userlogged.jsp")
 				.include(request, response);
+		}
+		
 
 	}
 

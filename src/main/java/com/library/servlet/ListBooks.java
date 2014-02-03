@@ -49,7 +49,7 @@ public class ListBooks extends HttpServlet {
 		
 		request.setAttribute("bookList", books);
 		request.setAttribute("currentUser", userId);
-		
+
 		request.getSession().getServletContext().getRequestDispatcher("/jsp/userbooklist.jsp").include(request, response);
 		
 		

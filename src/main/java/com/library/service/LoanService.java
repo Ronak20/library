@@ -115,5 +115,24 @@ public class LoanService {
 		 * return true;
 		 */
 	}
+	
+	public boolean addnewLoan(String userId, String bookId) {
+
+		Loan newLoan = new Loan(userId, bookId);
+		String loanId;
+		////check if user has any late fee, if yes then dont add loan 
+		if(loanDao.getLateFeeLoanByUserId(userId))
+		{
+			System.out.println("Book was not rented because user has late fee to payy");
+			return false;
+		}
+		else
+		{
+		loanId = loanDao.saveOrUpdate(newLoan);
+		System.out.println("Book was successfully rented , Loan Id: "+loanId);
+		return true;
+		}
+		
+	}
 
 }

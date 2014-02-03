@@ -184,6 +184,18 @@ public class LoanDao {
 		return loanList;
 	}
 	
+	public boolean getLateFeeLoanByUserId(String userId) {
+		String hql = "FROM Loan L WHERE L.userId =:userid and L.lateFee>0 and L.isLateFeePaid=false";
+		Query query = session.createQuery(hql);
+		query.setParameter("userid", userId);
+		List<Loan> lateFeeList = query.list();
+		if(lateFeeList.size()>0)
+			return true;
+		else
+			return false;
+		
+	}
+	
 	public List<Loan> getLoanByUserId(String userId) {
 		String hql = "FROM Loan L WHERE L.userId = :userid";
 		Query query = session.createQuery(hql);
