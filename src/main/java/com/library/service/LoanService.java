@@ -75,9 +75,21 @@ public class LoanService {
 		List<Loan> loanList = this.loanDao.getLoanByUserId(userId);
 		return loanList;
 	}
+	
+	public List<Loan> getLoanByBookId(String bookId) {
+		List<Loan> loanList = this.loanDao.getLoanByBookId(bookId);
+		return loanList;
+	}
 
 	public Boolean OkayToDelete(String userId) {
 		if (getLoanByUserId(userId).size() > 0)
+			return false;
+		else
+			return true;
+	}
+	
+	public Boolean OkayToDeleteBook(String bookId) {
+		if (getLoanByBookId(bookId).size() > 0)
 			return false;
 		else
 			return true;

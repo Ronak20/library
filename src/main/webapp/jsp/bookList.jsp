@@ -5,6 +5,10 @@
 <%@include file="layout/header.jsp"%>
 <%@include file="layout/head.jsp"%>
 <a href="jsp/admincontrol.jsp">Admin Panel</a>
+<%if(request.getAttribute("bookidnotdeleted")!= null) 
+{%>
+<h5 style="color: red;">BookID: <%=request.getAttribute("bookidnotdeleted")%> could not be deleted because there are active loans for this book</h5>
+<%} %>
 <table id="bookListTable" align="center" class="gridtable">
 	<tr>
 		<th>Book ID</th>

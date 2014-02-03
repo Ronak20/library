@@ -14,6 +14,7 @@ import org.hibernate.Session;
 
 import com.library.config.HibernateUtil;
 import com.library.dao.BookDao;
+import com.library.dao.LoanDao;
 import com.library.model.Book;
 import com.library.service.BookService;
 
@@ -35,16 +36,21 @@ public class DeleteBookServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("Get received");
-		
+		LoanDao loanDao;
 		String bookid = request.getParameter("bookid");
 		logger.debug("param bookid : "+bookid);
 		Book book = new Book(bookid);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		BookDao bookDao = new BookDao(session);
+		loanDao = new LoanDao(session);
 		BookService bookService = new BookService(bookDao);
-		bookService.deleteBook(book);
-		logger.debug("Book deleted");
-		
+		if(!bookService.deleteBook(book.getBookid(), loanDao))
+		{		
+		  logger.debug("Book not deleted");
+		  request.setAttribute("bookidnotdeleted", bookid);
+		}
+		else
+			logger.debug("Book  deleted");
 		List<Book> bookList = bookService.getAll();
 		logger.debug("bookList : "+bookList);
 		request.setAttribute("bookList", bookList);

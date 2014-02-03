@@ -189,6 +189,14 @@ public class LoanDao {
 		return loanList;
 	}
 	
+	public List<Loan> getLoanByBookId(String bookId) {
+		String hql = "FROM Loan L WHERE L.bookId = :bookid";
+		Query query = session.createQuery(hql);
+		query.setParameter("bookid", bookId);
+		List<Loan> loanList = query.list();
+		return loanList;
+	}
+	
 	public List<Loan> getLoanByUserIdIsLateFee(String userId,boolean isLateFee) {
 		String hql = "FROM Loan L WHERE L.isLateFeePaid = :isLateFee";
 		Query query = session.createQuery(hql);

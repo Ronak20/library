@@ -21,7 +21,7 @@
 	</TR>
 	<tr>
 		<th><a href="<%=request.getContextPath()%>/jsp/createBook.jsp">Add Books</a></th>
-		<th><a href="book">Show Books</a></th>
+		<th><a href="<%=request.getContextPath()%>/book">Show Books</a></th>
 	</tr>
 </TABLE>
 <%@include file="layout/footer.jsp"%>

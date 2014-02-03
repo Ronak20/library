@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.library.dao.BookDao;
 import com.library.model.Book;
+import com.library.model.User;
+import com.library.dao.LoanDao;
+import com.library.model.Loan;
 
 public class BookService {
 	
@@ -34,6 +37,16 @@ public class BookService {
 	
 	public void deleteBook(Book book){
 		bookDao.deleteBook(book);
+	}
+	
+	public boolean deleteBook(String bookId,LoanDao loanDao){
+		LoanService loanService = new LoanService(loanDao);
+		if (loanService.OkayToDeleteBook(bookId)) {
+			Book book = bookDao.getBookByID(bookId);
+			bookDao.deleteBook(book);
+			return true;
+		} else
+			return false;
 	}
 	
 	public Book getBookByID(String bookid){
