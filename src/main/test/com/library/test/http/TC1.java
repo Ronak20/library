@@ -42,7 +42,7 @@ public class TC1 extends TestCase {
 	}
 	
 	public void testCreateUser() throws Exception {
-		System.out.println("Entered testTC1AddUser");
+		logger.debug("Entered testTC1AddUser");
 		WebConversation conversation = new WebConversation();
 		WebRequest request = new GetMethodWebRequest(Constant.CREATE_USER_URL);
 		WebResponse response = conversation.getResponse(request);
