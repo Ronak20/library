@@ -20,10 +20,10 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-public class UserBorrowItemTest extends TestCase {
+public class TC7UserBorrowItemTest extends TestCase {
 	private static Logger logger = Logger.getLogger(RentBookServletTest.class);
 
-	public UserBorrowItemTest(String s) {
+	public TC7UserBorrowItemTest(String s) {
 		super(s);
 	}
 
