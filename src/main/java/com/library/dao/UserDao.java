@@ -18,16 +18,19 @@ public class UserDao {
 		this.session = session;
 	}
 
-	public void saveOrUpdate(User user) {
+	public String saveOrUpdate(User user) {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			session.saveOrUpdate(user);
 			tx.commit();
+			session.refresh(user);
+			return  user.getUserId();
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
 		}
+		return null;
 	}
 
 	public boolean isValid(String username, String pass) {

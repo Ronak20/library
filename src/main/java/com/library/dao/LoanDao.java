@@ -23,7 +23,7 @@ public class LoanDao {
 		this.session = session;
 	}
 
-	public void saveOrUpdate(Loan loan) {
+	public String saveOrUpdate(Loan loan) {
 		Transaction tx = null;
 		try {
 			/*
@@ -65,11 +65,14 @@ public class LoanDao {
 			session.saveOrUpdate(loan);
 			session.flush();
 			tx.commit();
+			session.refresh(loan);
+			return loan.getLoanId();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
 		}
+		return null;
 	}
 
 	public List<Loan> getAll() {

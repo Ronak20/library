@@ -47,8 +47,7 @@ public class RentBook extends HttpServlet {
 		String bookId = request.getParameter("bookid");
 		
 		ls.addLoan(userId, bookId);
-		bs.increaseCopies(bookId);
-		
+		bs.decreaseCopies(bookId);	
 		
 		
 		request.setAttribute("bookList", bs.getAll());

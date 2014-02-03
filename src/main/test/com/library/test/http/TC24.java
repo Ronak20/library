@@ -24,7 +24,7 @@ import com.meterware.httpunit.WebTable;
 
 public class TC24 extends TestCase{
 	private static Logger logger = Logger.getLogger(TC24.class);
-
+	
 	public TC24(String s) {
 		super(s);
 	}
@@ -52,7 +52,7 @@ public class TC24 extends TestCase{
 
 	@After
 	public void tearDown() throws Exception {
-
+		
 	}
 
 	@Test

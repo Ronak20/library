@@ -18,17 +18,20 @@ public class BookDao {
 		this.session = session;
 	}
 
-	public void saveOrUpdate(Book book) {
+	public String saveOrUpdate(Book book) {
 		logger.info("saveOrUpdate : "+book);
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			session.saveOrUpdate(book);
 			tx.commit();
+			session.refresh(book);
+			return book.getBookid();
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
 		}
+		return null;
 	}
 	
 	
@@ -38,7 +41,7 @@ public class BookDao {
 		
 		
 		try{
-		String hql = "update Book set copies = copies + 1 where bookId = :book_id"; 
+		String hql = "update Book set copies = copies - 1 where bookId = :book_id"; 
 				
 		Query query = session.createQuery(hql);
 		query.setParameter("book_id", bookid);

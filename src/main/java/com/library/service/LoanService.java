@@ -75,7 +75,7 @@ public class LoanService {
 		List<Loan> loanList = this.loanDao.getLoanByUserId(userId);
 		return loanList;
 	}
-	
+
 	public List<Loan> getLoanByBookId(String bookId) {
 		List<Loan> loanList = this.loanDao.getLoanByBookId(bookId);
 		return loanList;
@@ -87,38 +87,33 @@ public class LoanService {
 		else
 			return true;
 	}
-	
+
 	public Boolean OkayToDeleteBook(String bookId) {
 		if (getLoanByBookId(bookId).size() > 0)
 			return false;
 		else
 			return true;
 	}
-	
-	public Boolean addLoan(String userId, String bookId) {
+
+	public String addLoan(String userId, String bookId) {
+
+		/*
+		 * for ( Loan ln : getLoanByUserId(userId)) if(!ln.getIsLateFeePaid()) {
+		 * return false; } else {
+		 */
+		Loan newLoan = new Loan(userId, bookId);
+		// loanDao.addLoan(userId, bookId);
+
+		System.out.println("Book was successfully rented , Loan Id: ");
+		return loanDao.saveOrUpdate(newLoan);
 		
-		
-		/*for ( Loan ln : getLoanByUserId(userId))
-		if(!ln.getIsLateFeePaid())
-		{
-			return false;
-		}
-		else
-		{*/
-			Loan newLoan = new Loan(userId, bookId);
-			//loanDao.addLoan(userId, bookId);
-			loanDao.saveOrUpdate(newLoan);
-			System.out.println("Book was successfully rented , Loan Id: ");
-			return true;
-		//}
-	
-		
-		/*if (getLoanByUserId(userId).size() > 0)
-			return false;
-		else
-	
-			return true;*/
+		// }
+
+		/*
+		 * if (getLoanByUserId(userId).size() > 0) return false; else
+		 * 
+		 * return true;
+		 */
 	}
-	
 
 }

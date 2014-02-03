@@ -5,7 +5,6 @@ import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 import com.library.config.Constant;
 import com.meterware.httpunit.GetMethodWebRequest;
