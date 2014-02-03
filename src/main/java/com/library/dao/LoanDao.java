@@ -54,6 +54,8 @@ public class LoanDao {
 			//setting expiry time 
 			loan.setExpiryDate(expiryTime);
 			
+			loan.setIsLateFeePaid(true);
+			
 			
 			System.out.println(df.format(cal.getTime()));
 			System.out.println("Adding this loan:" + loan.toString());

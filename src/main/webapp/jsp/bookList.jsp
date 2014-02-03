@@ -5,7 +5,7 @@
 <%@include file="layout/header.jsp"%>
 <%@include file="layout/head.jsp"%>
 <a href="jsp/admincontrol.jsp">Admin Panel</a>
-<table id="bookListTable" align="center" class="myTable">
+<table id="bookListTable" align="center" class="gridtable">
 	<tr>
 		<th>Book ID</th>
 		<th>ISBN</th>

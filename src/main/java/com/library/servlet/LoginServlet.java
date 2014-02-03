@@ -80,6 +80,15 @@ public class LoginServlet extends HttpServlet {
 
 				RequestDispatcher rDispatch = this.getServletContext()
 						.getRequestDispatcher("/jsp/userlogged.jsp");
+				/*	
+				 * FIXME : add if 
+				 */
+				
+				if (!userService.checkPayment(userName) )
+				{
+					request.setAttribute("paynote", "0");
+				}
+				
 				rDispatch.forward(request, response);
 			} else if (user.getRole().equals(Role.ADMIN)) {
 				session.close();

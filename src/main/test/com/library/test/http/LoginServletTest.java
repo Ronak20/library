@@ -44,7 +44,7 @@ public class LoginServletTest extends TestCase {
 
 	public void testStudentAuthentication() throws Exception {
 		logger.info("Entered testStudentAuthentication");
-		loginForm.setParameter("username", "sandy");
+		loginForm.setParameter("username", "sultan");
 		loginForm.setParameter("password", "password");
 		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
 		WebResponse loginFormResponse = loginForm.submit(submitButton);
@@ -54,8 +54,8 @@ public class LoginServletTest extends TestCase {
 
 	public void testAdminAuthentication() throws Exception {
 		logger.info("Entered testAdminAuthentication");
-		loginForm.setParameter("username", "ronak");
-		loginForm.setParameter("password", "password");
+		loginForm.setParameter("username", "ValidUN");
+		loginForm.setParameter("password", "pass");
 		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
 		WebResponse loginFormResponse = loginForm.submit(submitButton);
 		assertEquals("Administrator Panel", loginFormResponse.getTitle());

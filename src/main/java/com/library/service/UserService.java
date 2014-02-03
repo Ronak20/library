@@ -1,7 +1,15 @@
 package com.library.service;
 
+
+
+import java.util.List;
+
+import org.hibernate.Session;
+
+import com.library.config.HibernateUtil;
 import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
+import com.library.model.Loan;
 import com.library.model.User;
 
 public class UserService {
@@ -28,9 +36,30 @@ public class UserService {
 			return true;
 		} else
 			return false;
+		
+		
 
 	}
-
+	
+	public boolean checkPayment (String uid)
+	{
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		LoanDao loanDao = new LoanDao(session);
+		
+		List<Loan> loans = loanDao.getLoanByUserId(uid);
+		
+		for (Loan ln : loans )
+		{
+			if (!ln.getIsLateFeePaid())
+			{
+				return false;
+			}
+		}
+		
+		
+		return true;
+	}
+	
 	public User getSessionUser(Object user) {
 		User returnedUser = null;
 		returnedUser = (User) user;

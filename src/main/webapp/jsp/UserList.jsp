@@ -11,7 +11,7 @@
 <body>
 <a href="jsp/admincontrol.jsp">Admin Panel</a>
 <br>
-<TABLE BORDER="5" id="userListTable"   WIDTH="50%"   CELLPADDING="4" CELLSPACING="3">
+<TABLE BORDER="5" id="userListTable"   WIDTH="50%"  class="gridtable" CELLPADDING="4" CELLSPACING="3">
    <TR>
    <TH COLSPAN="1"><BR><H3>User ID</H3>
       </TH>

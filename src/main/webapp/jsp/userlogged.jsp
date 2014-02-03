@@ -22,6 +22,8 @@ window.onunload = refreshParent;
 </script>
 <center>
 	<h2>
+		
+	
 		Welcome
 		<c:out value="${currentUser}" />
 		to your page
@@ -37,7 +39,15 @@ window.onunload = refreshParent;
 		</c:otherwise>
 	</c:choose>
 	
-	<table id="rentedBooks" align="center" class="myTable">
+	<c:choose>
+		<c:when test="${paynote == 0}">
+			<font color="red">You have overdue books you need to return</font>
+		</c:when>
+		<c:otherwise>
+		</c:otherwise>
+	</c:choose>
+	
+	<table class="gridtable" id="rentedBooks" align="center" class="myTable">
 		<tr>
 			<th>Rented Book ID</th>
 			<th>Expiry Date</th>
@@ -47,11 +57,11 @@ window.onunload = refreshParent;
 		</tr>
 		<c:forEach var="ln" items="${loanList}">
 			<tr>
-				<td><c:out value="${ln.bookId}"></c:out></td>
+				<td id="${ln.bookId}"><c:out value="${ln.bookId}"></c:out></td>
 				<td>${ln.expiryDate}</td>
 				<td>${ln.renewalCount}</td>
 				<td><a
-					href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">Delete</a></td>
+					href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">Return</a></td>
 				<td><a
 					href="${pageContext.request.contextPath}/RenewBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">Renew</a></td>
 			</tr>
