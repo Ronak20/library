@@ -10,10 +10,11 @@
 <% }%>
 <table align="center" id="userBookListTable" class="gridtable">
 	<tr>
+		<th>ID</th>
 		<th>ISBN</th>
 		<th>Book name</th>
 		<th>Copies</th>
-		<th>Delete</th>
+		<th>Rent</th>
 	</tr>
     <c:set var="userId" value="${currentUser}" scope="session"></c:set>
 	<c:forEach var="ln" items="${bookList}">

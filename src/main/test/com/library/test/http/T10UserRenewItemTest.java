@@ -45,11 +45,14 @@ public class T10UserRenewItemTest extends TestCase {
 
 	}
 
+	
 	public void testRenewBook() throws Exception {
 		logger.info("Entering testRentBookListBooks");
 		WebConversation conversation = new WebConversation();
-		//WebRequest request = new GetMethodWebRequest(Constant.USERBOOKS_GET_URL);
-		//WebResponse response = conversation.getResponse(request);
+		WebRequest request = new GetMethodWebRequest(Constant.LOGIN_URL);
+		request.setParameter("username", "sultan");
+		request.setParameter("password", "sultan");
+		WebResponse response = conversation.getResponse(request);
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		BookDao bookDao = new BookDao(session);

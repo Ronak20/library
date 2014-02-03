@@ -120,9 +120,13 @@ public class TC7UserBorrowItemTest extends TestCase {
 		System.out.println(aRow);
 
 		assertEquals("Testing if book was added", expectedBid,
-				responseBookList.getTableWithID("rentedBooks")
-						.getTableCellWithID(requestBookList.getParameter("82"))
-						.getID());
+				responseBookList.getTableWithID("82"));
+				//responseBookList.getTableWithID("rentedBooks")
+				//.getCellAsText(1,1));
+						
+				
+				
+						//.getID());
 		logger.info("Getting Row Count"
 				+ " = "
 				+ userRentedBooksTable.getTableCellWithID(requestBookList
