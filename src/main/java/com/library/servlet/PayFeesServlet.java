@@ -24,54 +24,56 @@ import com.library.service.UserService;
  */
 public class PayFeesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PayFeesServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public PayFeesServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		LoanDao loanDao = new LoanDao(session);
 		LoanService ls = new LoanService(loanDao);
-		UserDao userDao = new UserDao (session);
+		UserDao userDao = new UserDao(session);
 		String userid = request.getParameter("userid");
 		String loanid = request.getParameter("loanid");
-		UserService us = new UserService (userDao);
-		//List<Book> books = bookDao.getAll();
-		
+		UserService us = new UserService(userDao);
+		// List<Book> books = bookDao.getAll();
+
 		String userId = request.getParameter("currentUser");
 		System.out.println(userId);
-		
+
 		/*
-		 * user service pay fine 
-		 * 
+		 * user service pay fine
 		 */
-		
+
 		us.payFees(loanid);
-		
+
 		request.setAttribute("sessionCurrentUser", userDao.getUserById(userid));
 		request.setAttribute("loanList", loanDao.getLoanByUserId(userid));
-		
-		request.getSession().getServletContext().getRequestDispatcher("/jsp/userlogged.jsp").include(request, response);
-		
-		
+
+		request.getSession().getServletContext()
+				.getRequestDispatcher("/jsp/userlogged.jsp")
+				.include(request, response);
+
 	}
-	
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 

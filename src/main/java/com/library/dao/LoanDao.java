@@ -152,7 +152,7 @@ public class LoanDao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			String hql = "UPDATE Loan SET renewalCount = renewalCount + 1 WHERE loanId= :loanid";
+			String hql = "UPDATE Loan SET renewalCount = renewalCount + 1 WHERE loanId= :loanid and expiryDate <= current_date() ";
 			Query query = session.createQuery(hql);
 			query.setString("loanid", aLoanId);
 			query.executeUpdate();

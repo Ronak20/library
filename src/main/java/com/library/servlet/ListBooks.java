@@ -41,7 +41,7 @@ public class ListBooks extends HttpServlet {
 		LoanService ls = new LoanService(loanDao);
 		BookDao bookDao = new BookDao (session);
 		BookService bs = new BookService (bookDao);
-		List<Book> books = bookDao.getAll();
+		List<Book> books = bookDao.getAllBookWithCopies();
 		
 		String userId = request.getParameter("currentUser");
 		System.out.println(userId);

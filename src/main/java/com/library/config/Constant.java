@@ -29,5 +29,10 @@ public class Constant {
 	public static final String ADMIN_PASSWORD = "admin";
 	public static final String STUDENT_USERNAME = "student";
 	public static final String STUDENT_PASSWORD = "student";
-	
+
+	public static String getRenewLoanUrl(String loanid, String userid) {
+		return DOMAIN + PORT + APP_NAME + "/RenewBook" + "?aLoan=" + loanid
+				+ "&currentUser=" + userid;
+	}
+
 }

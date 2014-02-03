@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.library.model.Book;
 
@@ -77,6 +78,12 @@ public class BookDao {
 
 	public List<Book> getAll() {
 		List<Book> bookList = session.createCriteria(Book.class).list();
+		return bookList;
+	}
+	
+	public List<Book> getAllBookWithCopies() {
+		List<Book> bookList = session.createCriteria(Book.class).add(
+                Restrictions.gt("copies", 0)).list();
 		return bookList;
 	}
 	

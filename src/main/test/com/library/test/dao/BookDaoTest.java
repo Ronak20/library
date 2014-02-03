@@ -1,5 +1,7 @@
 package com.library.test.dao;
 
+import java.util.UUID;
+
 import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Assert;
@@ -33,12 +35,12 @@ public class BookDaoTest {
 	
 	@Test
 	public void testAddBook(){
-		Book book = new Book("MyFirstBook3","MyFirstBookisbn3",10);
+		Book book = new Book("MyFirstBook3","MyFirstBookisbn3",0);
 		this.bookDao.saveOrUpdate(book);
 		
 		Assert.assertSame(bookDao.getBookByName(book.getBookName()).getBookName(), book.getBookName());
 		System.out.println(book.getBookName());
-		bookDao.deleteBook(book);
+		//bookDao.deleteBook(book);
 	}
 	
 	@Test

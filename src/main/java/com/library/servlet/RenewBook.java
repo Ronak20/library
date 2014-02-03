@@ -21,88 +21,74 @@ import com.library.model.User;
  */
 public class RenewBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RenewBook() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	public RenewBook() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-		
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		//Loan loan = null;
+		// Loan loan = null;
 		User user = null;
-		
-		LoanDao loanDao = new LoanDao (session);
+
+		LoanDao loanDao = new LoanDao(session);
 		UserDao userDao = new UserDao(session);
-		
-		
 
 		user = userDao.getUserById(request.getParameter("currentUser"));
 		List<Loan> loans = loanDao.getLoanByUserId(user.getUserId());
 		Loan loan = loanDao.getLoanByID(request.getParameter("aLoan"));
-		
-		
-		//printing for tracing
-		
+
+		// printing for tracing
+
 		System.out.print(request.getParameter("currentUser"));
-		
-		
-	
-	
-		//Renew Loan
-		
-			
-		
-		if (loan.getRenewalCount() <3 && loan.getIsLateFeePaid())
-		{ 
+
+		// Renew Loan
+
+		if (loan.getRenewalCount() < 3 && loan.getIsLateFeePaid()) {
 			loanDao.renewLoan((String) request.getParameter("aLoan"));
 			System.out.println("Renewed");
 			request.setAttribute("message", "renewed");
-			
-		}
-		else
-		{
+
+		} else {
 			request.setAttribute("message", "unallowed");
 			System.out.println("Unallowed");
 		}
-		
-		
-		
-		//printing for tracing
-		
+
+		// printing for tracing
+
 		System.out.println(loans.toString());
-		
+
 		request.setAttribute("sessionCurrentUser", user);
 		request.setAttribute("loanList", loans);
-		
-		//printing for tracing
+
+		// printing for tracing
 		System.out.println(user.toString());
 		System.out.println(loans.toString());
-		//request.setAttribute("loanList", request.getParameter("aLoan"));
-		
-		
-		request.getSession().getServletContext().getRequestDispatcher("/jsp/userlogged.jsp").include(request, response);
-		//response.sendRedirect("/login");
+		// request.setAttribute("loanList", request.getParameter("aLoan"));
 
-		
-		
-		
+		this.getServletContext().getRequestDispatcher("/jsp/userlogged.jsp")
+				.include(request, response);
+		// response.sendRedirect("/login");
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
