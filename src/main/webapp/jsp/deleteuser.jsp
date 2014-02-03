@@ -8,18 +8,22 @@
 function checkBoxValidation()
 {
 	
-	event.preventDefault();
 	
+	var x = document.getElementById("deleteUserTable").rows.length;
 	var j = 0;
-for(var i=0; i <= (document.Deleteform.deleteThisUser.length); i++)
-{
-if(document.Deleteform.deleteThisUser[i].checked)
-	{
-	
-	j++;
-	break;
+	if (x > 2) {
+	    for (var i = 0; i < (document.Deleteform.deleteThisUser.length) ; i++) {
+	        if (document.Deleteform.deleteThisUser[i].checked) {
+
+	            j++;
+	            break;
+	        }
+	    }
 	}
-}
+	else if(x == 2){
+	    if (document.Deleteform.deleteThisUser.checked)
+	        j++;
+	}
 
 if(j==0)
 	{
@@ -42,12 +46,14 @@ else
 System.out.println("no problem till now");
 if((request.getAttribute("notDeletedUsers")) != null)
 {%>
-<h6>UserIds: <% request.getAttribute("notDeletedUsers").toString(); %> could not be deleted because they may have outstanding lone</h6>
+<h6 style="color: red;">UserIds: <%=request.getAttribute("notDeletedUsers").toString() %> could not be deleted because they may have outstanding lone</h6>
  
 <%}
 %>
-<TABLE BORDER="5"    WIDTH="50%"   CELLPADDING="4" CELLSPACING="3">
+<TABLE BORDER="5" id="deleteUserTable"   WIDTH="50%"   CELLPADDING="4" CELLSPACING="3">
    <TR>
+   <TH COLSPAN="1"><BR><H3>User Id  </H3>
+      </TH>
       <TH COLSPAN="1"><BR><H3>User Name  </H3>
       </TH>
      <!--   <TH COLSPAN="2"><BR><H3>User ID  </H3>
@@ -71,9 +77,10 @@ if((request.getAttribute("notDeletedUsers")) != null)
 	  
  %>
 	  <TR ALIGN="CENTER">
+	  <TD id="<%=userID %>"><%=userID %></TD>
       <TD><%=userName %></TD>
       <!--  <TD><% userList.get(i).getUserId();%></TD> -->
-      <TD><input type="checkbox" name="deleteThisUser" value="<%=userID %>"></TD>
+      <TD><input type="checkbox" id="<%=userID%>" name="deleteThisUser" value="<%=userID %>"></TD>
       </TR>
 	  
  <%} %>
@@ -81,7 +88,7 @@ if((request.getAttribute("notDeletedUsers")) != null)
  
 </TABLE>
 <br>
-<input type="submit" value="submit">
+<input type="submit" value="submit" name="submitbutton">
 </form>
 
 </body>

@@ -21,6 +21,8 @@ public class Constant {
 			+ "/listBooks";
 	public static final String RENT_BOOK_URL = DOMAIN + PORT + APP_NAME
 			+ "/rentBook";
+	public static final String DELETE_USER_URL = DOMAIN + PORT + APP_NAME
+			+ "/DeleteUser";
 	public static final String ADMIN_USERNAME = "admin";
 	public static final String ADMIN_PASSWORD = "admin";
 	public static final String STUDENT_USERNAME = "student";
