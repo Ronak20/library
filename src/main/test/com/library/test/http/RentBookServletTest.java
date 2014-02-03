@@ -7,6 +7,7 @@ import org.hibernate.Session;
 
 import com.library.config.Constant;
 import com.library.config.HibernateUtil;
+import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.SubmitButton;
@@ -48,12 +49,15 @@ public class RentBookServletTest extends TestCase {
 		//WebRequest request = new GetMethodWebRequest(Constant.USERBOOKS_GET_URL);
 		//WebResponse response = conversation.getResponse(request);
 		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		BookDao bookDao = new BookDao(session);
+		
 		
 		
 		WebRequest requestBookList = new GetMethodWebRequest(Constant.USERBOOKS_GET_URL);
 		WebResponse responseBookList = conversation.getResponse(requestBookList);
 		WebTable userBookListTable = responseBookList.getTableWithID("userBookListTable");
-		TableCell tableCell = userBookListTable.getTableCellWithID("isbn" + "");
+		//TableCell tableCell = userBookListTable.getTableCellWithID("isbn" + "");
 		/*
 		 * Testing number of books for user panel when clicked "RentBook"
 		 * FIXME : change '6' to the actualy number of books you have in your database
@@ -61,15 +65,14 @@ public class RentBookServletTest extends TestCase {
 		
 		requestBookList.setParameter("currentUser", "20");
 		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		LoanDao loanDao = new LoanDao(session);
+
 		
-		
-		
-		assertEquals("coloumn count",loanDao.getAll().size(), userBookListTable.getRowCount()-3);
+		assertEquals("coloumn count",bookDao.getAll().size(), userBookListTable.getRowCount() -1);
 		logger.info("Getting Row Count" + " = " + userBookListTable.getRowCount());
 		logger.info("Exited testRentBook");
 		session.close();
+		responseBookList.close();
+		
 	}
 
 	public void testRentBookResult() throws Exception {
@@ -108,6 +111,8 @@ public class RentBookServletTest extends TestCase {
 		
 		
 		logger.info("Exited testRentBook");
+		responseBookList.close();
+		session.close();
 	}
 	
 }
