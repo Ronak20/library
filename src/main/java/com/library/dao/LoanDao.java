@@ -241,8 +241,7 @@ public class LoanDao {
 	}
 
 	public void payFees(String loanId) {
-		// TODO Auto-generated method stub
-
+		
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();

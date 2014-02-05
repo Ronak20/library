@@ -1,22 +1,32 @@
 package com.library.test.http;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
+import com.library.config.Constant;
 import com.library.config.HibernateUtil;
 import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
 import com.library.model.Book;
+import com.library.model.Loan;
 import com.library.model.Role;
 import com.library.model.User;
 import com.library.service.BookService;
 import com.library.service.LoanService;
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebConversation;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 public class TC22 {
 
@@ -60,6 +70,9 @@ private static Logger logger = Logger.getLogger(TC20.class);
 		
 		loanService.renewLoan(this.userID, this.bookID);
 		
+		Thread.sleep(6*60*1000);
+		
+		loanDao.payFees(this.loanID);
 		/*WebConversation conversation = new WebConversation();
 		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
 		WebResponse response = conversation.getResponse(request);
@@ -77,9 +90,23 @@ private static Logger logger = Logger.getLogger(TC20.class);
 	}
 	
 	@Test
-	public void testTC20PayFineAfterRenewal() throws InterruptedException
+	public void testTC22BorrowBookAfterPayingFine() throws InterruptedException, IOException, SAXException
 	{
-		Thread.sleep(5*60*1000);
+		logger.info("Entered testTC22BorrowBookAfterPayingFine");
+		WebConversation conversation = new WebConversation();
+		WebRequest requestBookList = new GetMethodWebRequest(
+				Constant.RENT_BOOK_URL);
+		requestBookList.setParameter("auser", userID);
+		requestBookList.setParameter("bookid", bookID);
+		WebResponse responseBookList = conversation
+				.getResponse(requestBookList);
+		
+		
+		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID);
+		logger.debug(loan);
+		Assert.assertNotNull(loan);		
+		
+		logger.info("Exited testTC22BorrowBookAfterPayingFine");
 	}
 	
 }

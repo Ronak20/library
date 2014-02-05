@@ -36,5 +36,9 @@ public class Constant {
 		return DOMAIN + PORT + APP_NAME + "/RenewBook" + "?aLoan=" + loanid
 				+ "&currentUser=" + userid;
 	}
-
+	
+	public static String getPayFeeUrl(String loadid,String userid)
+	{
+		return DOMAIN + PORT + APP_NAME +"/payFeesServlet"+"?loanid="+loadid+"&userid"+userid;
+	}
 }

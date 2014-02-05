@@ -1,12 +1,15 @@
 package com.library.test.http;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import com.library.config.Constant;
 import com.library.config.HibernateUtil;
@@ -14,16 +17,19 @@ import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
 import com.library.model.Book;
+import com.library.model.Loan;
 import com.library.model.Role;
 import com.library.model.User;
 import com.library.service.BookService;
 import com.library.service.LoanService;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.SubmitButton;
+import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 public class TC19 {
 
@@ -83,10 +89,23 @@ public class TC19 {
 	}
 	
 	@Test
-	public void testTC19PayFine() throws InterruptedException
+	public void testTC19PayFine() throws InterruptedException, IOException, SAXException
 	{
+		logger.info("Entered testTC19PayFine");
 		Thread.sleep(4*60*1000);
+		logger.info(" loanID : "+loanID+" bookID : "+bookID+" userID : "+userID);
+		WebConversation conversation = new WebConversation();
+		WebRequest requestPayFine = new GetMethodWebRequest(
+				Constant.getPayFeeUrl(loanID, userID));
+		WebResponse responsePayFine = conversation.getResponse(requestPayFine);
 		
+		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID);
+		logger.debug(loan);
+		
+		Assert.assertTrue(loan.getIsLateFeePaid());
+		Assert.assertEquals(0,loan.getLateFee());
+		
+		logger.info("Exited testTC19PayFine");
 	}
 
 }
