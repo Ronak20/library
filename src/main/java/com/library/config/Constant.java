@@ -40,6 +40,6 @@ public class Constant {
 	
 	public static String getPayFeeUrl(String loadid,String userid)
 	{
-		return DOMAIN + PORT + APP_NAME +"/payFeesServlet"+"?loanid="+loadid+"&userid"+userid;
+		return DOMAIN + PORT + APP_NAME +"/payFeesServlet"+"?loanid="+loadid+"&userid="+userid;
 	}
 }
