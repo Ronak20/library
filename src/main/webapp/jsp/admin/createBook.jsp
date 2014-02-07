@@ -6,7 +6,7 @@
 <div>
 <c:choose>
 	<c:when test="${book == null}">
-		<form id="addBookForm" method="post" action="../book">
+		<form id="addBookForm" method="post" action="../../book">
 			<table align="center">
 				<tr>
 					<td>Book Name</td>

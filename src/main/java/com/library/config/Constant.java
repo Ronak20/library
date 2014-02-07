@@ -6,7 +6,7 @@ public class Constant {
 	private static final String PORT = "8080";
 	public static final String ROOT_URL = DOMAIN + PORT + APP_NAME;
 	public static final String BOOK_ADD_URL = DOMAIN + PORT + APP_NAME
-			+ "/jsp/createBook.jsp";
+			+ "/jsp/admin/createBook.jsp";
 	public static final String BOOK_GET_URL = DOMAIN + PORT + APP_NAME
 			+ "/book";
 	public static final String BOOK_UPDATE_URL = DOMAIN + PORT + APP_NAME
