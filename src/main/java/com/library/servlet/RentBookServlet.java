@@ -15,6 +15,7 @@ import com.library.config.LogConstant;
 import com.library.config.PageConstant;
 import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
+import com.library.exception.dao.NotFoundException;
 import com.library.exception.service.ConstraintViolationException;
 import com.library.model.User;
 import com.library.service.BookService;
@@ -56,14 +57,34 @@ public class RentBookServlet extends HttpServlet {
 		if (bookId != null && !bookId.isEmpty() && userId != null
 				&& !userId.isEmpty()) {
 			try {
-				loanService.addLoan(userId, bookId);
-				bookService.decreaseCopies(bookId);
-				request.setAttribute("loanList",
-						loanService.getLoanByUserId(userId));
+				boolean isLoanAdded = loanService.addLoan(userId, bookId);
+				if (isLoanAdded) {
+					bookService.decreaseCopies(bookId);
+					request.setAttribute("loanList",
+							loanService.getLoanByUserId(userId));
+					session.close();
+					logger.info(LogConstant.REDIRECT + PageConstant.USER_PAGE);
+					this.getServletContext()
+							.getRequestDispatcher(PageConstant.USER_PAGE)
+							.forward(request, response);
+				} else {
+					session.close();
+					logger.info(LogConstant.REDIRECT
+							+ PageConstant.USER_BOOK_RENT_LIST_SERVLET);
+					this.getServletContext()
+							.getRequestDispatcher(
+									PageConstant.USER_BOOK_RENT_LIST_SERVLET)
+							.forward(request, response);
+				}
+			} catch (NotFoundException notFoundException) {
+				logger.error("Book not available", notFoundException);
+				request.setAttribute("isBookAvailable", false);
 				session.close();
-				logger.info(LogConstant.REDIRECT + PageConstant.USER_PAGE);
+				logger.info(LogConstant.REDIRECT
+						+ PageConstant.USER_BOOK_RENT_LIST_SERVLET);
 				this.getServletContext()
-						.getRequestDispatcher(PageConstant.USER_PAGE)
+						.getRequestDispatcher(
+								PageConstant.USER_BOOK_RENT_LIST_SERVLET)
 						.forward(request, response);
 			} catch (ConstraintViolationException constraintViolationException) {
 				request.setAttribute("hasOutstandingLoan", true);

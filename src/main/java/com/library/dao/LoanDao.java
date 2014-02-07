@@ -10,6 +10,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.library.config.ConfigConstant;
+import com.library.exception.dao.NotFoundException;
+import com.library.model.Book;
 import com.library.model.Loan;
 
 public class LoanDao {
@@ -20,43 +22,40 @@ public class LoanDao {
 		this.session = session;
 	}
 
-	public String saveOrUpdate(Loan loan) {
-		Transaction tx = null;
-		try {
-			
+	public String saveOrUpdate(Loan loan) throws NotFoundException {
+		Transaction tx = session.beginTransaction();
+
+		BookDao bookDao = new BookDao(session);
+		Book book = bookDao.getBookByID(loan.getBookId());
+
+		if (book.getCopies() > 0) {
+
 			Calendar cal = Calendar.getInstance();
 
 			// Formatting the time to string so we can trace it
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat df = new SimpleDateFormat(
+					ConfigConstant.DATE_PATTERN);
 			String utcTime = df.format(new Date());
 
-			// setting loan time (this is indicating it is three minutes, we can
-			// make it modifiable later)
+			// setting loan time
 			loan.setLoanTime(ConfigConstant.LOAN_PERIOD);
 
-			// calculating Expiry Time: current time plus 3 minutes (which is
-			// 60k ms * 3)
 			Date expiryTime = new Date(System.currentTimeMillis()
 					+ loan.getLoanTime());
-			// loan.setExpiryDate(utcTime);
 
 			// setting expiry time
 			loan.setExpiryDate(expiryTime);
 
 			loan.setIsLateFeePaid(true);
 
-			tx = session.beginTransaction();
 			session.saveOrUpdate(loan);
 			session.flush();
-			tx.commit();
-			session.refresh(loan);
-			return loan.getLoanId();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			tx.rollback();
+		} else {
+			throw new NotFoundException("Book not available");
 		}
-		return null;
+		tx.commit();
+		session.refresh(loan);
+		return loan.getLoanId();
 	}
 
 	public List<Loan> getAll() {
@@ -135,13 +134,14 @@ public class LoanDao {
 			String hql = "UPDATE Loan SET renewalCount = renewalCount + 1,expiryDate =:ed WHERE loanId=:loanid and expiryDate >= current_timestamp() ";
 			Query query = session.createQuery(hql);
 			query.setString("loanid", aLoanId);
-			
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			SimpleDateFormat df = new SimpleDateFormat(
+					ConfigConstant.DATE_PATTERN);
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(new Date());
 			cal.add(Calendar.MINUTE, ConfigConstant.RENEWAL_PERIOD);
 			String newTime = df.format(cal.getTime());
-			
+
 			query.setString("ed", newTime);
 			query.executeUpdate();
 			tx.commit();
@@ -210,7 +210,7 @@ public class LoanDao {
 	}
 
 	public void payFees(String loanId) {
-		
+
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
@@ -233,17 +233,17 @@ public class LoanDao {
 				+ " WHERE userid = :userid and l.expiryDate <= current_timestamp()";
 		Query query = session.createQuery(hql);
 		query.setParameter("userid", userid);
-		
+
 		int result = query.executeUpdate();
 		return result;
 	}
-	
+
 	public int updateLateFees() {
 
 		String hql = "UPDATE Loan l set l.isLateFeePaid = 0,l.lateFee = 100"
 				+ " WHERE l.expiryDate <= current_timestamp()";
 		Query query = session.createQuery(hql);
-		
+
 		int result = query.executeUpdate();
 		return result;
 	}

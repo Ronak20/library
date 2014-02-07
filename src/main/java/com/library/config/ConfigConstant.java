@@ -1,10 +1,12 @@
 package com.library.config;
 
 public class ConfigConstant {
-	//minute
+	// minute
 	public static final int RENEWAL_PERIOD = 2;
-	//mili second
+	// mili second
 	public static final int LOAN_PERIOD = 180000;
-	//second
+	// second
 	public static final int SESSION_PERIOD = 30 * 60;
+
+	public static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 }

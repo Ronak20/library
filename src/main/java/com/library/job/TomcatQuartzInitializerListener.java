@@ -1,5 +1,6 @@
 package com.library.job;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -45,6 +46,10 @@ public class TomcatQuartzInitializerListener implements
 	 */
 	public void contextInitialized(ServletContextEvent arg0) {
 		logger.info(LogConstant.ENTERED + "contextInitialized");
+		
+		ServletContext context = arg0.getServletContext();
+		System.setProperty("rootPath", context.getRealPath("/"));
+		
 		JobDetail job = JobBuilder.newJob(LateFeeUpdateJob.class)
 				.withIdentity("lateFeeUpdate", "payment").build();
 

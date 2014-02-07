@@ -6,12 +6,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
 
-import com.library.config.HibernateUtil;
 import com.library.config.LogConstant;
 import com.library.config.MessageConstant;
+import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
+import com.library.exception.dao.NotFoundException;
 import com.library.exception.service.ConstraintViolationException;
 import com.library.model.Loan;
 
@@ -27,8 +27,9 @@ public class LoanService {
 	/**
 	 * @param loan
 	 *            method to add and update loan
+	 * @throws NotFoundException 
 	 */
-	public void save(Loan loan) {
+	public void save(Loan loan) throws NotFoundException {
 		List<Loan> latePaymentLoans = this.loanDao.getExpiredLoanByUserId(loan
 				.getUserId());
 
@@ -51,32 +52,32 @@ public class LoanService {
 	}
 
 	public String renewLoan(String loanid) {
-		logger.info(LogConstant.ENTERED+"renewLoan");
+		logger.info(LogConstant.ENTERED + "renewLoan");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	Loan loan = getLoanByID(loanid);
-		
+		Loan loan = getLoanByID(loanid);
+
 		Date expiryDate = null;
 		try {
 			expiryDate = sdf.parse(loan.getExpiryDate().toString());
 		} catch (ParseException e) {
 			logger.error("Cannot parse expiry date", e);
 		}
-		
+
 		logger.debug(expiryDate);
 		logger.debug(new Date());
 		logger.debug(loan.getExpiryDate().compareTo(new Date()));
-		
+
 		if (expiryDate.compareTo(new Date()) > 0) {
 			if (loan.getRenewalCount() < 3 && loan.getIsLateFeePaid()) {
 				loanDao.renewLoan(loanid);
-				logger.info(LogConstant.RETURN+"Renewed");
+				logger.info(LogConstant.RETURN + "Renewed");
 				return "Renewed";
 			} else {
-				logger.info(LogConstant.RETURN+"Unallowed");
+				logger.info(LogConstant.RETURN + "Unallowed");
 				return "FeePending";
 			}
 		} else {
-			logger.info(LogConstant.RETURN+"Expired");
+			logger.info(LogConstant.RETURN + "Expired");
 			return "Expired";
 		}
 	}
@@ -131,7 +132,7 @@ public class LoanService {
 	}
 
 	public boolean addLoan(String userId, String bookId)
-			throws ConstraintViolationException {
+			throws ConstraintViolationException, NotFoundException {
 
 		Loan newLoan = new Loan(userId, bookId);
 		String loanId;

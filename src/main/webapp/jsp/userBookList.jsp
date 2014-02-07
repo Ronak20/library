@@ -1,12 +1,20 @@
 <%@include file="layout/header.jsp"%>
 <%@include file="layout/head.jsp"%>
 <div>
-<a href="userPanel">User Panel</a>
+	<a href="userPanel">User Panel</a>
 </div>
 <div>
 	<c:choose>
 		<c:when test="${requestScope.hasOutstandingLoan eq true}">
 			User has outstanding loan.
+		</c:when>
+		<c:otherwise>
+		</c:otherwise>
+	</c:choose>
+	<br />
+	<c:choose>
+		<c:when test="${requestScope.isBookAvailable eq false}">
+			Book not available
 		</c:when>
 		<c:otherwise>
 		</c:otherwise>
