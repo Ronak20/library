@@ -18,11 +18,11 @@ public class Constant {
 	public static final String USER_GET_URL = DOMAIN + PORT + APP_NAME
 			+ "/userList";
 	public static final String USERBOOKS_GET_URL = DOMAIN + PORT + APP_NAME
-			+ "/listBooks";
+			+ "/listBooksRent";
 	public static final String RENT_BOOK_URL = DOMAIN + PORT + APP_NAME
 			+ "/rentBook";
 	public static final String DELETE_USER_URL = DOMAIN + PORT + APP_NAME
-			+ "/DeleteUser";
+			+ "/deleteUser?userid=";
 	public static final String RENEW_BOOK_URL = DOMAIN + PORT + APP_NAME
 			+ "/RenewBook";
 	

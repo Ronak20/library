@@ -35,9 +35,10 @@ public class TC16  extends TestCase{
 	
 	@Before
 	public void setUp() throws Exception {
-		logger.info("Entered setUp for CreateUserTest");
+		logger.info("Entered setUp for TC 16 Delete User Test");
 		WebConversation conversation = new WebConversation();
 		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
+		HttpUnitOptions.setScriptingEnabled(false);
 		WebResponse response = conversation.getResponse(request);
 		logger.debug("Login Page : \n" + response.getText());
 		WebForm loginForm = response.getFormWithID("loginForm");
@@ -45,7 +46,7 @@ public class TC16  extends TestCase{
 		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
 		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
 		loginForm.submit(submitButton);
-		logger.info("Exited setUp");
+		logger.info("Exited setUp for TC 16 Delete User Test");
 	}
 
 	@After
@@ -53,10 +54,8 @@ public class TC16  extends TestCase{
 	}
 
 	public void testDeleteUser() throws Exception {
-		logger.debug("Entered TC16 testDeleteUser");
+		logger.info("Entered TC16 testDeleteUser");
 		User user;
-		WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.DELETE_USER_URL);		
 		String parameterUserName = "MyUser" + System.currentTimeMillis();
 		user = new User("TestFirstName","TestLastName",parameterUserName,"password",Role.STUDENT);
 		 Session session = HibernateUtil.getSessionFactory().openSession();
@@ -64,22 +63,15 @@ public class TC16  extends TestCase{
 		 UserService userService = new UserService(userDao);
 		 userService.saveOrUpdate(user);
 		 session.close();
-		 logger.debug("User added"+ user.getUsername());
-		 WebResponse response = conversation.getResponse(request);
-		 logger.debug("Delete User Form : \n" + response.getText());
-		WebForm deleteUserForm = response.getFormWithName("Deleteform");
-		(deleteUserForm.getControlWithID(user.getUserId())).setAttribute("checked", true);
-		//deleteUserForm.setCheckbox("deleteThisUser", user.getUserId(), true);
-		HttpUnitOptions.setScriptingEnabled(false);
-		SubmitButton deleteUserSubmitButton = deleteUserForm
-				.getSubmitButton("submitbutton");
-		deleteUserForm.submit(deleteUserSubmitButton);
-		WebRequest requestUserList = new GetMethodWebRequest(Constant.USER_GET_URL);
-		WebResponse responseUserList = conversation.getResponse(requestUserList);
-		WebTable userListTable = responseUserList.getTableWithID("userListTable");
-		logger.info("Looking for username" + parameterUserName + "in the existing user list");
-		TableCell tableCell = userListTable.getTableCellWithID(parameterUserName);
-		assertNull(tableCell);
+		 logger.info("User added"+ user.getUsername());
+		 logger.info("trying to delete userID: "+user.getUserId());
+		 WebConversation conversation = new WebConversation();
+		 WebRequest requestDeleteUser = new GetMethodWebRequest(
+				 Constant.DELETE_USER_URL+user.getUserId());
+			WebResponse responseGetUser = conversation.getResponse(requestDeleteUser);
+			WebTable bookListUpdatedTable = responseGetUser.getTableWithID("userListTable");
+			TableCell tableUpdatedCell = bookListUpdatedTable.getTableCellWithID(user.getUserId());
+		assertNull(tableUpdatedCell);
 		logger.info("Exited TC16 testDeleteUser");
 	}
 

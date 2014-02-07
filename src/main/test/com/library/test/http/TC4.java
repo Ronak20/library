@@ -31,6 +31,9 @@ public class TC4  extends TestCase{
 	public int isbn1 = (int) System.currentTimeMillis();
 	public int isbn2 = (int) System.currentTimeMillis();
 	
+	public TC4(String s) {
+		super(s);
+	}
 
 	@Before
 	public void setUp() throws Exception {
