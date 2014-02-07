@@ -44,7 +44,7 @@ public class BookService {
 	}
 
 	public boolean deleteBook(String bookId) {
-		LoanService loanService = new LoanService(loanDao);
+		LoanService loanService = new LoanService(this.loanDao);
 		if (loanService.OkayToDeleteBook(bookId)) {
 			Book book = bookDao.getBookByID(bookId);
 			bookDao.deleteBook(book);

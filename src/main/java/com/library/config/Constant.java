@@ -42,4 +42,9 @@ public class Constant {
 	{
 		return DOMAIN + PORT + APP_NAME +"/payFeesServlet"+"?loanid="+loadid+"&userid="+userid;
 	}
+	
+	public static String getRentBookUrl(String bookid,String userid)
+	{
+		return DOMAIN + PORT + APP_NAME +"/rentBook"+"?bookid="+bookid+"&userid="+userid;
+	}
 }

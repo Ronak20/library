@@ -93,4 +93,8 @@ public class UserService {
 	public User getUserByName(String username) {
 		return userDao.getUserByName(username);
 	}
+	
+	public void delete(User user) {
+		userDao.delete(user);
+	}
 }

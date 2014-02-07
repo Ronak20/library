@@ -52,21 +52,24 @@ public class TC8 {
 
 		// add user
 		session = HibernateUtil.getSessionFactory().openSession();
+		
+		loanDao = new LoanDao(session);
+		loanService = new LoanService(loanDao);
+		
 		userDao = new UserDao(session);
-		userService = new UserService(userDao);
+		userService = new UserService(userDao, loanDao);
 		user = new User("fName" + uuid, "lName" + uuid, "uName" + uuid, "pWord"
 				+ uuid, Role.ADMIN);
 		this.userID = userDao.saveOrUpdate(user);
 
 		// add book
 		bookDao = new BookDao(session);
-		bookService = new BookService(bookDao);
+		bookService = new BookService(bookDao, loanDao);
 
 		this.isbn = "isbn" + uuid;
 		Book book = new Book("bookname" + uuid, isbn, 10);
 		this.bookID = bookDao.saveOrUpdate(book);
 
-		loanDao = new LoanDao(session);
 		logger.info(LogConstant.EXITED);
 	}
 
@@ -74,21 +77,25 @@ public class TC8 {
 	public void tearDown() throws Exception {
 		loanService.delete(this.userID, this.bookID);
 		bookService.deleteBook(this.bookID);
-		userService.deleteUser(this.userID);
+		userService.delete(this.user);
+		session.close();
 	}
 
 	@Test
 	public void testBorrowMultipleCopies() throws InterruptedException,
-	IOException, SAXException {
+			IOException, SAXException {
 		logger.info("Entered testBorrowMultipleCopies");
 		logger.info(" loanID : " + loanID + " bookID : " + bookID
 				+ " userID : " + userID);
 
 		WebConversation conversation = new WebConversation();
-		WebResponse response = conversation.getResponse(Constant.RENT_BOOK_URL);
-		WebResponse response2 = conversation.getResponse(Constant.RENT_BOOK_URL);
-		WebResponse response3 = conversation.getResponse(Constant.RENT_BOOK_URL);
-		
+		WebResponse response = conversation.getResponse(Constant
+				.getRentBookUrl(bookID, userID));
+		WebResponse response2 = conversation.getResponse(Constant
+				.getRentBookUrl(bookID, userID));
+		WebResponse response3 = conversation.getResponse(Constant
+				.getRentBookUrl(bookID, userID));
+
 		List<Loan> loanList = loanDao.getLoanByUserIdBookId(userID, bookID);
 		logger.debug(loanList);
 
