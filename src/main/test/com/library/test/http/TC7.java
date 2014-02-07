@@ -28,15 +28,18 @@ import com.library.service.UserService;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebResponse;
 
-public class TC8 {
+public class TC7 {
 
-	private static Logger logger = Logger.getLogger(TC8.class);
+	private static Logger logger = Logger.getLogger(TC7.class);
 
 	private Session session;
 	private String isbn;
-	private String loanID;
+	private String isbn2;
+	private String isbn3;
 	private String userID;
 	private String bookID;
+	private String bookID2;
+	private String bookID3;
 	private BookDao bookDao;
 	private UserDao userDao;
 	private LoanDao loanDao;
@@ -52,10 +55,10 @@ public class TC8 {
 
 		// add user
 		session = HibernateUtil.getSessionFactory().openSession();
-		
+
 		loanDao = new LoanDao(session);
 		loanService = new LoanService(loanDao);
-		
+
 		userDao = new UserDao(session);
 		userService = new UserService(userDao, loanDao);
 		user = new User("fName" + uuid, "lName" + uuid, "uName" + uuid, "pWord"
@@ -70,13 +73,27 @@ public class TC8 {
 		Book book = new Book("bookname" + uuid, isbn, 10);
 		this.bookID = bookDao.saveOrUpdate(book);
 
+		UUID uuid2 = UUID.randomUUID();
+		this.isbn2 = "isbn" + uuid2;
+		Book book2 = new Book("bookname" + uuid2, isbn2, 20);
+		this.bookID2 = bookDao.saveOrUpdate(book2);
+
+		UUID uuid3 = UUID.randomUUID();
+		this.isbn3 = "isbn" + uuid3;
+		Book book3 = new Book("bookname" + uuid3, isbn3, 30);
+		this.bookID3 = bookDao.saveOrUpdate(book3);
+
 		logger.info(LogConstant.EXITED);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		loanService.delete(this.userID, this.bookID);
+		loanService.delete(this.userID, this.bookID2);
+		loanService.delete(this.userID, this.bookID3);
 		bookService.deleteBook(this.bookID);
+		bookService.deleteBook(this.bookID2);
+		bookService.deleteBook(this.bookID3);
 		userService.delete(this.user);
 		session.close();
 	}
@@ -85,22 +102,33 @@ public class TC8 {
 	public void testBorrowMultipleCopies() throws InterruptedException,
 			IOException, SAXException {
 		logger.info("Entered testBorrowMultipleCopies");
-		logger.info(" loanID : " + loanID + " bookID : " + bookID
-				+ " userID : " + userID);
+		logger.info("bookID : " + bookID + " userID : " + userID);
 
 		WebConversation conversation = new WebConversation();
 		WebResponse response = conversation.getResponse(Constant
 				.getRentBookUrl(bookID, userID));
 		WebResponse response2 = conversation.getResponse(Constant
-				.getRentBookUrl(bookID, userID));
+				.getRentBookUrl(bookID2, userID));
 		WebResponse response3 = conversation.getResponse(Constant
-				.getRentBookUrl(bookID, userID));
+				.getRentBookUrl(bookID3, userID));
 
 		List<Loan> loanList = loanDao.getLoanByUserIdBookId(userID, bookID);
 		logger.debug(loanList);
 
 		Assert.assertNotNull(loanList);
-		Assert.assertSame(3, loanList.size());
+		Assert.assertSame(1, loanList.size());
+
+		List<Loan> loanList2 = loanDao.getLoanByUserIdBookId(userID, bookID2);
+		logger.debug(loanList2);
+
+		Assert.assertNotNull(loanList2);
+		Assert.assertSame(1, loanList2.size());
+
+		List<Loan> loanList3 = loanDao.getLoanByUserIdBookId(userID, bookID3);
+		logger.debug(loanList3);
+
+		Assert.assertNotNull(loanList3);
+		Assert.assertSame(1, loanList3.size());
 
 		logger.info("Exited testBorrowMultipleCopies");
 	}
