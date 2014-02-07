@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
+<%@  taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <style type="text/css">
 table.gridtable {
-	font-family: verdana,arial,sans-serif;
-	font-size:11px;
-	color:#333333;
+	font-family: verdana, arial, sans-serif;
+	font-size: 11px;
+	color: #333333;
 	border-width: 1px;
 	border-color: #666666;
 	border-collapse: collapse;
 }
+
 table.gridtable th {
 	border-width: 1px;
 	padding: 8px;
@@ -19,6 +22,7 @@ table.gridtable th {
 	border-color: #666666;
 	background-color: #dedede;
 }
+
 table.gridtable td {
 	border-width: 1px;
 	padding: 8px;
@@ -35,5 +39,3 @@ table.gridtable td {
 <!-- <link rel="stylesheet" href="css/jquery-ui.min.css" />
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.min.js"></script> -->
-
-

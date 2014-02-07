@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.library.exception.dao.NotFoundException;
 import com.library.model.User;
 
 public class UserDao {
@@ -33,29 +34,28 @@ public class UserDao {
 		return null;
 	}
 
-	public boolean isValid(String username, String pass) {
-		logger.info("isValid username : " + username + " pass  : " + pass);
-		boolean isValid = false;
-
-		String hql = "FROM User U WHERE U.username = :user_name";
+	public User get(String username, String pass) throws NotFoundException {
+		logger.info("get username : " + username + " pass  : " + pass);
+		
+		String hql = "FROM User U WHERE U.username = :user_name and U.password = :pass_word";
 		Query query = session.createQuery(hql);
 		query.setParameter("user_name", username);
+		query.setParameter("pass_word", pass);
 		List<User> userList = query.list();
-		logger.debug("isValid userList : " + userList);
+		
 		if (userList != null && !userList.isEmpty()) {
-			User user = userList.get(0);
+			User authorizedUser = userList.get(0);
 
-			if (!user.equals(null)) {
-				isValid = true;
-				logger.info("return isValid : " + isValid);
-				return isValid;
+			if (!authorizedUser.equals(null)) {
+				logger.info("return get : " + authorizedUser);
+				return authorizedUser;
 			} else {
-				logger.info("return isValid : " + isValid);
-				return isValid;
+				logger.error(new NotFoundException("user not found"));
+				throw new NotFoundException("user not found");
 			}
 		} else {
-			logger.info("return isValid : " + isValid);
-			return isValid;
+			logger.error(new NotFoundException("user not found"));
+			throw new NotFoundException("user not found");
 		}
 	}
 
@@ -100,15 +100,16 @@ public class UserDao {
 	}
 
 	public void delete(User user) {
+		logger.info("user : "+user);
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-
 			session.delete(user);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
 		}
+		logger.info("return");
 	}
 }

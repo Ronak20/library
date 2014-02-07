@@ -112,11 +112,11 @@
 		<servlet-class>com.library.servlet.PayFeesServlet</servlet-class>
 	</servlet>
 
-	
+
 
 	<servlet-mapping>
 		<servlet-name>UserServlet</servlet-name>
-		<url-pattern>/user</url-pattern>
+		<url-pattern>/createUser</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
@@ -151,7 +151,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DeleteUserServlet</servlet-name>
-		<url-pattern>/DeleteUser</url-pattern>
+		<url-pattern>/deleteUser</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>LogoutServlet</servlet-name>
@@ -163,7 +163,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>UserListServlet</servlet-name>
-		<url-pattern>/UserList</url-pattern>
+		<url-pattern>/userList</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>RentBook</servlet-name>

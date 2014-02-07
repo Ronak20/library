@@ -2,13 +2,14 @@ package com.library.service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.library.dao.BookDao;
-import com.library.model.Book;
-import com.library.model.User;
 import com.library.dao.LoanDao;
-import com.library.model.Loan;
+import com.library.model.Book;
 
 public class BookService {
+	private static Logger logger = Logger.getLogger(BookService.class);
 	
 	BookDao bookDao;
 	
@@ -52,5 +53,9 @@ public class BookService {
 	public Book getBookByID(String bookid){
 		return bookDao.getBookByID(bookid);
 	}
-
+	
+	public List<Book> getAllBookWithCopies() {
+		return this.getAllBookWithCopies();
+	}
+	
 }

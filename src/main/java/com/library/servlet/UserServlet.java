@@ -7,10 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
-
 import com.library.config.HibernateUtil;
+import com.library.config.PageConstant;
 import com.library.dao.UserDao;
 import com.library.model.Role;
 import com.library.model.User;
@@ -21,42 +22,51 @@ import com.library.service.UserService;
  */
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    /**
-     * Default constructor. 
-     */
-    public UserServlet() {
-        
-    }
+	private static Logger logger = Logger.getLogger(UserServlet.class);
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Default constructor.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    System.out.println("Get received");
-		//response.sendRedirect("jsp/createUser.jsp");
+	public UserServlet() {
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    System.out.println("Post received");
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Get received");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Post received");
 		String userName = request.getParameter("username");
-	    String firstName = request.getParameter("firstname");
-	    String lastName = request.getParameter("lastname");
-	    String password = request.getParameter("password");
-	    String role = request.getParameter("role");
-	    
-	    User user = new User(firstName,lastName,userName,password,Role.parse(role));
-	    
-	    Session session = HibernateUtil.getSessionFactory().openSession();
-	    UserDao userDao = new UserDao(session);
-	    UserService userService = new UserService(userDao);
-	    userService.saveOrUpdate(user);
-	    session.close();
-	    System.out.println("User added");
-	    this.getServletContext().getRequestDispatcher("/UserList").forward(request, response);
+		String firstName = request.getParameter("firstname");
+		String lastName = request.getParameter("lastname");
+		String password = request.getParameter("password");
+		String role = request.getParameter("role");
+
+		logger.info("firstName : " + firstName + " lastName : " + lastName
+				+ " userName : " + userName + " password :  " + password
+				+ " role : " + role);
+		User user = new User(firstName, lastName, userName, password,
+				Role.parse(role));
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		UserDao userDao = new UserDao(session);
+		UserService userService = new UserService(userDao);
+		userService.saveOrUpdate(user);
+		session.close();
+		logger.info("User added");
+		this.getServletContext().getRequestDispatcher(PageConstant.USER_LIST_SERVLET)
+				.forward(request, response);
 	}
 
 }

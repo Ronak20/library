@@ -2,11 +2,11 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="">
+ <session-factory name="HibernateSessionFactory">
   <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.username">root</property>
-  <property name="hibernate.connection.password"></property>
+  <property name="hibernate.connection.password">root</property>
   <property name="hibernate.connection.pool_size">1</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/library</property>
   <property name="hibernate.current_session_context_class">thread</property>

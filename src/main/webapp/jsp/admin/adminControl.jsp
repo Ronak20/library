@@ -1,27 +1,26 @@
-<%@include file="layout/header.jsp"%>
+<%@include file="../layout/header.jsp"%>
 <title>Administrator Panel</title>
-<%@include file="layout/head.jsp"%>
-<title>Admin Control Page</title>
-<jsp:useBean id="sessionuser" class="com.library.model.User"
-	scope="session">
-</jsp:useBean>
-<c:set var="currentUser" value="${sessionCurrentUser.firstName}"
-	scope="session"></c:set>
-<TABLE BORDER="5" WIDTH="50%" CELLPADDING="4" CELLSPACING="3">
-	<TR>
-		<TH COLSPAN="2"><BR>
-			<H3>
-				Welcome admin
-				<c:out value="${currentUser}" />
-			</H3></TH>
-	</TR>
-	<TR>
-		<TH><a href="<%=request.getContextPath()%>/jsp/createUser.jsp">Create Users</a></TH>
-		<TH><a href="<%=request.getContextPath()%>/DeleteUser">Delete Users</a></TH>
-	</TR>
-	<tr>
-		<th><a href="<%=request.getContextPath()%>/jsp/createBook.jsp">Add Books</a></th>
-		<th><a href="<%=request.getContextPath()%>/book">Show Books</a></th>
-	</tr>
-</TABLE>
-<%@include file="layout/footer.jsp"%>
+<%@include file="../layout/head.jsp"%>
+<div>
+	<TABLE BORDER="5" WIDTH="50%" CELLPADDING="4" CELLSPACING="3">
+		<TR>
+			<TH COLSPAN="2"><BR>
+				<H3>
+					Welcome
+					<c:out value="${sessionScope.user.firstName}" />
+				</H3></TH>
+		</TR>
+		<TR>
+			<TH><a href="${pageContext.request.contextPath}/jsp/admin/createUser.jsp">Create
+					Users</a></TH>
+			<TH><a href="${pageContext.request.contextPath}/userList">Show
+					Users</a></TH>
+		</TR>
+		<tr>
+			<th><a href="${pageContext.request.contextPath}/jsp/admin/createBook.jsp">Add
+					Books</a></th>
+			<th><a href="${pageContext.request.contextPath}/book">Show Books</a></th>
+		</tr>
+	</TABLE>
+</div>
+<%@include file="../layout/footer.jsp"%>

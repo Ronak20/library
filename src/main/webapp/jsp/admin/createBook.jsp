@@ -1,12 +1,9 @@
-<%@ page import="com.library.model.Book"
-	import="com.library.service.UserService"%>
-<%@  taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page isELIgnored="false"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@include file="layout/header.jsp"%>
-<%@include file="layout/head.jsp"%>
-<a href="<%=request.getContextPath()%>/jsp/admincontrol.jsp">Admin Panel</a>
+<%@include file="../layout/header.jsp"%>
+<%@include file="../layout/head.jsp"%>
+<div>
+<a href="${pageContext.request.contextPath}/jsp/admin/admincontrol.jsp">Admin Panel</a>
+</div>
+<div>
 <c:choose>
 	<c:when test="${book == null}">
 		<form id="addBookForm" method="post" action="../book">
@@ -58,5 +55,5 @@
 	<c:otherwise>
 	</c:otherwise>
 </c:choose>
-
-<%@include file="layout/footer.jsp"%>
+</div>
+<%@include file="../layout/footer.jsp"%>

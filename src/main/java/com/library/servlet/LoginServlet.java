@@ -13,8 +13,10 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import com.library.config.HibernateUtil;
+import com.library.config.PageConstant;
 import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
+import com.library.exception.service.AuthenticationException;
 import com.library.model.Loan;
 import com.library.model.Role;
 import com.library.model.User;
@@ -58,54 +60,62 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		logger.info("userName : " + userName + " password : " + password);
 
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		UserDao userDao = new UserDao(session);
-		LoanDao loanDao = new LoanDao(session);
+		Session hSession = HibernateUtil.getSessionFactory().openSession();
+		UserDao userDao = new UserDao(hSession);
+		LoanDao loanDao = new LoanDao(hSession);
 		UserService userService = new UserService(userDao);
 		LoanService loanService = new LoanService(loanDao);
+		User user = null;
+		
+		//get user using username and password
+		try {
+			user = userService.get(userName, password);
+		} catch (AuthenticationException authenticationException) {
+			hSession.close();
+			logger.error("Not authenticated", authenticationException);
+			request.setAttribute("errorMessage", "wrong username or password");
+			RequestDispatcher rDispatch = this.getServletContext()
+					.getRequestDispatcher(PageConstant.LOGIN_PAGE);
+			rDispatch.forward(request, response);
+		}
 
-		System.out.print(userName + " " + password);
-		if (userService.isValid(userName, password)) {
-			logger.info("Logged In Successfully");
-			User user = userService.getUserByName(userName);
-			logger.debug("user : " + user);
+		if (user != null) {
+			logger.info("Logged In Successfully " + " user : " + user);
 			request.getSession().setAttribute("user", user);
-
+			request.removeAttribute("errorMessage");
 			if (user.getRole().equals(Role.STUDENT)) {
+				
+				//get loan by user id
 				List<Loan> loans = loanService
 						.getLoanByUserId(user.getUserId());
-				
-				loanService.updateLateFees(user.getUserId());
-				
-				logger.debug("loans : " + loans);
-				session.close();
-				request.setAttribute("sessionCurrentUser", user);
-				request.setAttribute("loanList", loans);
 
+				//update fees
+				//loanService.updateLateFees(user.getUserId());
+
+				logger.debug("loans : " + loans);
+				hSession.close();
+				// request.setAttribute("sessionCurrentUser", user);
+				// request.setAttribute("loanList", loans);
+				request.setAttribute("loanList", loans);
+				logger.info("Redirect to "+PageConstant.USER_PAGE);
 				RequestDispatcher rDispatch = this.getServletContext()
-						.getRequestDispatcher("/jsp/userlogged.jsp");
-				/*	
-				 * FIXME : add if 
+						.getRequestDispatcher(PageConstant.USER_PAGE);
+
+				/*
+				 * if (!userService.checkPayment(userName) ) {
+				 * request.setAttribute("paynote", "0"); }
 				 */
-				
-				if (!userService.checkPayment(userName) )
-				{
-					request.setAttribute("paynote", "0");
-				}
-				
+
 				rDispatch.forward(request, response);
 			} else if (user.getRole().equals(Role.ADMIN)) {
-				session.close();
-				request.setAttribute("sessionCurrentUser", user);
+				hSession.close();
+				logger.info("Redirect to "+PageConstant.ADMIN_PAGE);
+				// request.setAttribute("sessionCurrentUser", user);
 				RequestDispatcher rDispatch = this.getServletContext()
-						.getRequestDispatcher("/jsp/admincontrol.jsp");
+						.getRequestDispatcher(PageConstant.ADMIN_PAGE);
 				rDispatch.forward(request, response);
 			}
 
-		} else {
-			logger.info("Login Failed!");
-			session.close();
-			response.sendRedirect("jsp/login.jsp");
 		}
 	}
 }

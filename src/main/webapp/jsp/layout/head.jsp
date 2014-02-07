@@ -1,3 +1,5 @@
 </head>
 <body>
-<form action="logout" method="post"><input type="submit" value="Logout" name="logout"></form>
+	<div>
+		<a href="${pageContext.request.contextPath}/logout">Logout</a>
+	</div>

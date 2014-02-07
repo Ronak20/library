@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import com.library.config.HibernateUtil;
+import com.library.config.PageConstant;
 import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.library.model.Book;
@@ -22,7 +24,7 @@ import com.library.service.LoanService;
  */
 public class ListBooks extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static Logger logger = Logger.getLogger(ListBooks.class);
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -41,19 +43,15 @@ public class ListBooks extends HttpServlet {
 		LoanService ls = new LoanService(loanDao);
 		BookDao bookDao = new BookDao (session);
 		BookService bs = new BookService (bookDao);
-		List<Book> books = bookDao.getAllBookWithCopies();
+		List<Book> books = bs.getAllBookWithCopies();
 		
 		String userId = request.getParameter("currentUser");
-		System.out.println(userId);
-		
-		
+		logger.debug("userId : "+userId);
+				
 		request.setAttribute("bookList", books);
-		request.setAttribute("currentUser", userId);
-
-		request.getSession().getServletContext().getRequestDispatcher("/jsp/userbooklist.jsp").include(request, response);
 		
+		this.getServletContext().getRequestDispatcher(PageConstant.USER_BOOK_LIST_URL).include(request, response);
 		
-		// TODO Auto-generated method stub
 	}
 
 	/**
