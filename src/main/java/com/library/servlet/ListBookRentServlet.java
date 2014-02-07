@@ -14,51 +14,51 @@ import org.hibernate.Session;
 import com.library.config.HibernateUtil;
 import com.library.config.PageConstant;
 import com.library.dao.BookDao;
-import com.library.dao.LoanDao;
 import com.library.model.Book;
 import com.library.service.BookService;
-import com.library.service.LoanService;
 
 /**
  * Servlet implementation class ListBooks
  */
-public class ListBooks extends HttpServlet {
+public class ListBookRentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Logger logger = Logger.getLogger(ListBooks.class);
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListBooks() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private static Logger logger = Logger.getLogger(ListBookRentServlet.class);
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		LoanDao loanDao = new LoanDao(session);
-		LoanService ls = new LoanService(loanDao);
-		BookDao bookDao = new BookDao (session);
-		BookService bs = new BookService (bookDao);
-		List<Book> books = bs.getAllBookWithCopies();
-		
-		String userId = request.getParameter("currentUser");
-		logger.debug("userId : "+userId);
-				
-		request.setAttribute("bookList", books);
-		
-		this.getServletContext().getRequestDispatcher(PageConstant.USER_BOOK_LIST_URL).include(request, response);
-		
+	public ListBookRentServlet() {
+		super();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Get received");
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		BookDao bookDao = new BookDao(session);
+		BookService bs = new BookService(bookDao);
+		
+		List<Book> books = bs.getAllBookWithCopies();
+
+		request.setAttribute("bookList", books);
+
+		logger.info("Redirected to " + PageConstant.USER_BOOK_LIST_URL);
+		this.getServletContext()
+				.getRequestDispatcher(PageConstant.USER_BOOK_LIST_URL)
+				.include(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Post received");
 	}
 
 }

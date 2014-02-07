@@ -8,26 +8,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import com.library.config.HibernateUtil;
+import com.library.config.LogConstant;
+import com.library.config.PageConstant;
 import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
 import com.library.model.Loan;
 import com.library.model.User;
+import com.library.service.LoanService;
+import com.library.service.UserService;
 
 /**
  * Servlet implementation class RenewBook
  */
-public class RenewBook extends HttpServlet {
+public class RenewBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = Logger.getLogger(RenewBookServlet.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RenewBook() {
+	public RenewBookServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,50 +41,35 @@ public class RenewBook extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
+		logger.info(LogConstant.GET_RECEIVED);
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		// Loan loan = null;
-		User user = null;
 
 		LoanDao loanDao = new LoanDao(session);
-		UserDao userDao = new UserDao(session);
+		LoanService loanService = new LoanService(loanDao);
 
-		user = userDao.getUserById(request.getParameter("currentUser"));
-		List<Loan> loans = loanDao.getLoanByUserId(user.getUserId());
-		Loan loan = loanDao.getLoanByID(request.getParameter("aLoan"));
+		String userId = ((User) request.getSession().getAttribute("user"))
+				.getUserId();
+		String loanId = request.getParameter("aLoan");
 
-		// printing for tracing
+		loanService.renewLoan((String) request.getParameter("aLoan"));
 
-		System.out.print(request.getParameter("currentUser"));
+		String isRenewed = loanService.renewLoan(loanId);
 
-		// Renew Loan
-
-		if (loan.getRenewalCount() < 3 && loan.getIsLateFeePaid()) {
-			loanDao.renewLoan((String) request.getParameter("aLoan"));
-			System.out.println("Renewed");
-			request.setAttribute("message", "renewed");
-
+		if (isRenewed.equals("Renewed")) {
+			request.setAttribute("message", isRenewed);
+		} else if (isRenewed.equals("FeePending")) {
+			request.setAttribute("message", isRenewed);
 		} else {
-			request.setAttribute("message", "unallowed");
-			System.out.println("Unallowed");
+			request.setAttribute("message", isRenewed);
 		}
 
-		// printing for tracing
+		List<Loan> loanList = loanService.getLoanByUserId(userId);
+		request.setAttribute("loanList", loanList);
 
-		System.out.println(loans.toString());
-
-		request.setAttribute("sessionCurrentUser", user);
-		request.setAttribute("loanList", loans);
-
-		// printing for tracing
-		System.out.println(user.toString());
-		System.out.println(loans.toString());
-		// request.setAttribute("loanList", request.getParameter("aLoan"));
-
-		this.getServletContext().getRequestDispatcher("/jsp/userlogged.jsp")
-				.include(request, response);
-		// response.sendRedirect("/login");
+		logger.info(LogConstant.REDIRECT + PageConstant.USER_PANEL_SERVLET);
+		this.getServletContext()
+				.getRequestDispatcher(PageConstant.USER_PANEL_SERVLET)
+				.forward(request, response);
 
 	}
 
@@ -89,7 +79,7 @@ public class RenewBook extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		logger.info(LogConstant.POST_RECEIVED);
 	}
 
 }

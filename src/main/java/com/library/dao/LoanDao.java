@@ -1,6 +1,5 @@
 package com.library.dao;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -147,11 +146,7 @@ public class LoanDao {
 			String hql = "UPDATE Loan SET renewalCount = renewalCount + 1,expiryDate =:ed WHERE loanId=:loanid and expiryDate >= current_timestamp() ";
 			Query query = session.createQuery(hql);
 			query.setString("loanid", aLoanId);
-			/*
-			 * SimpleDateFormat df = new
-			 * SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); String utcTime =
-			 * df.format(new Date());
-			 */
+			
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(new Date());
@@ -258,24 +253,23 @@ public class LoanDao {
 		}
 	}
 
-	public int updateLateFees(String userid) {
-
-		// Date twentyDaysInFuture = new
-		// Date(Calendar.getInstance().add(Calendar.DAY_OF_MONTH,
-		// 20).getTime());
-
-		// query =
-		// session.createQuery("SELECT x FROM XYZ x WHERE xyzDateTime > :endDate").setParameter("endDate",
-		// twentyDaysInFuture);
+	public int updateLateFeesByUser(String userid) {
 
 		String hql = "UPDATE Loan l set l.isLateFeePaid = 0,l.lateFee = 100"
 				+ " WHERE userid = :userid and l.expiryDate <= current_timestamp()";
 		Query query = session.createQuery(hql);
 		query.setParameter("userid", userid);
-		// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		// Date date = new Date();
-		// query.setParameter("current_date",dateFormat.format(date).toString()
-		// );
+		
+		int result = query.executeUpdate();
+		return result;
+	}
+	
+	public int updateLateFees() {
+
+		String hql = "UPDATE Loan l set l.isLateFeePaid = 0,l.lateFee = 100"
+				+ " WHERE l.expiryDate <= current_timestamp()";
+		Query query = session.createQuery(hql);
+		
 		int result = query.executeUpdate();
 		return result;
 	}

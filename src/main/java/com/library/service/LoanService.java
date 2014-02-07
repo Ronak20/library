@@ -1,13 +1,23 @@
 package com.library.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import com.library.config.HibernateUtil;
+import com.library.config.LogConstant;
+import com.library.config.MessageConstant;
 import com.library.dao.LoanDao;
-import com.library.dao.UserDao;
+import com.library.exception.service.ConstraintViolationException;
 import com.library.model.Loan;
 
 public class LoanService {
 
+	private static Logger logger = Logger.getLogger(LoanService.class);
 	LoanDao loanDao;
 
 	public LoanService(LoanDao loanDao) {
@@ -40,26 +50,51 @@ public class LoanService {
 		}
 	}
 
-	public void renewLoan(String userid, String bookid) {
-		// get if there is any loan using getExpiredLoanByUserId
-		// check if user has any pending late fees using getExpiredLoanByUserId
-		// check renewal count loan object of first comment
-		// set new time and update the time and renewal count
+	public String renewLoan(String loanid) {
+		logger.info(LogConstant.ENTERED+"renewLoan");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	Loan loan = getLoanByID(loanid);
+		
+		Date expiryDate = null;
+		try {
+			expiryDate = sdf.parse(loan.getExpiryDate().toString());
+		} catch (ParseException e) {
+			logger.error("Cannot parse expiry date", e);
+		}
+		
+		logger.info(expiryDate);
+		logger.info(new Date());
+		logger.info(loan.getExpiryDate().compareTo(new Date()));
+		
+		if (expiryDate.compareTo(new Date()) > 0) {
+			if (loan.getRenewalCount() <= 3 && loan.getIsLateFeePaid()) {
+				loanDao.renewLoan(loanid);
+				logger.info(LogConstant.RETURN+"Renewed");
+				return "Renewed";
+			} else {
+				logger.info(LogConstant.RETURN+"Unallowed");
+				return "FeePending";
+			}
+		} else {
+			logger.info(LogConstant.RETURN+"Expired");
+			return "Expired";
+		}
 	}
 
-	/*
-	 * public List<Loan> getAll() { List<Loan> loanList = this.loanDao.getAll();
-	 * return loanList; }
-	 * 
-	 * public Loan getLoanByID(String loanid) { Loan loan =
-	 * this.loanDao.getLoanByID(loanid); return loan; }
-	 * 
-	 * public Loan getLoanByUserIdBookId(String userid, String bookid) { Loan
-	 * loan = this.loanDao.getLoanByUserIdBookId(userid, bookid); return loan; }
-	 */
+	public void payFees(String loanId) {
+		loanDao.payFees(loanId);
+	}
 
 	public void delete(String userid, String bookid) {
 		this.loanDao.delete(userid, bookid);
+	}
+
+	public void deleteLoanByLoanID(String loanid) {
+		loanDao.deleteById(loanid);
+	}
+
+	public Loan getLoanByID(String loanid) {
+		return loanDao.getLoanByID(loanid);
 	}
 
 	public void delete(Loan loan) {
@@ -95,48 +130,32 @@ public class LoanService {
 			return true;
 	}
 
-	public String addLoan(String userId, String bookId) {
-
-		/*
-		 * for ( Loan ln : getLoanByUserId(userId)) if(!ln.getIsLateFeePaid()) {
-		 * return false; } else {
-		 */
-		Loan newLoan = new Loan(userId, bookId);
-		// loanDao.addLoan(userId, bookId);
-
-		System.out.println("Book was successfully rented , Loan Id: ");
-		return loanDao.saveOrUpdate(newLoan);
-		
-		// }
-
-		/*
-		 * if (getLoanByUserId(userId).size() > 0) return false; else
-		 * 
-		 * return true;
-		 */
-	}
-	
-	public boolean addnewLoan(String userId, String bookId) {
+	public boolean addLoan(String userId, String bookId)
+			throws ConstraintViolationException {
 
 		Loan newLoan = new Loan(userId, bookId);
 		String loanId;
-		////check if user has any late fee, if yes then dont add loan 
-		if(loanDao.getLateFeeLoanByUserId(userId))
-		{
-			System.out.println("Book was not rented because user has late fee to payy");
-			return false;
+
+		// check if user has any late fee, if yes then don't add loan
+		if (loanDao.getLateFeeLoanByUserId(userId)) {
+			logger.error(LogConstant.ERROR
+					+ MessageConstant.USER_LATE_FEE_MESSAGE);
+			throw new ConstraintViolationException(
+					MessageConstant.USER_LATE_FEE_MESSAGE);
+		} else {
+			loanId = loanDao.saveOrUpdate(newLoan);
+			logger.info(LogConstant.RETURN + true);
+			return true;
 		}
-		else
-		{
-		loanId = loanDao.saveOrUpdate(newLoan);
-		System.out.println("Book was successfully rented , Loan Id: "+loanId);
-		return true;
-		}
-		
+
 	}
-	
-	public int updateLateFees(String userid) {
-		return loanDao.updateLateFees(userid);
+
+	public int updateLateFeesByUser(String userid) {
+		return loanDao.updateLateFeesByUser(userid);
+	}
+
+	public int updateLateFees() {
+		return loanDao.updateLateFees();
 	}
 
 }

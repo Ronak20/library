@@ -3,6 +3,7 @@ package com.library.servlet;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,27 +15,25 @@ import org.hibernate.Session;
 import com.library.config.HibernateUtil;
 import com.library.config.LogConstant;
 import com.library.config.PageConstant;
-import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
 import com.library.model.Loan;
 import com.library.model.User;
-import com.library.service.BookService;
 import com.library.service.LoanService;
+import com.library.service.UserService;
 
 /**
- * Servlet implementation class UnrentBook
+ * Servlet implementation class UserPanelServlet
  */
-public class UnrentBook extends HttpServlet {
+public class UserPanelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Logger logger = Logger.getLogger(UnrentBook.class);
+	private static Logger logger = Logger.getLogger(UserPanelServlet.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UnrentBook() {
+	public UserPanelServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -44,25 +43,23 @@ public class UnrentBook extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		logger.info(LogConstant.GET_RECEIVED);
-
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		LoanDao loanDao = new LoanDao(session);
+		Session hSession = HibernateUtil.getSessionFactory().openSession();
+		LoanDao loanDao = new LoanDao(hSession);
 		LoanService loanService = new LoanService(loanDao);
-		BookDao bookDao = new BookDao(session);
-		BookService bookService = new BookService(bookDao);
 
-		Loan loan = loanService.getLoanByID((String) request
-				.getParameter("aLoan"));
-		bookService.increaseCopies(loan.getBookId());
-		loanService.deleteLoanByLoanID((String) request.getParameter("aLoan"));
-		List<Loan> loans = loanService.getLoanByUserId(((User) request
-				.getSession().getAttribute("user")).getUserId());
+		String userId = ((User) request.getSession().getAttribute("user"))
+				.getUserId();
+
+		// get loan by user id
+		List<Loan> loans = loanService.getLoanByUserId(userId);
+		hSession.close();
+		logger.debug("loans : " + loans);
+
 		request.setAttribute("loanList", loans);
-
-		this.getServletContext().getRequestDispatcher(PageConstant.USER_PAGE)
-				.include(request, response);
-
+		logger.info("Redirect to " + PageConstant.USER_PAGE);
+		RequestDispatcher rDispatch = this.getServletContext()
+				.getRequestDispatcher(PageConstant.USER_PAGE);
+		rDispatch.forward(request, response);
 	}
 
 	/**

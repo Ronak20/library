@@ -114,6 +114,16 @@
 			<version>1.1.2</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>2.2.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>LibraryManagement</finalName>
@@ -133,11 +143,5 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>cactus</groupId>
-				<artifactId>cactus-maven</artifactId>
-			</plugin>
-		</plugins>
 	</build>
 </project>

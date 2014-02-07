@@ -7,27 +7,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import com.library.config.HibernateUtil;
+import com.library.config.LogConstant;
+import com.library.config.PageConstant;
 import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
-import com.library.dao.UserDao;
+import com.library.exception.service.ConstraintViolationException;
+import com.library.model.User;
 import com.library.service.BookService;
 import com.library.service.LoanService;
 
 /**
- * Servlet implementation class RentBook
+ * Servlet implementation class RentBookServlet
  */
-public class RentBook extends HttpServlet {
+public class RentBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = Logger.getLogger(RentBookServlet.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RentBook() {
+	public RentBookServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,37 +40,44 @@ public class RentBook extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		/*
-		 * FIXME : list books doesn't work
-		 */
+		logger.info(LogConstant.GET_RECEIVED);
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		LoanDao loanDao = new LoanDao(session);
-		LoanService ls = new LoanService(loanDao);
+
 		BookDao bookDao = new BookDao(session);
-		BookService bs = new BookService(bookDao);
-		UserDao userDao = new UserDao(session);
-		String userId = request.getParameter("auserid");
+		BookService bookService = new BookService(bookDao);
+
+		LoanDao loanDao = new LoanDao(session);
+		LoanService loanService = new LoanService(loanDao);
+
+		String userId = ((User) request.getSession().getAttribute("user"))
+				.getUserId();
 		String bookId = request.getParameter("bookid");
 
-		if (!ls.addnewLoan(userId, bookId)) {
-			request.setAttribute("HasOutStandingLoan", "true");
-			request.setAttribute("currentUser", userId);
-			this.getServletContext().getRequestDispatcher("/listBooks")
-					.forward(request, response);
-		} else {
-			// ls.addLoan(userId, bookId);
-			bs.decreaseCopies(bookId);
-
-			// request.setAttribute("bookList", bs.getAll());
-			request.setAttribute("sessionCurrentUser",
-					userDao.getUserById(userId));
-			request.setAttribute("loanList", loanDao.getLoanByUserId(userId));
-
-			this.getServletContext()
-					.getRequestDispatcher("/jsp/userlogged.jsp")
-					.include(request, response);
+		if (bookId != null && !bookId.isEmpty() && userId != null
+				&& !userId.isEmpty()) {
+			try {
+				loanService.addLoan(userId, bookId);
+				bookService.decreaseCopies(bookId);
+				request.setAttribute("loanList",
+						loanService.getLoanByUserId(userId));
+				session.close();
+				logger.info(LogConstant.REDIRECT + PageConstant.USER_PAGE);
+				this.getServletContext()
+						.getRequestDispatcher(PageConstant.USER_PAGE)
+						.forward(request, response);
+			} catch (ConstraintViolationException constraintViolationException) {
+				request.setAttribute("hasOutstandingLoan", true);
+				logger.error(constraintViolationException.getMessage(),
+						constraintViolationException);
+				session.close();
+				logger.info(LogConstant.REDIRECT
+						+ PageConstant.USER_BOOK_RENT_LIST_SERVLET);
+				this.getServletContext()
+						.getRequestDispatcher(
+								PageConstant.USER_BOOK_RENT_LIST_SERVLET)
+						.forward(request, response);
+			}
 		}
-
 	}
 
 	/**
@@ -75,7 +86,7 @@ public class RentBook extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		logger.info(LogConstant.POST_RECEIVED);
 	}
 
 }

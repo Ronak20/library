@@ -89,9 +89,6 @@ public class LoginServlet extends HttpServlet {
 				List<Loan> loans = loanService
 						.getLoanByUserId(user.getUserId());
 
-				//update fees
-				//loanService.updateLateFees(user.getUserId());
-
 				logger.debug("loans : " + loans);
 				hSession.close();
 				// request.setAttribute("sessionCurrentUser", user);

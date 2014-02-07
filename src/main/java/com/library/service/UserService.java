@@ -35,14 +35,6 @@ public class UserService {
 	}
 
 	
-	public void payFees(String loanId)
-	{
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		LoanDao loanDao = new LoanDao(session);
-		System.out.println(loanId);
-		loanDao.payFees(loanId);
-	}
-	
 	public void deleteUser(String userId) throws ConstraintViolationException {
 		
 		List<Loan> loanList = loanDao.getLoanByUserId(userId);

@@ -3,7 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-
+	
 	<display-name>Library Management Web Application</display-name>
 	<servlet>
 		<servlet-name>UserServlet</servlet-name>
@@ -58,10 +58,10 @@
 		<servlet-class>com.library.controller.FrontController</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>RenewBook</servlet-name>
-		<display-name>RenewBook</display-name>
+		<servlet-name>RenewBookServlet</servlet-name>
+		<display-name>RenewBookServlet</display-name>
 		<description></description>
-		<servlet-class>com.library.servlet.RenewBook</servlet-class>
+		<servlet-class>com.library.servlet.RenewBookServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>DeleteUser</servlet-name>
@@ -94,22 +94,28 @@
 		<servlet-class>com.library.servlet.UserListServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>RentBook</servlet-name>
-		<display-name>RentBook</display-name>
+		<servlet-name>RentBookServlet</servlet-name>
+		<display-name>RentBookServlet</display-name>
 		<description></description>
-		<servlet-class>com.library.servlet.RentBook</servlet-class>
+		<servlet-class>com.library.servlet.RentBookServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>ListBooks</servlet-name>
-		<display-name>ListBooks</display-name>
+		<servlet-name>ListBookRentServlet</servlet-name>
+		<display-name>ListBookRentServlet</display-name>
 		<description></description>
-		<servlet-class>com.library.servlet.ListBooks</servlet-class>
+		<servlet-class>com.library.servlet.ListBookRentServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>PayFeesServlet</servlet-name>
 		<display-name>PayFeesServlet</display-name>
 		<description></description>
 		<servlet-class>com.library.servlet.PayFeesServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserPanelServlet</servlet-name>
+		<display-name>UserPanelServlet</display-name>
+		<description></description>
+		<servlet-class>com.library.servlet.UserPanelServlet</servlet-class>
 	</servlet>
 
 
@@ -146,8 +152,8 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>RenewBook</servlet-name>
-		<url-pattern>/RenewBook</url-pattern>
+		<servlet-name>RenewBookServlet</servlet-name>
+		<url-pattern>/renewBook</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DeleteUserServlet</servlet-name>
@@ -166,20 +172,28 @@
 		<url-pattern>/userList</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>RentBook</servlet-name>
+		<servlet-name>RentBookServlet</servlet-name>
 		<url-pattern>/rentBook</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ListBooks</servlet-name>
-		<url-pattern>/listBooks</url-pattern>
+		<servlet-name>ListBookRentServlet</servlet-name>
+		<url-pattern>/listBooksRent</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>PayFeesServlet</servlet-name>
 		<url-pattern>/payFeesServlet</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserPanelServlet</servlet-name>
+		<url-pattern>/userPanel</url-pattern>
+	</servlet-mapping>
 
 	<welcome-file-list>
 		<welcome-file>jsp/login.jsp</welcome-file>
 	</welcome-file-list>
-
+	
+	<listener>
+		<listener-class>com.library.job.TomcatQuartzInitializerListener</listener-class>
+	</listener>
+	
 </web-app>

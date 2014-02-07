@@ -55,7 +55,7 @@ public class BookService {
 	}
 	
 	public List<Book> getAllBookWithCopies() {
-		return this.getAllBookWithCopies();
+		return bookDao.getAllBookWithCopies();
 	}
 	
 }

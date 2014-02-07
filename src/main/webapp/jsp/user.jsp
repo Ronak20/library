@@ -12,11 +12,14 @@
 		<td><i>${sessionScope.user.username}</i></td>
 	</table>
 	<c:choose>
-		<c:when test="${message == 'unallowed'}">
-			<font color="red">Unallowed to rent books !</font>
+		<c:when test="${requestScope.message == 'FeePending'}">
+			<font color="red">Pay fees to renew books.</font>
 		</c:when>
-		<c:when test="${message == 'renewed'}">
-			<font color="green">Book was Renewed !</font>
+		<c:when test="${requestScope.message == 'Renewed'}">
+			<font color="green">Book is Renewed</font>
+		</c:when>
+		<c:when test="${requestScope.message == 'Expired'}">
+			<font color="red">Loan is expired.Return it.</font>
 		</c:when>
 		<c:otherwise>
 		</c:otherwise>
@@ -46,16 +49,16 @@
 				<td>${ln.expiryDate}</td>
 				<td>${ln.renewalCount}</td>
 				<td><a
-					href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">Return</a></td>
+					href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}">Return</a></td>
 				<td><a
-					href="${pageContext.request.contextPath}/RenewBook?aLoan=${ln.loanId}&currentUser=${ln.userId}">Renew</a></td>
+					href="${pageContext.request.contextPath}/renewBook?aLoan=${ln.loanId}">Renew</a></td>
 				<td><c:choose>
 						<c:when test="${not ln.isLateFeePaid}">
 							<font color="red">You have overdue books you need to
 								return</font>
 
 							<a
-								href="${pageContext.request.contextPath}/payFeesServlet?loanid=${ln.loanId}&userid=${ln.userId}">Pay
+								href="${pageContext.request.contextPath}/payFeesServlet?loanid=${ln.loanId}">Pay
 								Fees</a></td>
 				</c:when>
 
@@ -66,8 +69,7 @@
 		</c:forEach>
 	</table>
 
-	<a
-		href="${pageContext.request.contextPath}/listBooks?currentUser=${sessionScope.user.userId}"><b>Rent
+	<a href="${pageContext.request.contextPath}/listBooksRent"><b>Rent
 			new book here </b></a>
 
 </center>
