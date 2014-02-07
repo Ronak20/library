@@ -82,6 +82,7 @@ public class LoginServlet extends HttpServlet {
 		if (user != null) {
 			logger.info("Logged In Successfully " + " user : " + user);
 			request.getSession().setAttribute("user", user);
+			request.getSession().setMaxInactiveInterval(30*60);
 			request.removeAttribute("errorMessage");
 			if (user.getRole().equals(Role.STUDENT)) {
 				
@@ -91,8 +92,6 @@ public class LoginServlet extends HttpServlet {
 
 				logger.debug("loans : " + loans);
 				hSession.close();
-				// request.setAttribute("sessionCurrentUser", user);
-				// request.setAttribute("loanList", loans);
 				request.setAttribute("loanList", loans);
 				logger.info("Redirect to "+PageConstant.USER_PAGE);
 				RequestDispatcher rDispatch = this.getServletContext()

@@ -67,7 +67,7 @@ public class LoanService {
 		logger.debug(loan.getExpiryDate().compareTo(new Date()));
 		
 		if (expiryDate.compareTo(new Date()) > 0) {
-			if (loan.getRenewalCount() <= 3 && loan.getIsLateFeePaid()) {
+			if (loan.getRenewalCount() < 3 && loan.getIsLateFeePaid()) {
 				loanDao.renewLoan(loanid);
 				logger.info(LogConstant.RETURN+"Renewed");
 				return "Renewed";

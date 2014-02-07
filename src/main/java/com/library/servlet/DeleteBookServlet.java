@@ -13,6 +13,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import com.library.config.HibernateUtil;
+import com.library.config.LogConstant;
+import com.library.config.PageConstant;
 import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.library.model.Book;
@@ -24,51 +26,54 @@ import com.library.service.BookService;
 public class DeleteBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(DeleteBookServlet.class);
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteBookServlet() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DeleteBookServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("Get received");
-		LoanDao loanDao;
+
 		String bookid = request.getParameter("bookid");
-		logger.debug("param bookid : "+bookid);
+		logger.debug("param bookid : " + bookid);
 		Book book = new Book(bookid);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		BookDao bookDao = new BookDao(session);
-		loanDao = new LoanDao(session);
-		BookService bookService = new BookService(bookDao);
-		if(!bookService.deleteBook(book.getBookid(), loanDao))
-		{		
-		  logger.debug("Book not deleted");
-		  request.setAttribute("bookidnotdeleted", bookid);
-		}
-		else
+		LoanDao loanDao = new LoanDao(session);
+		BookService bookService = new BookService(bookDao, loanDao);
+		if (!bookService.deleteBook(book.getBookid())) {
+			logger.debug("Book not deleted");
+			request.setAttribute("isBookDeleted", false);
+		} else {
+			request.setAttribute("isBookDeleted", true);
 			logger.debug("Book  deleted");
+		}
 		List<Book> bookList = bookService.getAll();
-		logger.debug("bookList : "+bookList);
+		logger.debug("bookList : " + bookList);
 		request.setAttribute("bookList", bookList);
-		logger.debug("Redirected to /jsp/bookList.jsp");
-		
 		session.close();
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/bookList.jsp");
+
+		logger.debug(LogConstant.REDIRECT + PageConstant.BOOK_LIST_URL);
+		RequestDispatcher rd = request
+				.getRequestDispatcher(PageConstant.BOOK_LIST_URL);
 		rd.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 	}
 
 }

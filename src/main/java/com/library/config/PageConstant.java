@@ -8,7 +8,7 @@ public class PageConstant {
 
 	public static final String USER_LIST_SERVLET = "/userList";
 
-	public static final String BOOK_LIST_URL = "/jsp/bookList.jsp";
+	public static final String BOOK_LIST_URL = "/jsp/admin/bookList.jsp";
 	public static final String BOOK_CREATE_URL = "/jsp/admin/createBook.jsp";
 	public static final String USER_BOOK_LIST_URL = "/jsp/userBookList.jsp";
 	public static final String USER_BOOK_RENT_LIST_SERVLET = "/listBooksRent";

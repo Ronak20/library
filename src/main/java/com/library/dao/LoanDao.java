@@ -9,9 +9,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.library.config.ConfigConstant;
 import com.library.model.Loan;
-
-//import quicktime.std.clocks.TimeBase;
 
 public class LoanDao {
 
@@ -24,23 +23,16 @@ public class LoanDao {
 	public String saveOrUpdate(Loan loan) {
 		Transaction tx = null;
 		try {
-			/*
-			 * TODO map date with database fields
-			 */
-
+			
 			Calendar cal = Calendar.getInstance();
 
 			// Formatting the time to string so we can trace it
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String utcTime = df.format(new Date());
 
-			System.out.println(df.format(new Date()));
-
-			System.out.println("printing UTC: " + utcTime);
-
 			// setting loan time (this is indicating it is three minutes, we can
 			// make it modifiable later)
-			loan.setLoanTime(60000 * 3);
+			loan.setLoanTime(ConfigConstant.LOAN_PERIOD);
 
 			// calculating Expiry Time: current time plus 3 minutes (which is
 			// 60k ms * 3)
@@ -52,9 +44,6 @@ public class LoanDao {
 			loan.setExpiryDate(expiryTime);
 
 			loan.setIsLateFeePaid(true);
-
-			System.out.println(df.format(cal.getTime()));
-			System.out.println("Adding this loan:" + loan.toString());
 
 			tx = session.beginTransaction();
 			session.saveOrUpdate(loan);
@@ -150,7 +139,7 @@ public class LoanDao {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(new Date());
-			cal.add(Calendar.MINUTE, 2);
+			cal.add(Calendar.MINUTE, ConfigConstant.RENEWAL_PERIOD);
 			String newTime = df.format(cal.getTime());
 			
 			query.setString("ed", newTime);
@@ -218,21 +207,6 @@ public class LoanDao {
 		query.setParameter("isLateFee", isLateFee);
 		List<Loan> loanList = query.list();
 		return loanList;
-	}
-
-	public void addLoan(String userId, String bookId) {
-		// TODO Auto-generated method stub
-		/*
-		 * String ts = new String("00:00:00");
-		 * 
-		 * String hql = "INSERT INTO Loan (userId =:userid, bookId = :bookid)";
-		 * Query query = session.createQuery(hql); query.setParameter("userid",
-		 * userId); query.setParameter("bookid", bookId);
-		 * query.setParameter("ts", ts);
-		 * 
-		 * List<Loan> loanList = query.list(); query.executeUpdate();
-		 */
-
 	}
 
 	public void payFees(String loanId) {
