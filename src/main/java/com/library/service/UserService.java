@@ -30,8 +30,8 @@ public class UserService {
 		this.loanDao = loanDao;
 	}
 
-	public void saveOrUpdate(User user) {
-		userDao.saveOrUpdate(user);
+	public String saveOrUpdate(User user) {
+		return userDao.saveOrUpdate(user);
 	}
 
 	

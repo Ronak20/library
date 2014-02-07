@@ -23,8 +23,8 @@ public class BookService {
 		this.loanDao = loanDao;
 	}
 
-	public void saveOrUpdate(Book book) {
-		bookDao.saveOrUpdate(book);
+	public String saveOrUpdate(Book book) {
+		return bookDao.saveOrUpdate(book);
 	}
 
 	public void increaseCopies(String bookid) {
