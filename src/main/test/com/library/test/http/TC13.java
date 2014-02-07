@@ -63,7 +63,9 @@ public class TC13 {
 
 		loanDao = new LoanDao(session);
 		loanService = new LoanService(loanDao);
-		this.loanID = loanService.addLoan(this.userID, this.bookID);
+		loanService.addLoan(this.userID, this.bookID);
+		
+		this.loanID = loanDao.getLoanByUserIdBookId(userID, bookID).get(0).getLoanId();
 				
 		logger.info("Entered setUp");
 		WebConversation conversation = new WebConversation();

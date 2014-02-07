@@ -72,7 +72,7 @@ private static Logger logger = Logger.getLogger(TC20.class);
 		loanDao = new LoanDao(session);
 		loanService = new LoanService(loanDao);
 		loanService.addLoan(this.userID, this.bookID);
-		this.loanID = loanDao.getLoanByUserIdBookId(userID, bookID).getLoanId();
+		this.loanID = loanDao.getLoanByUserIdBookId(userID, bookID).get(0).getLoanId();
 		bookService.decreaseCopies(this.bookID);
 		
 		loanService.renewLoan(loanID);
@@ -125,7 +125,7 @@ private static Logger logger = Logger.getLogger(TC20.class);
 				  System.out.println(webResponse.getText());
 
 		
-		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID);
+		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID).get(0);
 		logger.debug(loan);
 		Assert.assertNotNull(loan);		
 		
