@@ -1,7 +1,7 @@
 <%@include file="../layout/header.jsp"%>
 <%@include file="../layout/head.jsp"%>
 <div>
-<a href="${pageContext.request.contextPath}/jsp/admin/admincontrol.jsp">Admin Panel</a>
+<a href="${pageContext.request.contextPath}/jsp/admin/adminControl.jsp">Admin Panel</a>
 </div>
 <div>
 <c:choose>
