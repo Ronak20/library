@@ -57,26 +57,10 @@ public class UserDaoTest {
 		
 		User user = new User("getFirstTest","getLastTest","getByUNTest","sompass",null);
 		this.userDao.saveOrUpdate(user);
-		
-		
+				
 		Assert.assertSame(user, this.userDao.getUserByName("getByUNTest"));
 		
 		userDao.delete(user);
-	}
-	
-	
-	@Test
-	public void isUserValid (){
-		
-		User user = new User("ValidFName","ValidLName","ValidUN","ValidPass",null);
-		this.userDao.saveOrUpdate(user);
-		
-		boolean isValid = userDao.isValid(user.getUsername(), user.getPassword());
-		System.out.println(isValid);
-		Assert.assertTrue(isValid);
-		
-		userDao.delete(user);
-		
 	}
 	
 }

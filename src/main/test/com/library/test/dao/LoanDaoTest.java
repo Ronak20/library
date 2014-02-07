@@ -66,6 +66,6 @@ public class LoanDaoTest {
 	@Test
 	public void testUpdateLateFees()
 	{
-		loanDao.updateLateFees(2+"");
+		loanDao.updateLateFeesByUser(2+"");
 	}
 }
