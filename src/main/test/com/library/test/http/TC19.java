@@ -77,7 +77,7 @@ public class TC19 {
 		loanDao = new LoanDao(session);
 		loanService = new LoanService(loanDao);
 		loanService.addLoan(this.userID, this.bookID);
-		loanID = this.loanDao.getLoanByUserIdBookId(userID, bookID).getLoanId(); 
+		loanID = this.loanDao.getLoanByUserIdBookId(userID, bookID).get(0).getLoanId(); 
 		bookService.decreaseCopies(this.bookID);
 
 		
@@ -114,7 +114,7 @@ public class TC19 {
 		logger.info(" loanID : "+loanID+" bookID : "+bookID+" userID : "+userID);
 		WebConversation conversation = new WebConversation();
 		WebRequest requestPayFine = new GetMethodWebRequest(
-				Constant.getPayFeeUrl(loanID));
+				Constant.getPayFeeUrl(loanID,userID ));
 		
 		//ServletUnitClient sc = sr.newClient();
 		
@@ -134,7 +134,7 @@ public class TC19 {
 		  ServletUnitClient client = sr.newClient();        // the client you have been using
 
 		  //now get an invocation context using the same URL used to invoke the servlet
-		  InvocationContext ic = client.newInvocation( Constant.getPayFeeUrl(loanID));
+		  InvocationContext ic = client.newInvocation( Constant.getPayFeeUrl(loanID, userID));
 		  //obtain the session just used. Note: pass false to avoid creating it if it does not already exist
 		  HttpSession session = ic.getRequest().getSession( true );
 		  session.setAttribute("user", userDao.getUserById(userID));
@@ -143,7 +143,7 @@ public class TC19 {
 		  
 		
 		
-		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID);
+		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID).get(0);
 		logger.debug(loan);
 		
 		Assert.assertTrue(loan.getIsLateFeePaid());
