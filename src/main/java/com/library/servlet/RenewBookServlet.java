@@ -15,11 +15,9 @@ import com.library.config.HibernateUtil;
 import com.library.config.LogConstant;
 import com.library.config.PageConstant;
 import com.library.dao.LoanDao;
-import com.library.dao.UserDao;
 import com.library.model.Loan;
 import com.library.model.User;
 import com.library.service.LoanService;
-import com.library.service.UserService;
 
 /**
  * Servlet implementation class RenewBook
@@ -50,8 +48,6 @@ public class RenewBookServlet extends HttpServlet {
 		String userId = ((User) request.getSession().getAttribute("user"))
 				.getUserId();
 		String loanId = request.getParameter("aLoan");
-
-		loanService.renewLoan((String) request.getParameter("aLoan"));
 
 		String isRenewed = loanService.renewLoan(loanId);
 

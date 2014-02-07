@@ -83,7 +83,7 @@ public class Loan {
 		this.expiryDate = expiryDate;
 	}
 
-	@Column(name = "renewalcount", unique = true)
+	@Column(name = "renewalcount")
 	public int getRenewalCount() {
 		return renewalCount;
 	}

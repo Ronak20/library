@@ -62,9 +62,9 @@ public class LoanService {
 			logger.error("Cannot parse expiry date", e);
 		}
 		
-		logger.info(expiryDate);
-		logger.info(new Date());
-		logger.info(loan.getExpiryDate().compareTo(new Date()));
+		logger.debug(expiryDate);
+		logger.debug(new Date());
+		logger.debug(loan.getExpiryDate().compareTo(new Date()));
 		
 		if (expiryDate.compareTo(new Date()) > 0) {
 			if (loan.getRenewalCount() <= 3 && loan.getIsLateFeePaid()) {

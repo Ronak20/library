@@ -152,7 +152,7 @@ public class LoanDao {
 			cal.setTime(new Date());
 			cal.add(Calendar.MINUTE, 2);
 			String newTime = df.format(cal.getTime());
-			System.out.println(newTime);
+			
 			query.setString("ed", newTime);
 			query.executeUpdate();
 			tx.commit();
