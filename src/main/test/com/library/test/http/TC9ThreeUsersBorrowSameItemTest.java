@@ -70,6 +70,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		
 		User user1 = new User("fName" + uuid1, "lName" + uuid1, "uName" + uuid1,
 				"pWord" + uuid1, Role.STUDENT);
+		
 		User user2 = new User("fName" + uuid2, "lName" + uuid2, "uName" + uuid2,
 				"pWord" + uuid2, Role.STUDENT); 
 		User user3 = new User("fName" + uuid3, "lName" + uuid3, "uName" + uuid3,
@@ -78,9 +79,13 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		// add book
 		bookDao = new BookDao(session);
 		bookService = new BookService(bookDao);
+		
+		
 
 		this.isbn = "isbn" + uuid1;
 		Book book = new Book("bookname" + uuid1, isbn, 10);
+		//setting number of copies
+		book.setCopies(2);
 		this.bookID = bookDao.saveOrUpdate(book);
 		
 		//uId1 = userDao.getUserByName("uName" + uuid1).getUserId();
@@ -197,20 +202,15 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		LoanDao loanDao = new LoanDao(session);
 		LoanService ls = new LoanService(loanDao);
-		Loan ln = new Loan(requestBookList.getParameter("auser"),
-				requestBookList.getParameter("bookid"));
-		ls.addLoan(requestBookList.getParameter("auser"),
-				requestBookList.getParameter("bookid"));
-
-		int aRow = loanDao.getAll().size();
+		
 		// TableCell tc = userRentedBooksTable.getAttribute(name)
 
-		System.out.println(aRow);
+		//System.out.println(aRow);
 
 		
 		//first Assertion
-		assertEquals("Testing U1 burrowed", expectedBid,
-				loanDao.getLoanByUserIdBookId(expectedUid, expectedUid));
+		assertEquals("Testing U1 burrowed", expectedUid,
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).getUserId());
 				//responseBookList.getTableWithID("rentedBooks")
 				//.getCellAsText(1,1));
 						
@@ -221,8 +221,8 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		// book ID to rent
 		expectedBid = bookID;
 		
-		assertEquals("Testing U2 Borrowed", expectedBid,
-				loanDao.getLoanByUserIdBookId(expectedUid, expectedUid));
+		assertEquals("Testing U2 Borrowed", expectedUid,
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).getUserId());
 				//responseBookList.getTableWithID("rentedBooks")
 				//.getCellAsText(1,1));
 		
@@ -233,8 +233,8 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		// book ID to rent
 		expectedBid = bookID;
 		
-		assertEquals("Testing U3 burrowed", expectedBid,
-				loanDao.getLoanByUserIdBookId(expectedUid, expectedUid));		
+		assertEquals("Testing U3 burrowed", expectedUid,
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).getUserId());		
 		
 						//.getID());
 		
