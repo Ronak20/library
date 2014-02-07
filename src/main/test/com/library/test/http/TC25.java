@@ -40,19 +40,19 @@ import com.meterware.servletunit.InvocationContext;
 import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
 
-public class TC25b extends TestCase {
+public class TC25 extends TestCase {
 	private static Logger logger = Logger.getLogger(BookServletTest.class);
 	private String bookName = "MyBookName"+ System.currentTimeMillis();
 	private String isbn = "MyBookisbn"+ System.currentTimeMillis();
 	private String bookid="";
 
-	public TC25b(String s) {
+	public TC25(String s) {
 		super(s);
 	}
 	
 	@Before
 	public void setUp() throws Exception {
-		logger.info("Entered setUp for TC 25b");
+		logger.info("Entered setUp for TC 25 Delete book with multiple copies");
 		WebConversation conversation = new WebConversation();
 		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
 		HttpUnitOptions.setScriptingEnabled(false);
@@ -63,7 +63,7 @@ public class TC25b extends TestCase {
 		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
 		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
 		loginForm.submit(submitButton);
-		logger.info("Exit setUp for TC 25b");
+		logger.info("Exit setUp for TC 25 Delete book with multiple copies");
 	}
 
 	@After
@@ -71,7 +71,7 @@ public class TC25b extends TestCase {
 	}
 
 	public void testDeleteBookWithMultipleCopies() throws Exception {
-		logger.info("Entered TC25b");
+		logger.info("Entered TC25 ");
 		User user;
 		String parameterUserName = "MyUser" + System.currentTimeMillis();
 		user = new User("TestFirstName","TestLastName",parameterUserName,"password",Role.STUDENT);
@@ -88,40 +88,17 @@ public class TC25b extends TestCase {
 		 bookid = book.getBookid();
 		 logger.info("Bookid created is: "+bookid);
 		// now create loan for this user
-		 Calendar now = Calendar.getInstance();
-		 now.add(Calendar.MINUTE, 5);
-		 Loan loan1 = new Loan(user.getUserId(),bookid,now.getTime(),0,0,true);
-		 LoanDao loanDao = new LoanDao(session);
-		 LoanService loanService = new LoanService(loanDao);
-		 loanDao.saveOrUpdate(loan1);
-		 Loan loan2 = new Loan(user.getUserId(),bookid,now.getTime(),0,0,true);
-		 bookService.decreaseCopies(bookid);
-		 //loanService.addLoan(user.getUserId(), bookid);
-		 loanDao.saveOrUpdate(loan2);
-		 bookService.decreaseCopies(bookid);
-		 logger.info("Loan created are "+loan1.getLoanId()+","+loan2.getLoanId() +" created for user "+ user.getUserId());
-		 session.refresh(book);
-		 logger.info("After the loan,Now Book "+bookid +"has "+book.getCopies()+" copies" );
-//		 //log the admin out 
-
-		 WebConversation conversation = new WebConversation();
-		 WebRequest requestReturnBook = new GetMethodWebRequest(
-				 Constant.UNRENT_BOOK_URL+loan1.getLoanId()+"&userid="+user.getUserId());
-		WebResponse responseGetUser = conversation.getResponse(requestReturnBook);
-//		requestReturnBook = new GetMethodWebRequest(
-//					 Constant.UNRENT_BOOK_URL+loan2.getLoanId()+"&userid="+user.getUserId());
-//				 responseGetUser = conversation.getResponse(requestReturnBook);
-		 session.refresh(book);
-		 logger.info("After the book is returned ,Now Book "+bookid +"has "+book.getCopies()+" copies" );
+		
 
 			logger.info("trying to delete the bookiD: "+bookid);
+			WebConversation conversation = new WebConversation();
 		 WebRequest requestDeleteBook = new GetMethodWebRequest(
 				 Constant.BOOK_DELETE_URL+bookid);
-			 responseGetUser = conversation.getResponse(requestDeleteBook);
+		WebResponse responseGetUser = conversation.getResponse(requestDeleteBook);
 			WebTable bookListUpdatedTable = responseGetUser.getTableWithID("bookListTable");
 			TableCell tableUpdatedCell = bookListUpdatedTable.getTableCellWithID(bookid);
-		assertEquals(bookid,tableUpdatedCell.getText());
+		assertNull(tableUpdatedCell);
 		session.close();
-		logger.info("Exited TC 25b Delete book with multiple copies");
+		logger.info("Exited TC 25 ");
 	}
 }
