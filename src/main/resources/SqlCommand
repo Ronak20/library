@@ -1,2 +1,10 @@
+TRUNCATE TABLE library.book;
+ALTER TABLE library.book AUTO_INCREMENT = 1;
+
+TRUNCATE TABLE library.loan;
+ALTER TABLE library.loan AUTO_INCREMENT = 1;
+
 TRUNCATE TABLE library.user;
-ALTER TABLE library.user AUTO_INCREMENT = 1
+ALTER TABLE library.user AUTO_INCREMENT = 1;
+
+INSERT INTO `library`.`user` (`firstname`, `lastname`, `password`, `role`, `username`) VALUES ('Administrator', 'Administrator', 'admin', '0', 'admin');
