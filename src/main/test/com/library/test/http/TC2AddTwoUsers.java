@@ -3,12 +3,17 @@ package com.library.test.http;
 import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.library.config.Constant;
+import com.library.config.HibernateUtil;
+import com.library.dao.UserDao;
+import com.library.model.User;
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.SubmitButton;
 import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebConversation;
@@ -21,12 +26,15 @@ import org.junit.Test;
 
 public class TC2AddTwoUsers extends TestCase {
 	private static Logger logger = Logger.getLogger(BookServletTest.class);
+	public String parameterFirstUserName = "MyFirstUser" + System.currentTimeMillis();
+	public String parameterSecondUserName = "MySecondUser" + System.currentTimeMillis();
 
 	@Before
 	public void setUp() throws Exception {
 		logger.info("Entered setUp for CreateUserTest");
 		WebConversation conversation = new WebConversation();
 		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
+		HttpUnitOptions.setScriptingEnabled(false);
 		WebResponse response = conversation.getResponse(request);
 		logger.debug("Login Page : \n" + response.getText());
 		WebForm loginForm = response.getFormWithID("loginForm");
@@ -39,6 +47,24 @@ public class TC2AddTwoUsers extends TestCase {
 
 	@After
 	public void tearDown() throws Exception {
+		logger.info("Entered teadDown of TC1 CreateUser");
+		//delete the user created 
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		UserDao userDao = new UserDao(session);
+		logger.info("trying to delete the user with UserName: "+parameterFirstUserName+", "+parameterSecondUserName);
+		User user1 = userDao.getUserByName(parameterFirstUserName);
+		User user2 = userDao.getUserByName(parameterSecondUserName);
+		try {
+				userDao.delete(user1);
+				userDao.delete(user2);
+				
+			} catch (Exception GenericException) {
+				
+				logger.error(GenericException.getMessage(), GenericException);
+			}
+		
+		session.close();
+		logger.info("Exited teadDown of TC1 CreateUser");
 	}
 	
 	public void testCreatetwoUsers() throws Exception {
@@ -48,7 +74,7 @@ public class TC2AddTwoUsers extends TestCase {
 		WebResponse response = conversation.getResponse(request);
 		WebForm createUserForm = response.getFormWithID("createUserForm");
 		logger.debug("Create User Form : \n" + response.getText());
-		String parameterFirstUserName = "MyFirstUser" + System.currentTimeMillis();
+		
 		createUserForm.setParameter("username",
 				parameterFirstUserName);
 		createUserForm.setParameter("firstname",
@@ -70,7 +96,7 @@ public class TC2AddTwoUsers extends TestCase {
 		TableCell tableCell = userListTable.getTableCellWithID(parameterFirstUserName);
 		String FirstUserName = tableCell.getText();
 		logger.info("FirstUserName"+" = "+ FirstUserName);
-		String parameterSecondUserName = "MySecondUser" + System.currentTimeMillis();
+		
 		createUserForm.setParameter("username",
 				parameterSecondUserName);
 		createUserForm.setParameter("firstname",
