@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.junit.After;
 
 import com.library.config.Constant;
 import com.library.config.HibernateUtil;
@@ -40,7 +41,10 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 	String loanID2;
 	String loanID3;
 	
-	
+	//generating random users ID
+			UUID uuid1 = UUID.randomUUID();
+			UUID uuid2 = UUID.randomUUID();
+			UUID uuid3 = UUID.randomUUID();
 	
 	String lId1;
 	String lId2;
@@ -61,10 +65,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 
 	public void setUp() throws Exception {
 		logger.info("Entered setUp");
-		//generating random users ID
-		UUID uuid1 = UUID.randomUUID();
-		UUID uuid2 = UUID.randomUUID();
-		UUID uuid3 = UUID.randomUUID();
+		
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
@@ -103,7 +104,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 						loanDao = new LoanDao(session);
 						loanService = new LoanService(loanDao);
 						loanService.addLoan(uId2, this.bookID);
-						loanID1 = this.loanDao.getLoanByUserIdBookId(uId2, bookID).get(0).getLoanId(); 
+						loanID2 = this.loanDao.getLoanByUserIdBookId(uId2, bookID).get(0).getLoanId(); 
 						bookService.decreaseCopies(this.bookID);
 
 						//create loan user 3
@@ -128,7 +129,22 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		logger.info("Exited setUp");*/
 	}
 
+	@After
 	public void tearDown() throws Exception {
+		
+		/*
+		userDao.delete(userDao.getUserByName("uName" + uuid3));
+		userDao.delete(userDao.getUserById((loanDao.getLoanByID(loanID2).getUserId())));
+		userDao.delete(userDao.getUserById((loanDao.getLoanByID(loanID3).getUserId())));
+		*/
+		
+		
+		loanDao.delete(loanDao.getLoanByID(loanID1));
+		loanDao.delete(loanDao.getLoanByID(loanID2));
+		loanDao.delete(loanDao.getLoanByID(loanID3));
+		
+		
+		bookDao.deleteBook(bookDao.getBookByID(bookID));
 
 	}
 /*
@@ -244,5 +260,8 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		logger.info("Exited testRentBook");
 
 	}
+	
+	
+	
 
 }
