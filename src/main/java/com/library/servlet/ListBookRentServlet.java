@@ -15,6 +15,7 @@ import com.library.config.HibernateUtil;
 import com.library.config.PageConstant;
 import com.library.dao.BookDao;
 import com.library.model.Book;
+import com.library.model.User;
 import com.library.service.BookService;
 
 /**
@@ -45,7 +46,7 @@ public class ListBookRentServlet extends HttpServlet {
 		List<Book> books = bs.getAllBookWithCopies();
 
 		request.setAttribute("bookList", books);
-
+				
 		logger.info("Redirected to " + PageConstant.USER_BOOK_LIST_URL);
 		this.getServletContext()
 				.getRequestDispatcher(PageConstant.USER_BOOK_LIST_URL)

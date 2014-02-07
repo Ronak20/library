@@ -49,16 +49,16 @@
 				<td>${ln.expiryDate}</td>
 				<td>${ln.renewalCount}</td>
 				<td><a
-					href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}">Return</a></td>
+					href="${pageContext.request.contextPath}/unrentBook?aLoan=${ln.loanId}&userid=${sessionScope.user.userId}">Return</a></td>
 				<td><a
-					href="${pageContext.request.contextPath}/renewBook?aLoan=${ln.loanId}">Renew</a></td>
+					href="${pageContext.request.contextPath}/renewBook?aLoan=${ln.loanId}&userid=${sessionScope.user.userId}">Renew</a></td>
 				<td><c:choose>
 						<c:when test="${not ln.isLateFeePaid}">
 							<font color="red">You have overdue books you need to
 								return</font>
 
 							<a
-								href="${pageContext.request.contextPath}/payFeesServlet?loanid=${ln.loanId}">Pay
+								href="${pageContext.request.contextPath}/payFeesServlet?loanid=${ln.loanId}&userid=${ln.userId}">Pay
 								Fees</a></td>
 				</c:when>
 

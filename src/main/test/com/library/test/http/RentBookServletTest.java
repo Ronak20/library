@@ -13,7 +13,6 @@ import com.library.model.Loan;
 import com.library.service.LoanService;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.SubmitButton;
-import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebRequest;
@@ -48,27 +47,16 @@ public class RentBookServletTest extends TestCase {
 	public void testRentBookListBooks() throws Exception {
 		logger.info("Entering testRentBookListBooks");
 		WebConversation conversation = new WebConversation();
-		//WebRequest request = new GetMethodWebRequest(Constant.USERBOOKS_GET_URL);
-		//WebResponse response = conversation.getResponse(request);
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		BookDao bookDao = new BookDao(session);
 		
-		
-		
 		WebRequest requestBookList = new GetMethodWebRequest(Constant.USERBOOKS_GET_URL);
 		WebResponse responseBookList = conversation.getResponse(requestBookList);
 		WebTable userBookListTable = responseBookList.getTableWithID("userBookListTable");
-		//TableCell tableCell = userBookListTable.getTableCellWithID("isbn" + "");
-		/*
-		 * Testing number of books for user panel when clicked "RentBook"
-		 * FIXME : change '6' to the actualy number of books you have in your database
-		 */
 		
 		requestBookList.setParameter("currentUser", "20");
-		
-
-		
+				
 		assertEquals("coloumn count",bookDao.getAll().size(), userBookListTable.getRowCount() -1);
 		logger.info("Getting Row Count" + " = " + userBookListTable.getRowCount());
 		logger.info("Exited testRentBook");
@@ -79,11 +67,6 @@ public class RentBookServletTest extends TestCase {
 	public void testRentBookResult() throws Exception {
 		logger.info("Entered testTC3AddTitle");
 		WebConversation conversation = new WebConversation();
-		//WebRequest request = new GetMethodWebRequest(Constant.RENT_BOOK_URL);
-		//WebResponse response = conversation.getResponse(request);
-		
-		//request.setParameter("currentUser", "20");
-		;
 		
 		WebRequest requestBookList = new GetMethodWebRequest(Constant.RENT_BOOK_URL);
 		//user ID to rent
@@ -98,11 +81,6 @@ public class RentBookServletTest extends TestCase {
 		WebTable userRentedBooksTable = responseBookList.getTableWithID("rentedBooks");
 		
 		
-		//TableCell tableCell = userBookListTable.getTableCellWithID("isbn" + "");
-		/*
-		 * Testing whether the book was added and shown on the user panel
-		 * FIXME : 
-		 */
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		LoanDao loanDao = new LoanDao(session);
 		LoanService ls = new LoanService(loanDao);
@@ -113,7 +91,7 @@ public class RentBookServletTest extends TestCase {
 		
 		
 		int aRow = loanDao.getAll().size();
-		//TableCell tc = userRentedBooksTable.getAttribute(name) 
+		
 		
 		System.out.println(aRow);
 		

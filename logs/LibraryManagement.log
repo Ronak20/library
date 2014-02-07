@@ -1,0 +1,735 @@
+2014-02-07 13:22:35 INFO  TC8:52 - Entered setUp
+2014-02-07 13:22:38 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:22:38 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:22:38 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:22:38 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:22:39 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:22:39 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:22:40 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:22:41 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: HibernateSessionFactory
+2014-02-07 13:22:42 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:22:42 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:22:42 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:22:42 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:22:42 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:22:44 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:22:44 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:22:44 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:22:44 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:22:45 WARN  SessionFactoryRegistry:116 - HHH000277: Could not bind factory to JNDI
+org.hibernate.engine.jndi.JndiException: Error parsing JNDI name [HibernateSessionFactory]
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.parseName(JndiServiceImpl.java:141)
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.bind(JndiServiceImpl.java:157)
+	at org.hibernate.internal.SessionFactoryRegistry.addSessionFactory(SessionFactoryRegistry.java:103)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:495)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1857)
+	at com.library.config.HibernateUtil.getSessionFactory(HibernateUtil.java:19)
+	at com.library.test.http.TC8.setUp(TC8.java:56)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+Caused by: javax.naming.NoInitialContextException: Need to specify class name in environment or system property, or as an applet parameter, or in an application resource file:  java.naming.factory.initial
+	at javax.naming.spi.NamingManager.getInitialContext(Unknown Source)
+	at javax.naming.InitialContext.getDefaultInitCtx(Unknown Source)
+	at javax.naming.InitialContext.getURLOrDefaultInitCtx(Unknown Source)
+	at javax.naming.InitialContext.getNameParser(Unknown Source)
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.parseName(JndiServiceImpl.java:135)
+	... 30 more
+2014-02-07 13:22:46 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname2b9f6fa7-759a-467d-ae27-5d441a722819, isbn=isbn2b9f6fa7-759a-467d-ae27-5d441a722819, copies=10]
+2014-02-07 13:22:50 INFO  TC8:82 - Entered testBorrowMultipleCopies
+2014-02-07 13:22:52 INFO  TC8:83 -  loanID : null bookID : 4 userID : 5
+2014-02-07 13:31:32 INFO  TC8:55 - Entered setUp
+2014-02-07 13:31:33 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:31:33 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:31:33 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:31:33 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:31:33 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:31:33 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:31:33 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:31:33 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: HibernateSessionFactory
+2014-02-07 13:31:33 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:31:33 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:31:33 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:31:33 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:31:33 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:31:34 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:31:34 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:31:34 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:31:34 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:31:35 WARN  SessionFactoryRegistry:116 - HHH000277: Could not bind factory to JNDI
+org.hibernate.engine.jndi.JndiException: Error parsing JNDI name [HibernateSessionFactory]
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.parseName(JndiServiceImpl.java:141)
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.bind(JndiServiceImpl.java:157)
+	at org.hibernate.internal.SessionFactoryRegistry.addSessionFactory(SessionFactoryRegistry.java:103)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:495)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1857)
+	at com.library.config.HibernateUtil.getSessionFactory(HibernateUtil.java:19)
+	at com.library.test.http.TC8.setUp(TC8.java:59)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+Caused by: javax.naming.NoInitialContextException: Need to specify class name in environment or system property, or as an applet parameter, or in an application resource file:  java.naming.factory.initial
+	at javax.naming.spi.NamingManager.getInitialContext(Unknown Source)
+	at javax.naming.InitialContext.getDefaultInitCtx(Unknown Source)
+	at javax.naming.InitialContext.getURLOrDefaultInitCtx(Unknown Source)
+	at javax.naming.InitialContext.getNameParser(Unknown Source)
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.parseName(JndiServiceImpl.java:135)
+	... 30 more
+2014-02-07 13:31:35 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname702aee9b-e530-4e56-82a1-3e02ec3c854c, isbn=isbn702aee9b-e530-4e56-82a1-3e02ec3c854c, copies=10]
+2014-02-07 13:33:38 INFO  TC8:55 - Entered setUp
+2014-02-07 13:33:39 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:33:39 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:33:39 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:33:39 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:33:39 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:33:39 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:33:39 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:33:39 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: sessionFactory
+2014-02-07 13:33:39 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:33:39 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:33:39 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:33:39 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:33:39 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:33:40 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:33:40 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:33:40 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:33:40 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:33:41 WARN  SessionFactoryRegistry:116 - HHH000277: Could not bind factory to JNDI
+org.hibernate.engine.jndi.JndiException: Error parsing JNDI name [sessionFactory]
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.parseName(JndiServiceImpl.java:141)
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.bind(JndiServiceImpl.java:157)
+	at org.hibernate.internal.SessionFactoryRegistry.addSessionFactory(SessionFactoryRegistry.java:103)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:495)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1857)
+	at com.library.config.HibernateUtil.getSessionFactory(HibernateUtil.java:19)
+	at com.library.test.http.TC8.setUp(TC8.java:59)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+Caused by: javax.naming.NoInitialContextException: Need to specify class name in environment or system property, or as an applet parameter, or in an application resource file:  java.naming.factory.initial
+	at javax.naming.spi.NamingManager.getInitialContext(Unknown Source)
+	at javax.naming.InitialContext.getDefaultInitCtx(Unknown Source)
+	at javax.naming.InitialContext.getURLOrDefaultInitCtx(Unknown Source)
+	at javax.naming.InitialContext.getNameParser(Unknown Source)
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.parseName(JndiServiceImpl.java:135)
+	... 30 more
+2014-02-07 13:33:41 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname347e5400-70db-4e2f-af9f-7c6642ff1ebf, isbn=isbn347e5400-70db-4e2f-af9f-7c6642ff1ebf, copies=10]
+2014-02-07 13:34:29 INFO  TC8:55 - Entered setUp
+2014-02-07 13:34:29 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:34:29 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:34:29 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:34:29 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:34:29 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:34:29 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:34:29 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:34:29 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: sessionFactory
+2014-02-07 13:34:29 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:34:29 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:34:29 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:34:29 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:34:29 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:34:30 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:34:30 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:34:30 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:34:30 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:34:31 WARN  SessionFactoryRegistry:116 - HHH000277: Could not bind factory to JNDI
+org.hibernate.engine.jndi.JndiException: Error parsing JNDI name [sessionFactory]
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.parseName(JndiServiceImpl.java:141)
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.bind(JndiServiceImpl.java:157)
+	at org.hibernate.internal.SessionFactoryRegistry.addSessionFactory(SessionFactoryRegistry.java:103)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:495)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1857)
+	at com.library.config.HibernateUtil.getSessionFactory(HibernateUtil.java:19)
+	at com.library.test.http.TC8.setUp(TC8.java:59)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+Caused by: javax.naming.NoInitialContextException: Need to specify class name in environment or system property, or as an applet parameter, or in an application resource file:  java.naming.factory.initial
+	at javax.naming.spi.NamingManager.getInitialContext(Unknown Source)
+	at javax.naming.InitialContext.getDefaultInitCtx(Unknown Source)
+	at javax.naming.InitialContext.getURLOrDefaultInitCtx(Unknown Source)
+	at javax.naming.InitialContext.getNameParser(Unknown Source)
+	at org.hibernate.engine.jndi.internal.JndiServiceImpl.parseName(JndiServiceImpl.java:135)
+	... 30 more
+2014-02-07 13:34:31 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname25c9cf37-b2d6-4b11-a537-c5064d2383cb, isbn=isbn25c9cf37-b2d6-4b11-a537-c5064d2383cb, copies=10]
+2014-02-07 13:42:24 INFO  TC8:56 - Entered setUp
+2014-02-07 13:42:24 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:42:24 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:42:24 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:42:24 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:42:24 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:42:24 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:42:24 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:42:24 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 13:42:25 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:42:25 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:42:25 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:42:25 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:42:25 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:42:25 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:42:25 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:42:25 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:42:25 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:42:26 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname4d4f371c-a258-4899-acd4-09594cb4f5c5, isbn=isbn4d4f371c-a258-4899-acd4-09594cb4f5c5, copies=10]
+2014-02-07 13:44:04 INFO  TC8:84 - Exited 
+2014-02-07 13:44:09 INFO  TC8:97 - Entered testBorrowMultipleCopies
+2014-02-07 13:44:11 INFO  TC8:98 -  loanID : null bookID : 8 userID : 9
+2014-02-07 13:45:39 INFO  TC8:56 - Entered setUp
+2014-02-07 13:45:39 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:45:39 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:45:39 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:45:39 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:45:39 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:45:39 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:45:40 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:45:40 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 13:45:40 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:45:40 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:45:40 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:45:40 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:45:40 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:45:40 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:45:40 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:45:41 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:45:41 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:45:41 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname5b075d7f-c8ae-4e49-be17-599a03be0656, isbn=isbn5b075d7f-c8ae-4e49-be17-599a03be0656, copies=10]
+2014-02-07 13:46:52 INFO  TC8:56 - Entered setUp
+2014-02-07 13:46:52 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:46:52 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:46:52 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:46:52 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:46:52 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:46:52 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:46:52 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:46:52 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 13:46:53 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:46:53 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:46:53 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:46:53 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:46:53 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:46:53 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:46:53 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:46:53 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:46:53 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:46:54 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname5f022051-f9d5-4fd0-a8b3-4528a90d7497, isbn=isbn5f022051-f9d5-4fd0-a8b3-4528a90d7497, copies=10]
+2014-02-07 13:47:03 INFO  TC8:84 - Exited 
+2014-02-07 13:47:11 INFO  TC8:97 - Entered testBorrowMultipleCopies
+2014-02-07 13:47:13 INFO  TC8:98 -  loanID : null bookID : 10 userID : 11
+2014-02-07 13:54:17 INFO  TC8:58 - Entered setUp
+2014-02-07 13:54:18 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:54:18 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:54:18 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:54:18 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:54:18 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:54:18 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:54:18 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:54:18 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 13:54:18 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:54:18 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:54:18 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:54:18 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:54:18 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:54:19 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:54:19 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:54:19 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:54:19 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:54:20 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname8fd83cab-c634-450d-95a5-d72852af42e1, isbn=isbn8fd83cab-c634-450d-95a5-d72852af42e1, copies=10]
+2014-02-07 13:55:29 INFO  TC8:58 - Entered setUp
+2014-02-07 13:55:29 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:55:29 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:55:29 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:55:29 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:55:29 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:55:29 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:55:29 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:55:30 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 13:55:30 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:55:30 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:55:30 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:55:30 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:55:30 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:55:30 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:55:30 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:55:31 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:55:31 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:55:31 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname1c571618-f0e2-4a38-8c3e-739c0c739548, isbn=isbn1c571618-f0e2-4a38-8c3e-739c0c739548, copies=10]
+2014-02-07 13:55:48 INFO  TC8:86 - Exited 
+2014-02-07 13:55:52 INFO  TC8:99 - Entered testBorrowMultipleCopies
+2014-02-07 13:55:54 INFO  TC8:100 -  loanID : null bookID : 12 userID : 13
+2014-02-07 13:58:58 INFO  TC8:58 - Entered setUp
+2014-02-07 13:58:59 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 13:58:59 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 13:58:59 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 13:58:59 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 13:58:59 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 13:58:59 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 13:58:59 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 13:58:59 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 13:58:59 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 13:58:59 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 13:58:59 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 13:58:59 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 13:58:59 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 13:59:00 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 13:59:00 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 13:59:00 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 13:59:00 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 13:59:01 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname04b90709-6d6a-4fda-b80a-ba713eb08c80, isbn=isbn04b90709-6d6a-4fda-b80a-ba713eb08c80, copies=10]
+2014-02-07 14:01:38 INFO  TC8:58 - Entered setUp
+2014-02-07 14:01:38 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:01:38 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:01:38 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:01:38 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:01:38 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:01:38 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:01:39 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:01:39 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:01:39 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:01:39 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:01:39 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:01:39 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:01:39 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:01:39 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:01:39 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:01:40 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:01:40 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:01:40 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=booknamed4b3bcc1-961c-4b0d-92fe-a78c7bdadb02, isbn=isbnd4b3bcc1-961c-4b0d-92fe-a78c7bdadb02, copies=10]
+2014-02-07 14:02:15 INFO  TC8:86 - Exited 
+2014-02-07 14:02:18 INFO  TC8:99 - Entered testBorrowMultipleCopies
+2014-02-07 14:02:20 INFO  TC8:100 -  loanID : null bookID : 2 userID : 3
+2014-02-07 14:13:08 INFO  TC8:58 - Entered setUp
+2014-02-07 14:13:09 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:13:09 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:13:09 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:13:09 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:13:09 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:13:09 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:13:10 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:13:10 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:13:10 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:13:10 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:13:10 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:13:10 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:13:10 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:13:11 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:13:11 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:13:11 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:13:11 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:13:12 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname4f2c607d-44b2-45bb-b81f-52f3fe5dc7b5, isbn=isbn4f2c607d-44b2-45bb-b81f-52f3fe5dc7b5, copies=10]
+2014-02-07 14:13:23 INFO  TC8:86 - Exited 
+2014-02-07 14:13:25 INFO  TC8:99 - Entered testBorrowMultipleCopies
+2014-02-07 14:13:26 INFO  TC8:100 -  loanID : null bookID : 3 userID : 5
+2014-02-07 14:16:27 INFO  TC8:58 - Entered setUp
+2014-02-07 14:16:28 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:16:28 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:16:28 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:16:28 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:16:28 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:16:28 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:16:28 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:16:28 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:16:28 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:16:28 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:16:28 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:16:28 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:16:28 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:16:29 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:16:29 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:16:29 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:16:29 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:16:30 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname8e5e9016-9575-47e6-abcd-81aa20f29479, isbn=isbn8e5e9016-9575-47e6-abcd-81aa20f29479, copies=10]
+2014-02-07 14:16:36 INFO  TC8:86 - Exited 
+2014-02-07 14:16:38 INFO  TC8:99 - Entered testBorrowMultipleCopies
+2014-02-07 14:16:39 INFO  TC8:100 -  loanID : null bookID : 4 userID : 6
+2014-02-07 14:35:19 INFO  TC8:62 - Entered setUp
+2014-02-07 14:35:20 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:35:20 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:35:20 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:35:20 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:35:20 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:35:20 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:35:20 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:35:20 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:35:20 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:35:20 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:35:20 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:35:20 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:35:20 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:35:21 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:35:21 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:35:21 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:35:21 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:35:22 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname9ea4ea81-bb7a-4e9e-bb51-ff1a2424a330, isbn=isbn9ea4ea81-bb7a-4e9e-bb51-ff1a2424a330, copies=10]
+2014-02-07 14:35:22 INFO  TC8:90 - Exited 
+2014-02-07 14:35:22 INFO  TC8:103 - Entered testBorrowMultipleCopies
+2014-02-07 14:35:22 INFO  TC8:104 -  loanID : null bookID : 5 userID : 7
+2014-02-07 14:36:40 INFO  TC8:62 - Entered setUp
+2014-02-07 14:36:40 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:36:40 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:36:40 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:36:40 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:36:40 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:36:40 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:36:40 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:36:40 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:36:41 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:36:41 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:36:41 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:36:41 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:36:41 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:36:41 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:36:41 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:36:41 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:36:41 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:36:42 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname099c7a75-caaa-4480-8bf7-ae3c6c63b2e7, isbn=isbn099c7a75-caaa-4480-8bf7-ae3c6c63b2e7, copies=10]
+2014-02-07 14:36:42 INFO  TC8:91 - Exited 
+2014-02-07 14:36:42 INFO  TC8:104 - Entered testBorrowMultipleCopies
+2014-02-07 14:36:42 INFO  TC8:105 -  loanID : null bookID : 6 userID : 8
+2014-02-07 14:37:35 INFO  TC8:62 - Entered setUp
+2014-02-07 14:37:35 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:37:35 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:37:35 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:37:35 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:37:35 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:37:35 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:37:35 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:37:35 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:37:35 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:37:36 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:37:36 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:37:36 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:37:36 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:37:36 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:37:36 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:37:37 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:37:37 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:37:38 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=booknamed4954a2f-9920-41a2-a990-c422b4f2b2f3, isbn=isbnd4954a2f-9920-41a2-a990-c422b4f2b2f3, copies=10]
+2014-02-07 14:37:38 INFO  TC8:91 - Exited 
+2014-02-07 14:37:38 INFO  TC8:104 - Entered testBorrowMultipleCopies
+2014-02-07 14:37:38 INFO  TC8:105 -  loanID : null bookID : 7 userID : 9
+2014-02-07 14:42:53 INFO  TC8:62 - Entered setUp
+2014-02-07 14:42:53 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:42:53 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:42:53 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:42:53 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:42:54 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:42:54 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:42:54 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:42:54 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:42:54 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:42:54 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:42:54 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:42:54 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:42:54 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:42:54 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:42:54 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:42:55 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:42:55 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:42:55 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname3d2191b3-c4c9-443c-aebe-527350a5c68e, isbn=isbn3d2191b3-c4c9-443c-aebe-527350a5c68e, copies=10]
+2014-02-07 14:42:55 INFO  TC8:82 - Exited 
+2014-02-07 14:42:55 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 14:42:55 INFO  TC8:96 -  loanID : null bookID : 8 userID : 10
+2014-02-07 14:43:52 INFO  TC8:62 - Entered setUp
+2014-02-07 14:43:53 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:43:53 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:43:53 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:43:53 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:43:53 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:43:53 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:43:53 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:43:53 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:43:53 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:43:53 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:43:53 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:43:53 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:43:53 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:43:54 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:43:54 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:43:54 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:43:54 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:43:55 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=booknamee29f37a2-c26d-47b4-aebd-21398796471e, isbn=isbne29f37a2-c26d-47b4-aebd-21398796471e, copies=10]
+2014-02-07 14:43:55 INFO  TC8:82 - Exited 
+2014-02-07 14:43:55 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 14:43:55 INFO  TC8:96 -  loanID : null bookID : 9 userID : 11
+2014-02-07 14:45:42 INFO  TC8:62 - Entered setUp
+2014-02-07 14:45:42 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:45:42 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:45:42 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:45:42 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:45:42 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:45:42 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:45:42 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:45:42 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:45:43 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:45:43 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:45:43 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:45:43 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:45:43 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:45:43 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:45:43 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:45:44 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:45:44 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:45:45 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname3683399d-7307-489b-b9a2-d66340324bc4, isbn=isbn3683399d-7307-489b-b9a2-d66340324bc4, copies=10]
+2014-02-07 14:45:51 INFO  TC8:82 - Exited 
+2014-02-07 14:45:54 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 14:45:55 INFO  TC8:96 -  loanID : null bookID : 10 userID : 12
+2014-02-07 14:51:25 INFO  TC8:62 - Entered setUp
+2014-02-07 14:51:25 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 14:51:25 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 14:51:25 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 14:51:25 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 14:51:25 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 14:51:25 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 14:51:25 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 14:51:25 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 14:51:26 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 14:51:26 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 14:51:26 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 14:51:26 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 14:51:26 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 14:51:26 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 14:51:26 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 14:51:26 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 14:51:26 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 14:51:27 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname1d20df68-c97a-44af-97f5-65e027531d0c, isbn=isbn1d20df68-c97a-44af-97f5-65e027531d0c, copies=10]
+2014-02-07 14:51:29 INFO  TC8:82 - Exited 
+2014-02-07 14:51:32 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 14:51:33 INFO  TC8:96 -  loanID : null bookID : 11 userID : 13
+2014-02-07 15:09:05 INFO  TC8:62 - Entered setUp
+2014-02-07 15:09:05 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 15:09:05 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 15:09:05 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 15:09:05 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 15:09:05 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 15:09:05 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 15:09:06 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 15:09:06 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 15:09:06 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 15:09:06 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 15:09:06 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 15:09:06 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 15:09:06 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 15:09:06 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 15:09:06 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 15:09:07 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 15:09:07 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 15:09:07 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=booknameb32f5d18-58e8-4ee8-b5f2-04f91e16a89f, isbn=isbnb32f5d18-58e8-4ee8-b5f2-04f91e16a89f, copies=10]
+2014-02-07 15:09:07 INFO  TC8:82 - Exited 
+2014-02-07 15:09:07 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 15:09:07 INFO  TC8:96 -  loanID : null bookID : 12 userID : 14
+2014-02-07 15:11:38 INFO  TC8:62 - Entered setUp
+2014-02-07 15:11:38 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 15:11:38 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 15:11:38 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 15:11:38 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 15:11:38 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 15:11:38 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 15:11:39 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 15:11:39 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 15:11:39 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 15:11:39 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 15:11:39 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 15:11:39 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 15:11:39 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 15:11:39 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 15:11:39 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 15:11:40 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 15:11:40 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 15:11:41 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=booknamea12e9554-189d-466c-ab98-ed153ebd7839, isbn=isbna12e9554-189d-466c-ab98-ed153ebd7839, copies=10]
+2014-02-07 15:11:43 INFO  TC8:82 - Exited 
+2014-02-07 15:11:48 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 15:11:49 INFO  TC8:96 -  loanID : null bookID : 13 userID : 15
+2014-02-07 15:22:29 INFO  TC8:62 - Entered setUp
+2014-02-07 15:22:29 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 15:22:29 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 15:22:29 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 15:22:29 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 15:22:29 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 15:22:29 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 15:22:30 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 15:22:30 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 15:22:30 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 15:22:30 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 15:22:30 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 15:22:30 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 15:22:30 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 15:22:30 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 15:22:30 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 15:22:31 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 15:22:31 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 15:22:31 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=booknamec01adff5-5c48-4e77-a70e-b47dd8ac059f, isbn=isbnc01adff5-5c48-4e77-a70e-b47dd8ac059f, copies=10]
+2014-02-07 15:22:35 INFO  TC8:82 - Exited 
+2014-02-07 15:22:36 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 15:22:37 INFO  TC8:96 -  loanID : null bookID : 14 userID : 16
+2014-02-07 15:26:04 INFO  TC8:62 - Entered setUp
+2014-02-07 15:26:05 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 15:26:05 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 15:26:05 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 15:26:05 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 15:26:05 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 15:26:05 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 15:26:05 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 15:26:05 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 15:26:05 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 15:26:05 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 15:26:05 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 15:26:05 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 15:26:05 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 15:26:06 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 15:26:06 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 15:26:06 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 15:26:06 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 15:26:07 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=booknamebea28583-84db-4921-a67c-f1f59e90242c, isbn=isbnbea28583-84db-4921-a67c-f1f59e90242c, copies=10]
+2014-02-07 15:26:09 INFO  TC8:82 - Exited 
+2014-02-07 15:26:18 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 15:26:21 INFO  TC8:96 -  loanID : null bookID : 15 userID : 17
+2014-02-07 15:30:57 INFO  TC8:62 - Entered setUp
+2014-02-07 15:30:58 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 15:30:58 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 15:30:58 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 15:30:58 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 15:30:58 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 15:30:58 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 15:30:58 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 15:30:58 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 15:30:58 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 15:30:58 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 15:30:58 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 15:30:58 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 15:30:58 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 15:30:59 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 15:30:59 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 15:30:59 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 15:30:59 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 15:31:00 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname2cb2f877-02a3-4154-adcb-0f0cba3a8bf6, isbn=isbn2cb2f877-02a3-4154-adcb-0f0cba3a8bf6, copies=10]
+2014-02-07 15:31:00 INFO  TC8:82 - Exited 
+2014-02-07 15:31:00 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 15:31:00 INFO  TC8:96 -  loanID : null bookID : 16 userID : 18
+2014-02-07 15:39:08 INFO  TC8:62 - Entered setUp
+2014-02-07 15:39:08 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 15:39:08 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 15:39:08 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 15:39:08 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 15:39:08 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 15:39:08 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 15:39:08 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 15:39:08 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 15:39:09 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 15:39:09 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 15:39:09 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 15:39:09 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 15:39:09 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 15:39:09 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 15:39:09 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 15:39:09 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 15:39:09 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 15:39:10 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname5051ce4a-d252-47c0-8856-31bb8dff0570, isbn=isbn5051ce4a-d252-47c0-8856-31bb8dff0570, copies=10]
+2014-02-07 15:39:13 INFO  TC8:82 - Exited 
+2014-02-07 15:39:14 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 15:39:14 INFO  TC8:96 -  loanID : null bookID : 17 userID : 19
+2014-02-07 15:40:31 INFO  TC8:62 - Entered setUp
+2014-02-07 15:40:31 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2014-02-07 15:40:31 INFO  Version:54 - HHH000412: Hibernate Core {4.3.0.Final}
+2014-02-07 15:40:31 INFO  Environment:239 - HHH000206: hibernate.properties not found
+2014-02-07 15:40:31 INFO  Environment:346 - HHH000021: Bytecode provider name : javassist
+2014-02-07 15:40:31 INFO  Configuration:2073 - HHH000043: Configuring from resource: /hibernate.cfg.xml
+2014-02-07 15:40:31 INFO  Configuration:2092 - HHH000040: Configuration resource: /hibernate.cfg.xml
+2014-02-07 15:40:31 WARN  DTDEntityResolver:75 - HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+2014-02-07 15:40:32 INFO  Configuration:2214 - HHH000041: Configured SessionFactory: null
+2014-02-07 15:40:32 INFO  DriverManagerConnectionProviderImpl:93 - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2014-02-07 15:40:32 INFO  DriverManagerConnectionProviderImpl:166 - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+2014-02-07 15:40:32 INFO  DriverManagerConnectionProviderImpl:175 - HHH000046: Connection properties: {user=root, password=****, autocommit=true}
+2014-02-07 15:40:32 INFO  DriverManagerConnectionProviderImpl:180 - HHH000006: Autocommit mode: true
+2014-02-07 15:40:32 INFO  DriverManagerConnectionProviderImpl:102 - HHH000115: Hibernate connection pool size: 1 (min=1)
+2014-02-07 15:40:32 INFO  Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2014-02-07 15:40:32 INFO  LobCreatorBuilder:97 - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2014-02-07 15:40:32 INFO  TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2014-02-07 15:40:32 INFO  ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2014-02-07 15:40:33 INFO  BookDao:23 - saveOrUpdate : Book [bookid=null, bookName=bookname5b533a8f-5e57-40f3-92e6-dcaea4c6b990, isbn=isbn5b533a8f-5e57-40f3-92e6-dcaea4c6b990, copies=10]
+2014-02-07 15:40:33 INFO  TC8:82 - Exited 
+2014-02-07 15:40:33 INFO  TC8:95 - Entered testBorrowMultipleCopies
+2014-02-07 15:40:33 INFO  TC8:96 -  loanID : null bookID : 18 userID : 20

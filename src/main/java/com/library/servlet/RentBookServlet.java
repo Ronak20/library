@@ -17,7 +17,6 @@ import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.library.exception.dao.NotFoundException;
 import com.library.exception.service.ConstraintViolationException;
-import com.library.model.User;
 import com.library.service.BookService;
 import com.library.service.LoanService;
 
@@ -50,8 +49,7 @@ public class RentBookServlet extends HttpServlet {
 		LoanDao loanDao = new LoanDao(session);
 		LoanService loanService = new LoanService(loanDao);
 
-		String userId = ((User) request.getSession().getAttribute("user"))
-				.getUserId();
+		String userId = request.getParameter("userid");
 		String bookId = request.getParameter("bookid");
 
 		if (bookId != null && !bookId.isEmpty() && userId != null

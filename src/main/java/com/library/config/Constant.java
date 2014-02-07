@@ -20,7 +20,7 @@ public class Constant {
 	public static final String USERBOOKS_GET_URL = DOMAIN + PORT + APP_NAME
 			+ "/listBooksRent";
 	public static final String RENT_BOOK_URL = DOMAIN + PORT + APP_NAME
-			+ "/rentBook";
+			+ "/rentBook?bookid=";
 	public static final String DELETE_USER_URL = DOMAIN + PORT + APP_NAME
 			+ "/deleteUser?userid=";
 	public static final String RENEW_BOOK_URL = DOMAIN + PORT + APP_NAME
@@ -38,8 +38,8 @@ public class Constant {
 				+ "&currentUser=" + userid;
 	}
 	
-	public static String getPayFeeUrl(String loadid)
+	public static String getPayFeeUrl(String loadid,String userid)
 	{
-		return DOMAIN + PORT + APP_NAME +"/payFeesServlet"+"?loanid="+loadid;
+		return DOMAIN + PORT + APP_NAME +"/payFeesServlet"+"?loanid="+loadid+"&userid"+userid;
 	}
 }

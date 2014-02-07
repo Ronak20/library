@@ -43,11 +43,11 @@ public class PayFeesServlet extends HttpServlet {
 		LoanService ls = new LoanService(loanDao);
 		String loanid = request.getParameter("loanid");
 
-		User sessionUser = ((User) request.getSession().getAttribute("user"));
+		String userid = request.getParameter("userid");
 		ls.payFees(loanid);
 
 		request.setAttribute("loanList",
-				loanDao.getLoanByUserId(sessionUser.getUserId()));
+				loanDao.getLoanByUserId(userid));
 		session.close();
 
 		logger.info(LogConstant.REDIRECT + PageConstant.USER_PAGE);

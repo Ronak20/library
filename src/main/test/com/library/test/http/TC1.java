@@ -4,17 +4,13 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.context.internal.ThreadLocalSessionContext;
 import org.junit.After;
 import org.junit.Before;
 
 import com.library.config.Constant;
 import com.library.config.HibernateUtil;
-import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
-import com.library.exception.service.ConstraintViolationException;
 import com.library.model.User;
-import com.library.service.UserService;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.SubmitButton;

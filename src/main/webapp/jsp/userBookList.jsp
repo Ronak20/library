@@ -29,7 +29,6 @@
 			<th>Copies</th>
 			<th>Rent</th>
 		</tr>
-		<c:set var="userId" value="${currentUser}" scope="session"></c:set>
 		<c:forEach var="ln" items="${bookList}">
 			<tr>
 				<td id="<c:out value="${ln.bookid}"></c:out>"><c:out
@@ -38,7 +37,7 @@
 						value="${ln.isbn}"></c:out></td>
 				<td>${ln.bookName}</td>
 				<td>${ln.copies}</td>
-				<td><a href="rentBook?bookid=${ln.bookid}">Rent</a></td>
+				<td><a href="rentBook?bookid=${ln.bookid}&userid=${sessionScope.user.userId}">Rent</a></td>
 			</tr>
 		</c:forEach>
 	</table>

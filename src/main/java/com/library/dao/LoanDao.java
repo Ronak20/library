@@ -72,16 +72,15 @@ public class LoanDao {
 		return loan;
 	}
 
-	public Loan getLoanByUserIdBookId(String userid, String bookid) {
+	public List<Loan> getLoanByUserIdBookId(String userid, String bookid) {
 		String hql = "FROM Loan L WHERE L.userId = :userid and L.bookId= :bookid";
 		Query query = session.createQuery(hql);
 		query.setParameter("userid", userid);
 		query.setParameter("bookid", bookid);
 
 		List<Loan> loanList = query.list();
-		Loan loan = loanList.get(0);
-		System.out.println(loan.toString());
-		return loan;
+		
+		return loanList;
 	}
 
 	public Loan getLastLoanByUserId(String userid) {

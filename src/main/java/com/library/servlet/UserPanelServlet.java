@@ -47,8 +47,7 @@ public class UserPanelServlet extends HttpServlet {
 		LoanDao loanDao = new LoanDao(hSession);
 		LoanService loanService = new LoanService(loanDao);
 
-		String userId = ((User) request.getSession().getAttribute("user"))
-				.getUserId();
+		String userId = request.getParameter("userid");
 
 		// get loan by user id
 		List<Loan> loans = loanService.getLoanByUserId(userId);

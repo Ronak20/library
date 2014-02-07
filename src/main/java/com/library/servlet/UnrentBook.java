@@ -16,9 +16,7 @@ import com.library.config.LogConstant;
 import com.library.config.PageConstant;
 import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
-import com.library.dao.UserDao;
 import com.library.model.Loan;
-import com.library.model.User;
 import com.library.service.BookService;
 import com.library.service.LoanService;
 
@@ -51,13 +49,13 @@ public class UnrentBook extends HttpServlet {
 		LoanService loanService = new LoanService(loanDao);
 		BookDao bookDao = new BookDao(session);
 		BookService bookService = new BookService(bookDao);
+		String userId = request.getParameter("userid");
 
 		Loan loan = loanService.getLoanByID((String) request
 				.getParameter("aLoan"));
 		bookService.increaseCopies(loan.getBookId());
 		loanService.deleteLoanByLoanID((String) request.getParameter("aLoan"));
-		List<Loan> loans = loanService.getLoanByUserId(((User) request
-				.getSession().getAttribute("user")).getUserId());
+		List<Loan> loans = loanService.getLoanByUserId(userId);
 		request.setAttribute("loanList", loans);
 
 		this.getServletContext().getRequestDispatcher(PageConstant.USER_PAGE)

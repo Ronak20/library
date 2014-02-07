@@ -16,7 +16,6 @@ import com.library.config.LogConstant;
 import com.library.config.PageConstant;
 import com.library.dao.LoanDao;
 import com.library.model.Loan;
-import com.library.model.User;
 import com.library.service.LoanService;
 
 /**
@@ -45,8 +44,7 @@ public class RenewBookServlet extends HttpServlet {
 		LoanDao loanDao = new LoanDao(session);
 		LoanService loanService = new LoanService(loanDao);
 
-		String userId = ((User) request.getSession().getAttribute("user"))
-				.getUserId();
+		String userId = request.getParameter("userid");
 		String loanId = request.getParameter("aLoan");
 
 		String isRenewed = loanService.renewLoan(loanId);

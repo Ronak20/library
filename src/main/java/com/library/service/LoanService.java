@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 import com.library.config.LogConstant;
 import com.library.config.MessageConstant;
-import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.library.exception.dao.NotFoundException;
 import com.library.exception.service.ConstraintViolationException;
@@ -29,28 +28,6 @@ public class LoanService {
 	 *            method to add and update loan
 	 * @throws NotFoundException 
 	 */
-	public void save(Loan loan) throws NotFoundException {
-		List<Loan> latePaymentLoans = this.loanDao.getExpiredLoanByUserId(loan
-				.getUserId());
-
-		if (latePaymentLoans == null) {
-
-			Loan dbLoan = this.loanDao.getLoanByUserIdBookId(loan.getUserId(),
-					loan.getBookId());
-			int renewalCount = dbLoan.getRenewalCount();
-			if (renewalCount <= 3) {
-				this.loanDao.saveOrUpdate(loan);
-			} else {
-				throw new RuntimeException("Cannot renew anymore: "
-						+ dbLoan.toString());
-			}
-
-		} else {
-			throw new RuntimeException("Loan payment Pending : "
-					+ latePaymentLoans.toString());
-		}
-	}
-
 	public String renewLoan(String loanid) {
 		logger.info(LogConstant.ENTERED + "renewLoan");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
