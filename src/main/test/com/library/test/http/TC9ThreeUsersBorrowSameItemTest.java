@@ -29,9 +29,9 @@ import com.meterware.httpunit.WebTable;
 
 public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 	private static Logger logger = Logger.getLogger(RentBookServletTest.class);
-	String uId1;
-	String uId2;
-	String uId3;
+	String uId1 = "1234567";
+	String uId2= "123456789";
+	String uId3= "1234567898";
 	
 	String isbn;
 	String bookID;
@@ -83,9 +83,9 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		Book book = new Book("bookname" + uuid1, isbn, 10);
 		this.bookID = bookDao.saveOrUpdate(book);
 		
-		uId1 = user1.getUserId();
-		uId2 = user2.getUserId();
-		uId3 = user3.getUserId();
+		//uId1 = userDao.getUserByName("uName" + uuid1).getUserId();
+		//uId2 = userDao.getUserByName("uName" + uuid2).getUserId();
+		//uId3 = userDao.getUserByName("uName" + uuid3).getUserId();
 		
 		//create loan for user 1
 				loanDao = new LoanDao(session);
@@ -97,7 +97,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		//create loan for user 2
 						loanDao = new LoanDao(session);
 						loanService = new LoanService(loanDao);
-						loanService.addLoan(uId1, this.bookID);
+						loanService.addLoan(uId2, this.bookID);
 						loanID1 = this.loanDao.getLoanByUserIdBookId(uId2, bookID).getLoanId(); 
 						bookService.decreaseCopies(this.bookID);
 
@@ -110,7 +110,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		
 		
 		
-		
+		/*
 		WebConversation conversation = new WebConversation();
 		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
 		WebResponse response = conversation.getResponse(request);
@@ -120,7 +120,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
 		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
 		loginForm.submit(submitButton);
-		logger.info("Exited setUp");
+		logger.info("Exited setUp");*/
 	}
 
 	public void tearDown() throws Exception {
@@ -183,10 +183,10 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		
 		requestBookList.setParameter("auser", expectedUid);
 		requestBookList.setParameter("bookid", expectedBid);
-		WebResponse responseBookList = conversation
-				.getResponse(requestBookList);
-		WebTable userRentedBooksTable = responseBookList
-				.getTableWithID("rentedBooks");
+		//WebResponse responseBookList = conversation
+			//	.getResponse(requestBookList);
+		//WebTable userRentedBooksTable = responseBookList
+			//	.getTableWithID("rentedBooks");
 
 		// TableCell tableCell = userBookListTable.getTableCellWithID("isbn" +
 		// "");
@@ -210,7 +210,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		
 		//first Assertion
 		assertEquals("Testing U1 burrowed", expectedBid,
-				responseBookList.getTableWithID(bookID));
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedUid));
 				//responseBookList.getTableWithID("rentedBooks")
 				//.getCellAsText(1,1));
 						
@@ -222,7 +222,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		expectedBid = bookID;
 		
 		assertEquals("Testing U2 Borrowed", expectedBid,
-				responseBookList.getTableWithID(bookID));
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedUid));
 				//responseBookList.getTableWithID("rentedBooks")
 				//.getCellAsText(1,1));
 		
@@ -234,13 +234,10 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		expectedBid = bookID;
 		
 		assertEquals("Testing U3 burrowed", expectedBid,
-				responseBookList.getTableWithID(bookID));		
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedUid));		
 		
 						//.getID());
-		logger.info("Getting Row Count"
-				+ " = "
-				+ userRentedBooksTable.getTableCellWithID(requestBookList
-						.getParameter("bookid")));
+		
 
 		loanDao.delete(expectedUid, expectedUid);
 
