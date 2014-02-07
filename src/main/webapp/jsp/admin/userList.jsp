@@ -35,7 +35,7 @@
 				<td id="<c:out value="${user.firstName}"></c:out>"><c:out
 						value="${user.firstName}"></c:out></td>
 				<td>${user.lastName}</td>
-				<td>${user.username}</td>
+				<td id="<c:out value="${user.username}"></c:out>">${user.username}</td>
 				<td>${user.role}</td>
 				<td><a href="deleteUser?userid=${user.userId}">Delete</a></td>
 			</tr>

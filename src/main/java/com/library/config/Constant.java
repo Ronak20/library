@@ -14,9 +14,9 @@ public class Constant {
 	public static final String BOOK_DELETE_URL = DOMAIN + PORT + APP_NAME
 			+ "/deleteBook?bookid=";
 	public static final String CREATE_USER_URL = DOMAIN + PORT + APP_NAME
-			+ "/jsp/createUser.jsp";
+			+ "/jsp/admin/createUser.jsp";
 	public static final String USER_GET_URL = DOMAIN + PORT + APP_NAME
-			+ "/UserList";
+			+ "/userList";
 	public static final String USERBOOKS_GET_URL = DOMAIN + PORT + APP_NAME
 			+ "/listBooks";
 	public static final String RENT_BOOK_URL = DOMAIN + PORT + APP_NAME
