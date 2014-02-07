@@ -96,21 +96,21 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 				loanDao = new LoanDao(session);
 				loanService = new LoanService(loanDao);
 				loanService.addLoan(this.uId1, this.bookID);
-				loanID1 = this.loanDao.getLoanByUserIdBookId(uId1, bookID).getLoanId(); 
+				loanID1 = this.loanDao.getLoanByUserIdBookId(uId1, bookID).get(0).getLoanId(); 
 				bookService.decreaseCopies(this.bookID);
 
 		//create loan for user 2
 						loanDao = new LoanDao(session);
 						loanService = new LoanService(loanDao);
 						loanService.addLoan(uId2, this.bookID);
-						loanID1 = this.loanDao.getLoanByUserIdBookId(uId2, bookID).getLoanId(); 
+						loanID1 = this.loanDao.getLoanByUserIdBookId(uId2, bookID).get(0).getLoanId(); 
 						bookService.decreaseCopies(this.bookID);
 
 						//create loan user 3
 								loanDao = new LoanDao(session);
 								loanService = new LoanService(loanDao);
 								loanService.addLoan(this.uId3, this.bookID);
-								loanID3 = this.loanDao.getLoanByUserIdBookId(uId3, bookID).getLoanId(); 
+								loanID3 = this.loanDao.getLoanByUserIdBookId(uId3, bookID).get(0).getLoanId(); 
 								bookService.decreaseCopies(this.bookID);
 		
 		
@@ -210,7 +210,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		
 		//first Assertion
 		assertEquals("Testing U1 burrowed", expectedUid,
-				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).getUserId());
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).get(0).getUserId());
 				//responseBookList.getTableWithID("rentedBooks")
 				//.getCellAsText(1,1));
 						
@@ -222,7 +222,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		expectedBid = bookID;
 		
 		assertEquals("Testing U2 Borrowed", expectedUid,
-				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).getUserId());
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).get(0).getUserId());
 				//responseBookList.getTableWithID("rentedBooks")
 				//.getCellAsText(1,1));
 		
@@ -234,7 +234,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		expectedBid = bookID;
 		
 		assertEquals("Testing U3 burrowed", expectedUid,
-				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).getUserId());		
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).get(0).getUserId());		
 		
 						//.getID());
 		
