@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.junit.After;
 
 import com.library.config.Constant;
 import com.library.config.HibernateUtil;
@@ -40,7 +41,10 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 	String loanID2;
 	String loanID3;
 	
-	
+	//generating random users ID
+			UUID uuid1 = UUID.randomUUID();
+			UUID uuid2 = UUID.randomUUID();
+			UUID uuid3 = UUID.randomUUID();
 	
 	String lId1;
 	String lId2;
@@ -61,10 +65,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 
 	public void setUp() throws Exception {
 		logger.info("Entered setUp");
-		//generating random users ID
-		UUID uuid1 = UUID.randomUUID();
-		UUID uuid2 = UUID.randomUUID();
-		UUID uuid3 = UUID.randomUUID();
+		
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
@@ -96,21 +97,21 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 				loanDao = new LoanDao(session);
 				loanService = new LoanService(loanDao);
 				loanService.addLoan(this.uId1, this.bookID);
-				loanID1 = this.loanDao.getLoanByUserIdBookId(uId1, bookID).getLoanId(); 
+				loanID1 = this.loanDao.getLoanByUserIdBookId(uId1, bookID).get(0).getLoanId(); 
 				bookService.decreaseCopies(this.bookID);
 
 		//create loan for user 2
 						loanDao = new LoanDao(session);
 						loanService = new LoanService(loanDao);
 						loanService.addLoan(uId2, this.bookID);
-						loanID1 = this.loanDao.getLoanByUserIdBookId(uId2, bookID).getLoanId(); 
+						loanID2 = this.loanDao.getLoanByUserIdBookId(uId2, bookID).get(0).getLoanId(); 
 						bookService.decreaseCopies(this.bookID);
 
 						//create loan user 3
 								loanDao = new LoanDao(session);
 								loanService = new LoanService(loanDao);
 								loanService.addLoan(this.uId3, this.bookID);
-								loanID3 = this.loanDao.getLoanByUserIdBookId(uId3, bookID).getLoanId(); 
+								loanID3 = this.loanDao.getLoanByUserIdBookId(uId3, bookID).get(0).getLoanId(); 
 								bookService.decreaseCopies(this.bookID);
 		
 		
@@ -128,7 +129,22 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		logger.info("Exited setUp");*/
 	}
 
+	@After
 	public void tearDown() throws Exception {
+		
+		/*
+		userDao.delete(userDao.getUserByName("uName" + uuid3));
+		userDao.delete(userDao.getUserById((loanDao.getLoanByID(loanID2).getUserId())));
+		userDao.delete(userDao.getUserById((loanDao.getLoanByID(loanID3).getUserId())));
+		*/
+		
+		
+		loanDao.delete(loanDao.getLoanByID(loanID1));
+		loanDao.delete(loanDao.getLoanByID(loanID2));
+		loanDao.delete(loanDao.getLoanByID(loanID3));
+		
+		
+		bookDao.deleteBook(bookDao.getBookByID(bookID));
 
 	}
 /*
@@ -210,7 +226,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		
 		//first Assertion
 		assertEquals("Testing U1 burrowed", expectedUid,
-				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).getUserId());
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).get(0).getUserId());
 				//responseBookList.getTableWithID("rentedBooks")
 				//.getCellAsText(1,1));
 						
@@ -222,7 +238,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		expectedBid = bookID;
 		
 		assertEquals("Testing U2 Borrowed", expectedUid,
-				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).getUserId());
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).get(0).getUserId());
 				//responseBookList.getTableWithID("rentedBooks")
 				//.getCellAsText(1,1));
 		
@@ -234,7 +250,7 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		expectedBid = bookID;
 		
 		assertEquals("Testing U3 burrowed", expectedUid,
-				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).getUserId());		
+				loanDao.getLoanByUserIdBookId(expectedUid, expectedBid).get(0).getUserId());		
 		
 						//.getID());
 		
@@ -244,5 +260,8 @@ public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 		logger.info("Exited testRentBook");
 
 	}
+	
+	
+	
 
 }

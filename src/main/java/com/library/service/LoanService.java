@@ -26,7 +26,7 @@ public class LoanService {
 	/**
 	 * @param loan
 	 *            method to add and update loan
-	 * @throws NotFoundException 
+	 * @throws NotFoundException
 	 */
 	public String renewLoan(String loanid) {
 		logger.info(LogConstant.ENTERED + "renewLoan");
@@ -102,10 +102,15 @@ public class LoanService {
 	}
 
 	public Boolean OkayToDeleteBook(String bookId) {
-		if (getLoanByBookId(bookId).size() > 0)
+		List<Loan> loanList = getLoanByBookId(bookId);
+		if (loanList != null) {
+			if (loanList.size() > 0)
+				return false;
+			else
+				return true;
+		} else {
 			return false;
-		else
-			return true;
+		}
 	}
 
 	public boolean addLoan(String userId, String bookId)
