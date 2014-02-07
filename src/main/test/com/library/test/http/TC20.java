@@ -3,6 +3,8 @@ package com.library.test.http;
 import java.io.IOException;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.junit.After;
@@ -22,10 +24,14 @@ import com.library.model.Role;
 import com.library.model.User;
 import com.library.service.BookService;
 import com.library.service.LoanService;
+import com.library.servlet.PayFeesServlet;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
+import com.meterware.servletunit.InvocationContext;
+import com.meterware.servletunit.ServletRunner;
+import com.meterware.servletunit.ServletUnitClient;
 
 public class TC20 {
 	
@@ -61,13 +67,14 @@ public class TC20 {
 		this.isbn = "isbn" + uuid;
 		Book book = new Book("bookname" + uuid, isbn, 10);
 		this.bookID = bookDao.saveOrUpdate(book);
-
+		
+		//rewnwing loan
 		loanDao = new LoanDao(session);
 		loanService = new LoanService(loanDao);
-		this.loanID = loanService.addLoan(this.userID, this.bookID);
+		loanService.addLoan(this.userID, this.bookID);
+		this.loanID = loanDao.getLoanByUserIdBookId(userID, bookID).getLoanId();
 		bookService.decreaseCopies(this.bookID);
-		
-		loanService.renewLoan(this.userID, this.bookID);
+		loanService.renewLoan(loanID);
 
 		
 		/*WebConversation conversation = new WebConversation();
@@ -89,14 +96,32 @@ public class TC20 {
 	@Test
 	public void testTC20PayFineAfterRenewal() throws InterruptedException, IOException, SAXException
 	{
-		Thread.sleep(6*60*1000);
+		//Thread.sleep(6*60*1000);
 		logger.info("Entered testTC19PayFine");
-		Thread.sleep(4*60*1000);
+		//Thread.sleep(4*60*1000);
 		logger.info(" loanID : "+loanID+" bookID : "+bookID+" userID : "+userID);
 		WebConversation conversation = new WebConversation();
 		WebRequest requestPayFine = new GetMethodWebRequest(
-				Constant.getPayFeeUrl(loanID, userID));
-		WebResponse responsePayFine = conversation.getResponse(requestPayFine);
+				Constant.getPayFeeUrl(loanID));
+		//WebResponse responsePayFine = conversation.getResponse(requestPayFine);
+requestPayFine.setParameter("loanid", loanID);
+		
+		//WebResponse responsePayFine = conversation.getResponse(requestPayFine);
+		
+		
+		
+		ServletRunner sr = new ServletRunner();
+		  sr.registerServlet( "PayFeesServlet", PayFeesServlet.class.getName() );
+		  ServletUnitClient client = sr.newClient();        // the client you have been using
+
+		  //now get an invocation context using the same URL used to invoke the servlet
+		  InvocationContext ic = client.newInvocation( Constant.getPayFeeUrl(loanID));
+		  //obtain the session just used. Note: pass false to avoid creating it if it does not already exist
+		  HttpSession session = ic.getRequest().getSession( true );
+		  session.setAttribute("user", userDao.getUserById(userID));
+		  WebResponse webResponse= client.getResponse( ic );      // invoke your servlet normally
+		  System.out.println(webResponse.getText());
+
 		
 		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID);
 		logger.debug(loan);
