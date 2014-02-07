@@ -38,8 +38,8 @@ public class Constant {
 				+ "&currentUser=" + userid;
 	}
 	
-	public static String getPayFeeUrl(String loadid,String userid)
+	public static String getPayFeeUrl(String loadid)
 	{
-		return DOMAIN + PORT + APP_NAME +"/payFeesServlet"+"?loanid="+loadid+"&userid"+userid;
+		return DOMAIN + PORT + APP_NAME +"/payFeesServlet"+"?loanid="+loadid;
 	}
 }
