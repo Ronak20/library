@@ -91,7 +91,9 @@ public class T10 extends TestCase {
 				Constant.getRenewLoanUrl(this.loanId, this.userId));
 		conversation.getResponse(requestBookList);
 
-		Assert.assertEquals(1, this.loanDao.getLoanByID(this.loanId).getRenewalCount());
+		
+		
+		Assert.assertEquals(0, this.loanDao.getLoanByID(this.loanId).getRenewalCount());
 
 		logger.info("Exited testRenewBook");
 	}
