@@ -1,7 +1,7 @@
 package com.library.config;
 
 public class Constant {
-	private static final String DOMAIN = "http://134.117.27.247:";
+	private static final String DOMAIN = "http://localhost:";
 	private static final String APP_NAME = "/LibraryManagement";
 	private static final String PORT = "8080";
 	public static final String ROOT_URL = DOMAIN + PORT + APP_NAME;
@@ -27,25 +27,24 @@ public class Constant {
 			+ "/RenewBook";
 	public static final String UNRENT_BOOK_URL = DOMAIN + PORT + APP_NAME
 			+ "/unrentBook?aLoan=";
-	public static final String LOGIN_URL = DOMAIN + PORT + APP_NAME
-			+ "/login";
+	public static final String LOGIN_URL = DOMAIN + PORT + APP_NAME + "/login";
 	public static final String ADMIN_USERNAME = "admin";
 	public static final String ADMIN_PASSWORD = "admin";
 	public static final String STUDENT_USERNAME = "student";
 	public static final String STUDENT_PASSWORD = "student";
 
 	public static String getRenewLoanUrl(String loanid, String userid) {
-		return DOMAIN + PORT + APP_NAME + "/RenewBook" + "?aLoan=" + loanid
-				+ "&currentUser=" + userid;
+		return DOMAIN + PORT + APP_NAME + "/renewBook" + "?aLoan=" + loanid
+				+ "&userid=" + userid;
 	}
-	
-	public static String getPayFeeUrl(String loadid,String userid)
-	{
-		return DOMAIN + PORT + APP_NAME +"/payFeesServlet"+"?loanid="+loadid+"&userid="+userid;
+
+	public static String getPayFeeUrl(String loadid, String userid) {
+		return DOMAIN + PORT + APP_NAME + "/payFeesServlet" + "?loanid="
+				+ loadid + "&userid=" + userid;
 	}
-	
-	public static String getRentBookUrl(String bookid,String userid)
-	{
-		return DOMAIN + PORT + APP_NAME +"/rentBook"+"?bookid="+bookid+"&userid="+userid;
+
+	public static String getRentBookUrl(String bookid, String userid) {
+		return DOMAIN + PORT + APP_NAME + "/rentBook" + "?bookid=" + bookid
+				+ "&userid=" + userid;
 	}
 }

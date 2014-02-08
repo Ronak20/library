@@ -14,19 +14,14 @@ import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
 import com.library.model.Book;
-import com.library.model.Loan;
 import com.library.model.Role;
 import com.library.model.User;
 import com.library.service.BookService;
 import com.library.service.LoanService;
 import com.library.service.UserService;
 import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.SubmitButton;
 import com.meterware.httpunit.WebConversation;
-import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 public class TC9ThreeUsersBorrowSameItemTest extends TestCase {
 	private static Logger logger = Logger.getLogger(RentBookServletTest.class);

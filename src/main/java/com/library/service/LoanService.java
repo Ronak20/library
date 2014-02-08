@@ -140,5 +140,9 @@ public class LoanService {
 	public int updateLateFees() {
 		return loanDao.updateLateFees();
 	}
+	
+	public List<Loan> getLoanByUserIdBookId(String userid, String bookid) {
+		return loanDao.getLoanByUserIdBookId(userid, bookid);
+	}
 
 }
