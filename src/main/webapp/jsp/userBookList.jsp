@@ -1,7 +1,7 @@
 <%@include file="layout/header.jsp"%>
 <%@include file="layout/head.jsp"%>
 <div>
-	<a href="userPanel">User Panel</a>
+	<a href="userPanel?userid=${sessionScope.user.userId}">User Panel</a>
 </div>
 <div>
 	<c:choose>
