@@ -44,25 +44,23 @@ public class UnrentBook extends HttpServlet {
 		logger.info(LogConstant.GET_RECEIVED);
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		
+
 		LoanDao loanDao = new LoanDao(session);
 		LoanService loanService = new LoanService(loanDao);
 		BookDao bookDao = new BookDao(session);
-		BookService bookService = new BookService(bookDao);
+		BookService bookService = new BookService(bookDao, loanDao);
 		String userId = request.getParameter("userid");
-		Loan loan = loanService.getLoanByID((String) request
-				.getParameter("aLoan"));
-        if(loanService.userHasLateFee(userId))
-        {
-        	request.setAttribute("userHasLateFee", "true");
-        }
-        else
-        {
-        	bookService.increaseCopies(loan.getBookId());
-        	loanService.deleteLoanByLoanID((String) request.getParameter("aLoan"));
-        	request.setAttribute("userHasLateFee", "false");
-        }
-		
+		String loanId = request.getParameter("aLoan");
+		logger.info("userId : " + userId + " loanId : " + loanId);
+		Loan loan = loanService.getLoanByID(loanId);
+		if (loanService.userHasLateFee(userId)) {
+			request.setAttribute("userHasLateFee", "true");
+		} else {
+			bookService.increaseCopies(loan.getBookId());
+			loanService.deleteLoanByLoanID(loanId);
+			request.setAttribute("userHasLateFee", "false");
+		}
+
 		List<Loan> loans = loanService.getLoanByUserId(userId);
 		request.setAttribute("loanList", loans);
 		this.getServletContext().getRequestDispatcher(PageConstant.USER_PAGE)

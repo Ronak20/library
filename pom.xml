@@ -106,20 +106,46 @@
 			<version>2.2.1</version>
 		</dependency>
 	</dependencies>
+	<properties>
+		<myTestSourceDirectory>${project.basedir}/src/main/test/com/library/test/http</myTestSourceDirectory>
+	</properties>
 	<build>
+		<testSourceDirectory>${myTestSourceDirectory}</testSourceDirectory>
 		<finalName>LibraryManagement</finalName>
 		<pluginManagement>
+
 			<plugins>
-				<!-- <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat6-maven-plugin</artifactId> 
-					<version>2.2</version> </plugin> -->
 				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId>
-					<version>2.2</version>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
+					<executions>
+						<execution>
+							<id>compiletests</id>
+							<phase>test-compile</phase>
+							<goals>
+								<goal>testCompile</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
 					<configuration>
-						<url>http://127.0.0.1:8080/library</url>
-						<username>admin</username>
-						<password>admin</password>
+						<testSourceDirectory>${basedir}/src/main/test/com/library/test/http</testSourceDirectory>
+						<testClassesDirectory>${basedir}/target/test-classes/com/library/test/http</testClassesDirectory>
+						<includes>
+							<include>**/TC*.java</include>
+						</includes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>2.16</version>
+					<configuration>
+						<outputDirectory>${basedir}/TestReports</outputDirectory>
 					</configuration>
 				</plugin>
 			</plugins>

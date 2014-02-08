@@ -1,7 +1,5 @@
 package com.library.test.http;
 
-import static org.junit.Assert.*;
-
 import java.util.Calendar;
 
 import junit.framework.TestCase;
@@ -10,99 +8,117 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 import com.library.config.Constant;
 import com.library.config.HibernateUtil;
+import com.library.dao.BookDao;
 import com.library.dao.LoanDao;
 import com.library.dao.UserDao;
+import com.library.model.Book;
 import com.library.model.Loan;
 import com.library.model.Role;
 import com.library.model.User;
+import com.library.service.BookService;
+import com.library.service.LoanService;
 import com.library.service.UserService;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.httpunit.SubmitButton;
 import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebConversation;
-import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
 public class TC17 extends TestCase {
 
-	private static Logger logger = Logger.getLogger(TC3.class);
-
+	private static Logger logger = Logger.getLogger(TC17.class);
+	private String bookId = "";
+	private String userId = "";
+	private String loanId = "";
+	private Session session;
+	private UserDao userDao;
+	private BookDao bookDao;
+	private LoanDao loandao;
+	private UserService userService;
+	private BookService bookService;
+	private LoanService loanService;
+	
 	public TC17(String s) {
 		super(s);
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		logger.info("Entered setUp for CreateUserTest");
-		WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
 		HttpUnitOptions.setScriptingEnabled(false);
-		WebResponse response = conversation.getResponse(request);
-		logger.debug("Login Page : \n" + response.getText());
-		WebForm loginForm = response.getFormWithID("loginForm");
-		loginForm.setParameter("username", Constant.ADMIN_USERNAME);
-		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
-		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
-		loginForm.submit(submitButton);
+		logger.info("Entered setUp for CreateUserTest");
+		// open the session
+		session = HibernateUtil.getSessionFactory().openSession();
+		userDao = new UserDao(session);
+		bookDao = new BookDao(session);
+		loandao = new LoanDao(session);
+		userService = new UserService(userDao,loandao);
+		bookService = new BookService(bookDao,loandao);
+		loanService = new LoanService(loandao);
 		logger.info("Exited setUp");
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		// Delete the loan
+		logger.info("Entered tear down for TC17");
+		logger.info("trying to delete the loanID: " + loanId);
+		loanService.deleteLoanByLoanID(loanId);
+		// delete the book
+		logger.info("trying to delete the BookID: " + bookId);
+		bookService.deleteBook(bookId);
+		// delete the user
+		logger.info("trying to delete the UserID: " + userId);
+		userService.deleteUser(userId);
+		// close the session
+		session.close();
+		logger.info("Exit tear down for TC17");
 	}
 
 	public void testDeleteUserWithLoan() throws Exception {
 		logger.debug("Entered TC17 testDeleteUserWithLateFee");
 		User user;
 		String parameterUserName = "MyUser" + System.currentTimeMillis();
-		user = new User("TestFirstName","TestLastName",parameterUserName,"password",Role.STUDENT);
-		 Session session = HibernateUtil.getSessionFactory().openSession();
-		 UserDao userDao = new UserDao(session);
-		 UserService userService = new UserService(userDao);
-		 userService.saveOrUpdate(user);
-		 
-		 logger.info("User added"+ user.getUsername());
-		 //now create loan for this user
-		 Calendar now = Calendar.getInstance();
-		 now.add(Calendar.MINUTE, 5);
-		 Loan loan = new Loan(user.getUserId(),"1",now.getTime(),0,10,false);
-		 LoanDao loandao = new LoanDao(session);
-		 loandao.saveOrUpdate(loan);
-		 logger.debug("Loan "+loan.getLoanId()+" created for user "+ user.getUserId());
-		 session.close();
-		 logger.info("Loan created: "+ loan.getLoanId());
-		 logger.info("trying to delete userID: "+user.getUserId());
-		 WebConversation conversation = new WebConversation();
-		 WebRequest requestDeleteUser = new GetMethodWebRequest(
-				 Constant.DELETE_USER_URL+user.getUserId());
-			WebResponse responseGetUser = conversation.getResponse(requestDeleteUser);
-			WebTable bookListUpdatedTable = responseGetUser.getTableWithID("userListTable");
-			TableCell tableUpdatedCell = bookListUpdatedTable.getTableCellWithID(user.getUserId());
-		assertEquals(tableUpdatedCell.getText(),user.getUserId());
-			
-		logger.info("Exited TC16 testDeleteUser");
-//		 WebResponse response = conversation.getResponse(request);
-//		 logger.debug("Delete User Form : \n" + response.getText());
-//		WebForm deleteUserForm = response.getFormWithName("Deleteform");
-//		(deleteUserForm.getControlWithID(user.getUserId())).setAttribute("checked", true);
-//		//deleteUserForm.setCheckbox("deleteThisUser", user.getUserId(), true);
-//		HttpUnitOptions.setScriptingEnabled(false);
-//		SubmitButton deleteUserSubmitButton = deleteUserForm
-//				.getSubmitButton("submitbutton");
-//		deleteUserForm.submit(deleteUserSubmitButton);
-//		WebRequest requestUserList = new GetMethodWebRequest(Constant.USER_GET_URL);
-//		WebResponse responseUserList = conversation.getResponse(requestUserList);
-//		WebTable userListTable = responseUserList.getTableWithID("userListTable");
-//		logger.info("Looking for username" + parameterUserName + "in the existing user list");
-//		TableCell tableCell = userListTable.getTableCellWithID(parameterUserName);
-//		assertEquals(parameterUserName, tableCell.getText());
+		String IsbnName = "testISBN"+ System.currentTimeMillis();
+		user = new User("TestFirstName", "TestLastName", parameterUserName,
+				"password", Role.STUDENT);
+		String parameterBookName = "MyBook" + System.currentTimeMillis();
+		userService.saveOrUpdate(user);
+		Book book = new Book(parameterBookName, IsbnName, 2);
+		bookService.saveOrUpdate(book);
+		session.refresh(book);
+		logger.info("User added" + user.getUsername());
+		// now create loan for this user
+		Calendar now = Calendar.getInstance();
+		now.add(Calendar.MINUTE, 5);
+		logger.info("Book " + book.getBookid() + " user "
+				+ user.getUserId());
+		
+		Loan loan = new Loan(user.getUserId(), book.getBookid(), now.getTime(), 0, 10,
+				false);
+		loandao.saveOrUpdate(loan);
+		loanId = loan.getLoanId();
+		bookId = book.getBookid();
+		userId = user.getUserId();
+		logger.debug("Loan " + loan.getLoanId() + " created for user "
+				+ user.getUserId());
+		logger.info("Loan created: " + loan.getLoanId());
+		logger.info("trying to delete userID: " + user.getUserId());
+		WebConversation conversation = new WebConversation();
+		WebRequest requestDeleteUser = new GetMethodWebRequest(
+				Constant.DELETE_USER_URL + user.getUserId());
+		WebResponse responseGetUser = conversation
+				.getResponse(requestDeleteUser);
+		WebTable bookListUpdatedTable = responseGetUser
+				.getTableWithID("userListTable");
+		TableCell tableUpdatedCell = bookListUpdatedTable
+				.getTableCellWithID(user.getUserId());
+		assertEquals(tableUpdatedCell.getText(), user.getUserId());
+
 		logger.info("Exited TC17 testDeleteUserWithLateFee");
 	}
 

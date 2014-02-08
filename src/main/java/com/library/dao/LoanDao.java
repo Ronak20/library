@@ -68,8 +68,12 @@ public class LoanDao {
 		Query query = session.createQuery(hql);
 		query.setParameter("loanid", loanid);
 		List<Loan> loanList = query.list();
-		Loan loan = loanList.get(0);
-		return loan;
+		if (loanList != null && loanList.size() > 0) {
+			Loan loan = loanList.get(0);
+			return loan;
+		} else {
+			return null;
+		}
 	}
 
 	public List<Loan> getLoanByUserIdBookId(String userid, String bookid) {
@@ -79,7 +83,7 @@ public class LoanDao {
 		query.setParameter("bookid", bookid);
 
 		List<Loan> loanList = query.list();
-		
+
 		return loanList;
 	}
 

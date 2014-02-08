@@ -1,10 +1,6 @@
 package com.library.test.http;
 
-import static org.junit.Assert.*;
-
 import java.util.Calendar;
-
-import javax.servlet.http.HttpSession;
 
 import junit.framework.TestCase;
 
@@ -12,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 import com.library.config.Constant;
 import com.library.config.HibernateUtil;
@@ -26,7 +21,6 @@ import com.library.model.User;
 import com.library.service.BookService;
 import com.library.service.LoanService;
 import com.library.service.UserService;
-import com.library.servlet.UnrentBook;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.SubmitButton;
@@ -36,9 +30,6 @@ import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
-import com.meterware.servletunit.InvocationContext;
-import com.meterware.servletunit.ServletRunner;
-import com.meterware.servletunit.ServletUnitClient;
 
 public class TC25b extends TestCase {
 	private static Logger logger = Logger.getLogger(TC3.class);

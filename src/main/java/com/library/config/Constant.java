@@ -47,4 +47,9 @@ public class Constant {
 		return DOMAIN + PORT + APP_NAME + "/rentBook" + "?bookid=" + bookid
 				+ "&userid=" + userid;
 	}
+
+	public static String getReturnBookUrl(String loanid, String userid) {
+		return DOMAIN + PORT + APP_NAME + "/unrentBook" + "?aLoan=" + loanid
+				+ "&userid=" + userid;
+	}
 }

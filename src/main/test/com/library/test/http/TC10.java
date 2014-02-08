@@ -23,9 +23,9 @@ import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebRequest;
 
-public class T10 extends TestCase {
-	
-	private static Logger logger = Logger.getLogger(T10.class);
+public class TC10 extends TestCase {
+
+	private static Logger logger = Logger.getLogger(TC10.class);
 
 	String bookId;
 	String userId;
@@ -43,7 +43,7 @@ public class T10 extends TestCase {
 
 	private Session session;
 
-	public T10(String s) {
+	public TC10(String s) {
 		super(s);
 	}
 
@@ -91,9 +91,8 @@ public class T10 extends TestCase {
 				Constant.getRenewLoanUrl(this.loanId, this.userId));
 		conversation.getResponse(requestBookList);
 
-		
-		
-		Assert.assertEquals(0, this.loanDao.getLoanByID(this.loanId).getRenewalCount());
+		Assert.assertEquals(0, this.loanDao.getLoanByID(this.loanId)
+				.getRenewalCount());
 
 		logger.info("Exited testRenewBook");
 	}

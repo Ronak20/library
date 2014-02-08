@@ -1,4 +1,4 @@
-package com.library.test.http;
+package com.library.test.notused;
 
 import junit.framework.TestCase;
 

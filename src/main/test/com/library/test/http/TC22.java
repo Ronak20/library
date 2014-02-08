@@ -36,8 +36,8 @@ import com.meterware.servletunit.ServletUnitClient;
 
 public class TC22 {
 
-private static Logger logger = Logger.getLogger(TC20.class);
-	
+	private static Logger logger = Logger.getLogger(TC20.class);
+
 	private Session session;
 	private LoanService loanService;
 	private String isbn;
@@ -72,22 +72,25 @@ private static Logger logger = Logger.getLogger(TC20.class);
 		loanDao = new LoanDao(session);
 		loanService = new LoanService(loanDao);
 		loanService.addLoan(this.userID, this.bookID);
-		this.loanID = loanDao.getLoanByUserIdBookId(userID, bookID).get(0).getLoanId();
+		this.loanID = loanDao.getLoanByUserIdBookId(userID, bookID).get(0)
+				.getLoanId();
 		bookService.decreaseCopies(this.bookID);
-		
+
 		loanService.renewLoan(loanID);
-		
-		//Thread.sleep(6*60*1000);
-		
+
+		// Thread.sleep(6*60*1000);
+
 		loanDao.payFees(this.loanID);
-		/*WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
-		WebResponse response = conversation.getResponse(request);
-		WebForm loginForm = response.getFormWithID("loginForm");
-		loginForm.setParameter("username", Constant.ADMIN_USERNAME);
-		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
-		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
-		loginForm.submit(submitButton);*/
+		/*
+		 * WebConversation conversation = new WebConversation(); WebRequest
+		 * request = new GetMethodWebRequest(Constant.ROOT_URL); WebResponse
+		 * response = conversation.getResponse(request); WebForm loginForm =
+		 * response.getFormWithID("loginForm");
+		 * loginForm.setParameter("username", Constant.ADMIN_USERNAME);
+		 * loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
+		 * SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
+		 * loginForm.submit(submitButton);
+		 */
 		logger.info("Exited setUp");
 	}
 
@@ -95,41 +98,44 @@ private static Logger logger = Logger.getLogger(TC20.class);
 	public void tearDown() throws Exception {
 		session.close();
 	}
-	
+
 	@Test
-	public void testTC22BorrowBookAfterPayingFine() throws InterruptedException, IOException, SAXException
-	{
+	public void testTC22BorrowBookAfterPayingFine()
+			throws InterruptedException, IOException, SAXException {
 		logger.info("Entered testTC22BorrowBookAfterPayingFine");
 		WebConversation conversation = new WebConversation();
 		WebRequest requestBookList = new GetMethodWebRequest(
 				Constant.RENT_BOOK_URL);
 		requestBookList.setParameter("user", userID);
 		requestBookList.setParameter("bookid", bookID);
-		//WebResponse responseBookList = conversation.getResponse(requestBookList);
+		// WebResponse responseBookList =
+		// conversation.getResponse(requestBookList);
 		requestBookList.setParameter("loanid", loanID);
-				
-				//WebResponse responsePayFine = conversation.getResponse(requestPayFine);
-				
-				
-				
-				ServletRunner sr = new ServletRunner();
-				  sr.registerServlet( "PayFeesServlet", PayFeesServlet.class.getName() );
-				  ServletUnitClient client = sr.newClient();        // the client you have been using
 
-				  //now get an invocation context using the same URL used to invoke the servlet
-				  InvocationContext ic = client.newInvocation( Constant.RENT_BOOK_URL);
-				  //obtain the session just used. Note: pass false to avoid creating it if it does not already exist
-				  HttpSession session = ic.getRequest().getSession( true );
-				  session.setAttribute("user", userDao.getUserById(userID));
-				  WebResponse webResponse= client.getResponse( ic );      // invoke your servlet normally
-				  System.out.println(webResponse.getText());
+		// WebResponse responsePayFine =
+		// conversation.getResponse(requestPayFine);
 
-		
+		ServletRunner sr = new ServletRunner();
+		sr.registerServlet("PayFeesServlet", PayFeesServlet.class.getName());
+		ServletUnitClient client = sr.newClient(); // the client you have been
+													// using
+
+		// now get an invocation context using the same URL used to invoke the
+		// servlet
+		InvocationContext ic = client.newInvocation(Constant.RENT_BOOK_URL);
+		// obtain the session just used. Note: pass false to avoid creating it
+		// if it does not already exist
+		HttpSession session = ic.getRequest().getSession(true);
+		session.setAttribute("user", userDao.getUserById(userID));
+		WebResponse webResponse = client.getResponse(ic); // invoke your servlet
+															// normally
+		System.out.println(webResponse.getText());
+
 		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID).get(0);
 		logger.debug(loan);
-		Assert.assertNotNull(loan);		
-		
+		Assert.assertNotNull(loan);
+
 		logger.info("Exited testTC22BorrowBookAfterPayingFine");
 	}
-	
+
 }

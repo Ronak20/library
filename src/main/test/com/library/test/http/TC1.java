@@ -97,7 +97,6 @@ public class TC1 extends TestCase {
 		logger.info("Exited testTC1AddUser");
 	}
 
-	
 
 }
 
