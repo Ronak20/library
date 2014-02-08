@@ -83,6 +83,9 @@ public class LoanService {
 		List<Loan> loanList = this.loanDao.getExpiredLoanByUserId(userId);
 		return loanList;
 	}
+	public boolean userHasLateFee(String userId){
+		return this.loanDao.getLateFeeLoanByUserId(userId);
+	}
 
 	public List<Loan> getLoanByUserId(String userId) {
 		List<Loan> loanList = this.loanDao.getLoanByUserId(userId);

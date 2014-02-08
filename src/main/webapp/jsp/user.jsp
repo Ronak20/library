@@ -21,6 +21,9 @@
 		<c:when test="${requestScope.message == 'Expired'}">
 			<font color="red">Loan is expired.Return it.</font>
 		</c:when>
+		<c:when test="${requestScope.userHasLateFee == 'true'}">
+			<font color="red">You need to pay the late fee to be able to return the book</font>
+		</c:when>
 		<c:otherwise>
 		</c:otherwise>
 	</c:choose>

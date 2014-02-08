@@ -50,14 +50,21 @@ public class UnrentBook extends HttpServlet {
 		BookDao bookDao = new BookDao(session);
 		BookService bookService = new BookService(bookDao);
 		String userId = request.getParameter("userid");
-
 		Loan loan = loanService.getLoanByID((String) request
 				.getParameter("aLoan"));
-		bookService.increaseCopies(loan.getBookId());
-		loanService.deleteLoanByLoanID((String) request.getParameter("aLoan"));
+        if(loanService.userHasLateFee(userId))
+        {
+        	request.setAttribute("userHasLateFee", "true");
+        }
+        else
+        {
+        	bookService.increaseCopies(loan.getBookId());
+        	loanService.deleteLoanByLoanID((String) request.getParameter("aLoan"));
+        	request.setAttribute("userHasLateFee", "false");
+        }
+		
 		List<Loan> loans = loanService.getLoanByUserId(userId);
 		request.setAttribute("loanList", loans);
-
 		this.getServletContext().getRequestDispatcher(PageConstant.USER_PAGE)
 				.include(request, response);
 
