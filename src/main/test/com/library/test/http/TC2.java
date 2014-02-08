@@ -25,13 +25,13 @@ import com.meterware.httpunit.WebTable;
 import org.junit.Test;
 
 public class TC2 extends TestCase {
-	private static Logger logger = Logger.getLogger(TC3.class);
+	private static Logger logger = Logger.getLogger(TC2.class);
 	public String parameterFirstUserName = "MyFirstUser" + System.currentTimeMillis();
 	public String parameterSecondUserName = "MySecondUser" + System.currentTimeMillis();
 
 	@Before
 	public void setUp() throws Exception {
-		logger.info("Entered setUp for CreateUserTest");
+		logger.info("Entered setUp for TC2");
 		WebConversation conversation = new WebConversation();
 		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
 		HttpUnitOptions.setScriptingEnabled(false);
@@ -42,12 +42,12 @@ public class TC2 extends TestCase {
 		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
 		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
 		loginForm.submit(submitButton);
-		logger.info("Exited setUp");
+		logger.info("Exited setUp for TC2");
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		logger.info("Entered teadDown of TC1 CreateUser");
+		logger.info("Entered tearDown of TC2");
 		//delete the user created 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		UserDao userDao = new UserDao(session);
@@ -64,7 +64,7 @@ public class TC2 extends TestCase {
 			}
 		
 		session.close();
-		logger.info("Exited teadDown of TC1 CreateUser");
+		logger.info("Exited teadDown of TC2");
 	}
 	
 	public void testCreatetwoUsers() throws Exception {

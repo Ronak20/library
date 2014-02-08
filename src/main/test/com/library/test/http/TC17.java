@@ -50,7 +50,7 @@ public class TC17 extends TestCase {
 	@Before
 	public void setUp() throws Exception {
 		HttpUnitOptions.setScriptingEnabled(false);
-		logger.info("Entered setUp for CreateUserTest");
+		logger.info("Entered setUp for Tc17");
 		// open the session
 		session = HibernateUtil.getSessionFactory().openSession();
 		userDao = new UserDao(session);
@@ -59,7 +59,7 @@ public class TC17 extends TestCase {
 		userService = new UserService(userDao,loandao);
 		bookService = new BookService(bookDao,loandao);
 		loanService = new LoanService(loandao);
-		logger.info("Exited setUp");
+		logger.info("Exited setUp for TC17");
 	}
 
 	@After
@@ -73,13 +73,13 @@ public class TC17 extends TestCase {
 		bookService.deleteBook(bookId);
 		// delete the user
 		logger.info("trying to delete the UserID: " + userId);
-		userService.deleteUser(userId);
+		userService.delete(userService.getUserbyUserID(userId));
 		// close the session
 		session.close();
 		logger.info("Exit tear down for TC17");
 	}
 
-	public void testDeleteUserWithLoan() throws Exception {
+	public void testDeleteUserWithLateFee() throws Exception {
 		logger.debug("Entered TC17 testDeleteUserWithLateFee");
 		User user;
 		String parameterUserName = "MyUser" + System.currentTimeMillis();
@@ -111,6 +111,7 @@ public class TC17 extends TestCase {
 		WebConversation conversation = new WebConversation();
 		WebRequest requestDeleteUser = new GetMethodWebRequest(
 				Constant.DELETE_USER_URL + user.getUserId());
+		Thread.sleep(3*60*1000);
 		WebResponse responseGetUser = conversation
 				.getResponse(requestDeleteUser);
 		WebTable bookListUpdatedTable = responseGetUser

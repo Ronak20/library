@@ -90,9 +90,8 @@ public class TC10 extends TestCase {
 		WebRequest requestBookList = new GetMethodWebRequest(
 				Constant.getRenewLoanUrl(this.loanId, this.userId));
 		conversation.getResponse(requestBookList);
-
-		Assert.assertEquals(0, this.loanDao.getLoanByID(this.loanId)
-				.getRenewalCount());
+		session.refresh(this.loanDao.getLoanByID(this.loanId));	
+		Assert.assertEquals(1, this.loanDao.getLoanByID(this.loanId).getRenewalCount());
 
 		logger.info("Exited testRenewBook");
 	}

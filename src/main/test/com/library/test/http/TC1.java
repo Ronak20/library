@@ -21,7 +21,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 public class TC1 extends TestCase {
-	private static Logger logger = Logger.getLogger(TC3.class);
+	private static Logger logger = Logger.getLogger(TC1.class);
 	public String parameterUserName = "MyUser" + System.currentTimeMillis();
 
 	public TC1(String s) {
