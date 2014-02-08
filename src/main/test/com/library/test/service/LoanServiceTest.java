@@ -28,13 +28,4 @@ public class LoanServiceTest {
 		this.session.close();
 	}
 
-	@Test
-	public void testLoanSave() {
-		Loan loan = new Loan("4","1");
-		System.out.println(loan.getUserId());
-		System.out.println(loan.getBookId());
-		System.out.println(loan.toString());
-		this.loanService.save(loan);
-	}
-
 }

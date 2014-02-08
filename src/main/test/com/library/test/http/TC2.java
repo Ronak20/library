@@ -24,8 +24,8 @@ import com.meterware.httpunit.WebTable;
 
 import org.junit.Test;
 
-public class TC2AddTwoUsers extends TestCase {
-	private static Logger logger = Logger.getLogger(BookServletTest.class);
+public class TC2 extends TestCase {
+	private static Logger logger = Logger.getLogger(TC3.class);
 	public String parameterFirstUserName = "MyFirstUser" + System.currentTimeMillis();
 	public String parameterSecondUserName = "MySecondUser" + System.currentTimeMillis();
 

@@ -41,7 +41,7 @@ import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
 
 public class TC25a extends TestCase {
-	private static Logger logger = Logger.getLogger(BookServletTest.class);
+	private static Logger logger = Logger.getLogger(TC3.class);
 	private String bookName = "MyBookName"+ System.currentTimeMillis();
 	private String isbn = "MyBookisbn"+ System.currentTimeMillis();
 	private String bookid="";

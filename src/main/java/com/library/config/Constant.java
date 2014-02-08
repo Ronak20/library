@@ -1,7 +1,7 @@
 package com.library.config;
 
 public class Constant {
-	private static final String DOMAIN = "http://localhost:";
+	private static final String DOMAIN = "http://134.117.27.247:";
 	private static final String APP_NAME = "/LibraryManagement";
 	private static final String PORT = "8080";
 	public static final String ROOT_URL = DOMAIN + PORT + APP_NAME;

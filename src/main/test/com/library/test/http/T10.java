@@ -29,7 +29,7 @@ import com.meterware.httpunit.WebTable;
 
 
 
-public class T10UserRenewItemTest extends TestCase {
+public class T10 extends TestCase {
 	private static Logger logger = Logger.getLogger(RentBookServletTest.class);
 
 	String uId1 = "123434yry";
@@ -60,7 +60,7 @@ public class T10UserRenewItemTest extends TestCase {
 	
 	
 	
-	public T10UserRenewItemTest(String s) {
+	public T10(String s) {
 		super(s);
 	}
 

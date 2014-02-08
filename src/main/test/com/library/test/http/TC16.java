@@ -27,7 +27,7 @@ import com.library.service.UserService;
 import com.library.dao.UserDao;
 
 public class TC16  extends TestCase{
-	private static Logger logger = Logger.getLogger(BookServletTest.class);
+	private static Logger logger = Logger.getLogger(TC3.class);
 
 	public TC16(String s) {
 		super(s);

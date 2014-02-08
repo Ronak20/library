@@ -25,7 +25,7 @@ import com.meterware.httpunit.WebTable;
 
 
 public class TC4  extends TestCase{
-	private static Logger logger = Logger.getLogger(BookServletTest.class);
+	private static Logger logger = Logger.getLogger(TC3.class);
 	public String MyBook1Name = "Mybook1" + System.currentTimeMillis();
 	public String MyBook2Name = "Mybook2" + System.currentTimeMillis();
 	public int isbn1 = (int) System.currentTimeMillis();

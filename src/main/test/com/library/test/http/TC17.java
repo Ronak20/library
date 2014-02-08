@@ -30,11 +30,11 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-public class TC17DeleteUserWithLateFee extends TestCase {
+public class TC17 extends TestCase {
 
-	private static Logger logger = Logger.getLogger(BookServletTest.class);
+	private static Logger logger = Logger.getLogger(TC3.class);
 
-	public TC17DeleteUserWithLateFee(String s) {
+	public TC17(String s) {
 		super(s);
 	}
 

@@ -25,12 +25,12 @@ import com.meterware.httpunit.WebTable;
  * @author Ronak
  * 
  */
-public class BookServletTest extends TestCase {
-	private static Logger logger = Logger.getLogger(BookServletTest.class);
+public class TC3 extends TestCase {
+	private static Logger logger = Logger.getLogger(TC3.class);
 	public int isbn = (int) System.currentTimeMillis();
 	public String bookName = "Mybook" + System.currentTimeMillis();
 
-	public BookServletTest(String s) {
+	public TC3(String s) {
 		super(s);
 	}
 

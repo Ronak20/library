@@ -30,11 +30,11 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 import com.library.model.Loan;
 
-public class TC18DeleteUserWithLoan extends TestCase {
+public class TC18 extends TestCase {
 
-	private static Logger logger = Logger.getLogger(BookServletTest.class);
+	private static Logger logger = Logger.getLogger(TC3.class);
 	
-	public TC18DeleteUserWithLoan(String s) {
+	public TC18(String s) {
 		super(s);
 	}
 	

@@ -24,11 +24,11 @@
 			<th><a href="${pageContext.request.contextPath}/book">Show
 					Books</a></th>
 		</tr>
-		<tr>
+		<%-- <tr>
 			<th colspan="2"><a
 				href="${pageContext.request.contextPath}/logs/LibraryManagement.log.txt">Logs
 			</a></th>
-		</tr>
+		</tr> --%>
 	</TABLE>
 </div>
 <%@include file="../layout/footer.jsp"%>
