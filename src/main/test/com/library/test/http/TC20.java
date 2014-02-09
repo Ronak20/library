@@ -34,9 +34,9 @@ import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
 
 public class TC20 {
-	
+
 	private static Logger logger = Logger.getLogger(TC20.class);
-	
+
 	private Session session;
 	private LoanService loanService;
 	private String isbn;
@@ -67,24 +67,15 @@ public class TC20 {
 		this.isbn = "isbn" + uuid;
 		Book book = new Book("bookname" + uuid, isbn, 10);
 		this.bookID = bookDao.saveOrUpdate(book);
-		
-		//rewnwing loan
+
+		// rewnwing loan
 		loanDao = new LoanDao(session);
 		loanService = new LoanService(loanDao);
 		loanService.addLoan(this.userID, this.bookID);
-		this.loanID = loanDao.getLoanByUserIdBookId(userID, bookID).get(0).getLoanId();
+		this.loanID = loanDao.getLoanByUserIdBookId(userID, bookID).get(0)
+				.getLoanId();
 		bookService.decreaseCopies(this.bookID);
 		loanService.renewLoan(loanID);
-
-		
-		/*WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
-		WebResponse response = conversation.getResponse(request);
-		WebForm loginForm = response.getFormWithID("loginForm");
-		loginForm.setParameter("username", Constant.ADMIN_USERNAME);
-		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
-		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
-		loginForm.submit(submitButton);*/
 		logger.info("Exited setUp");
 	}
 
@@ -92,43 +83,31 @@ public class TC20 {
 	public void tearDown() throws Exception {
 		session.close();
 	}
-	
+
 	@Test
-	public void testTC20PayFineAfterRenewal() throws InterruptedException, IOException, SAXException
-	{
-		//Thread.sleep(6*60*1000);
+	public void testTC20PayFineAfterRenewal() throws InterruptedException,
+	IOException, SAXException {
 		logger.info("Entered testTC19PayFine");
-		//Thread.sleep(4*60*1000);
-		logger.info(" loanID : "+loanID+" bookID : "+bookID+" userID : "+userID);
+		// Thread.sleep(4*60*1000);
+		logger.info(" loanID : " + loanID + " bookID : " + bookID
+				+ " userID : " + userID);
 		WebConversation conversation = new WebConversation();
+		WebRequest requestLoanRenewal = new GetMethodWebRequest(
+				Constant.getRenewLoanUrl(loanID, userID));
+		// renew the loan
+		conversation.getResponse(requestLoanRenewal);
+		// let the loan expire
+		Thread.sleep(4 * 60 * 1000);
+		// pay the late fee
 		WebRequest requestPayFine = new GetMethodWebRequest(
-				Constant.getPayFeeUrl(loanID,userID));
-		//WebResponse responsePayFine = conversation.getResponse(requestPayFine);
-requestPayFine.setParameter("loanid", loanID);
-		
-		//WebResponse responsePayFine = conversation.getResponse(requestPayFine);
-		
-		
-		
-		ServletRunner sr = new ServletRunner();
-		  sr.registerServlet( "PayFeesServlet", PayFeesServlet.class.getName() );
-		  ServletUnitClient client = sr.newClient();        // the client you have been using
-
-		  //now get an invocation context using the same URL used to invoke the servlet
-		  InvocationContext ic = client.newInvocation( Constant.getPayFeeUrl(loanID,userID));
-		  //obtain the session just used. Note: pass false to avoid creating it if it does not already exist
-		  HttpSession session = ic.getRequest().getSession( true );
-		  session.setAttribute("user", userDao.getUserById(userID));
-		  WebResponse webResponse= client.getResponse( ic );      // invoke your servlet normally
-		  System.out.println(webResponse.getText());
-
-		
+				Constant.getPayFeeUrl(loanID, userID));
+		conversation.getResponse(requestPayFine);
 		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID).get(0);
 		logger.debug(loan);
-		
+		logger.info("loanID:" + loan.getLoanId() + "has latfee: "
+				+ loan.getLateFee() + "");
 		Assert.assertTrue(loan.getIsLateFeePaid());
-		Assert.assertEquals(0,loan.getLateFee());
-		
+		Assert.assertEquals(0, loan.getLateFee());
 		logger.info("Exited testTC19PayFine");
 	}
 
