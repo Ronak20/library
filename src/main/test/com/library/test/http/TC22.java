@@ -75,12 +75,6 @@ public class TC22 {
 		this.loanID = loanDao.getLoanByUserIdBookId(userID, bookID).get(0)
 				.getLoanId();
 		bookService.decreaseCopies(this.bookID);
-
-		loanService.renewLoan(loanID);
-
-		// Thread.sleep(6*60*1000);
-
-		loanDao.payFees(this.loanID);
 		/*
 		 * WebConversation conversation = new WebConversation(); WebRequest
 		 * request = new GetMethodWebRequest(Constant.ROOT_URL); WebResponse
@@ -103,34 +97,24 @@ public class TC22 {
 	public void testTC22BorrowBookAfterPayingFine()
 			throws InterruptedException, IOException, SAXException {
 		logger.info("Entered testTC22BorrowBookAfterPayingFine");
+		// Thread.sleep(4*60*1000);
+		logger.info(" loanID : " + loanID + " bookID : " + bookID
+				+ " userID : " + userID);
 		WebConversation conversation = new WebConversation();
-		WebRequest requestBookList = new GetMethodWebRequest(
-				Constant.RENT_BOOK_URL);
-		requestBookList.setParameter("user", userID);
-		requestBookList.setParameter("bookid", bookID);
-		// WebResponse responseBookList =
-		// conversation.getResponse(requestBookList);
-		requestBookList.setParameter("loanid", loanID);
-
-		// WebResponse responsePayFine =
-		// conversation.getResponse(requestPayFine);
-
-		ServletRunner sr = new ServletRunner();
-		sr.registerServlet("PayFeesServlet", PayFeesServlet.class.getName());
-		ServletUnitClient client = sr.newClient(); // the client you have been
-													// using
-
-		// now get an invocation context using the same URL used to invoke the
-		// servlet
-		InvocationContext ic = client.newInvocation(Constant.RENT_BOOK_URL);
-		// obtain the session just used. Note: pass false to avoid creating it
-		// if it does not already exist
-		HttpSession session = ic.getRequest().getSession(true);
-		session.setAttribute("user", userDao.getUserById(userID));
-		WebResponse webResponse = client.getResponse(ic); // invoke your servlet
-															// normally
-		System.out.println(webResponse.getText());
-
+		WebRequest requestLoanRenewal = new GetMethodWebRequest(
+				Constant.getRenewLoanUrl(loanID, userID));
+		// renew the loan
+		conversation.getResponse(requestLoanRenewal);
+		// let the loan expire
+		Thread.sleep(4 * 60 * 1000);
+		// pay the late fee
+		WebRequest requestPayFine = new GetMethodWebRequest(
+				Constant.getPayFeeUrl(loanID, userID));
+		conversation.getResponse(requestPayFine);	
+		//try to get the loan again
+		WebRequest requestLoan = new GetMethodWebRequest(
+				Constant.RENT_BOOK_URL+bookID+"&userid="+userID);
+		conversation.getResponse(requestLoan);
 		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID).get(0);
 		logger.debug(loan);
 		Assert.assertNotNull(loan);

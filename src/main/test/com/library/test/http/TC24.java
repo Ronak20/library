@@ -39,16 +39,7 @@ public class TC24 extends TestCase{
 	@Before
 	public void setUp() throws Exception {
 		logger.info("Entered setUp");
-		WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
-		HttpUnitOptions.setScriptingEnabled(false);
-		WebResponse response = conversation.getResponse(request);
-		logger.debug("Login Page : \n" + response.getText());
-		WebForm loginForm = response.getFormWithID("loginForm");
-		loginForm.setParameter("username", Constant.ADMIN_USERNAME);
-		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
-		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
-		loginForm.submit(submitButton);
+		
 		logger.info("Exited setUp");
 	}
 
