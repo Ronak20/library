@@ -81,14 +81,6 @@ public class TC19 {
 		bookService.decreaseCopies(this.bookID);
 
 		
-		/*WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
-		WebResponse response = conversation.getResponse(request);
-		WebForm loginForm = response.getFormWithID("loginForm");
-		loginForm.setParameter("username", Constant.ADMIN_USERNAME);
-		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
-		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
-		loginForm.submit(submitButton);*/
 		logger.info("Exited setUp");
 	}
 
@@ -105,44 +97,14 @@ public class TC19 {
 	@Test
 	public void testTC19PayFine() throws InterruptedException, IOException, SAXException
 	{
-		
-		// ServletRunner sr = new ServletRunner();
-		  //  sr.registerServlet( "PayFeesServlet", PayFeesServlet.class.getName() );
-		    
+			    
 		logger.info("Entered testTC19PayFine");
-		//Thread.sleep(4*60*1000);
 		logger.info(" loanID : "+loanID+" bookID : "+bookID+" userID : "+userID);
+		Thread.sleep(6 * 60 * 1000);
 		WebConversation conversation = new WebConversation();
 		WebRequest requestPayFine = new GetMethodWebRequest(
 				Constant.getPayFeeUrl(loanID,userID ));
-		
-		//ServletUnitClient sc = sr.newClient();
-		
-		//InvocationContext ic = sc.newInvocation( requestPayFine );
-		
-		//sc.getSession(true).setAttribute("user", userDao.getUserById(userID));;
-		
-		//requestPayFine.setParameter("user", userID);
-		requestPayFine.setParameter("loanid", loanID);
-		
-		//WebResponse responsePayFine = conversation.getResponse(requestPayFine);
-		
-		
-		
-		ServletRunner sr = new ServletRunner();
-		  sr.registerServlet( "PayFeesServlet", PayFeesServlet.class.getName() );
-		  ServletUnitClient client = sr.newClient();        // the client you have been using
-
-		  //now get an invocation context using the same URL used to invoke the servlet
-		  InvocationContext ic = client.newInvocation( Constant.getPayFeeUrl(loanID, userID));
-		  //obtain the session just used. Note: pass false to avoid creating it if it does not already exist
-		  HttpSession session = ic.getRequest().getSession( true );
-		  session.setAttribute("user", userDao.getUserById(userID));
-		  WebResponse webResponse= client.getResponse( ic );      // invoke your servlet normally
-		  System.out.println(webResponse.getText());
-		  
-		
-		
+		conversation.getResponse(requestPayFine);
 		Loan loan = loanDao.getLoanByUserIdBookId(userID, bookID).get(0);
 		logger.debug(loan);
 		
