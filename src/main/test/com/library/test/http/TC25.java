@@ -42,27 +42,17 @@ import com.meterware.servletunit.ServletUnitClient;
 
 public class TC25 extends TestCase {
 	private static Logger logger = Logger.getLogger(TC3.class);
-	private String bookName = "MyBookName"+ System.currentTimeMillis();
-	private String isbn = "MyBookisbn"+ System.currentTimeMillis();
-	private String bookid="";
+	private String bookName = "MyBookName" + System.currentTimeMillis();
+	private String isbn = "MyBookisbn" + System.currentTimeMillis();
+	private String bookid = "";
 
 	public TC25(String s) {
 		super(s);
 	}
-	
+
 	@Before
 	public void setUp() throws Exception {
 		logger.info("Entered setUp for TC 25 Delete book with multiple copies");
-		WebConversation conversation = new WebConversation();
-		WebRequest request = new GetMethodWebRequest(Constant.ROOT_URL);
-		HttpUnitOptions.setScriptingEnabled(false);
-		WebResponse response = conversation.getResponse(request);
-		logger.debug("Login Page : \n" + response.getText());
-		WebForm loginForm = response.getFormWithID("loginForm");
-		loginForm.setParameter("username", Constant.ADMIN_USERNAME);
-		loginForm.setParameter("password", Constant.ADMIN_PASSWORD);
-		SubmitButton submitButton = loginForm.getSubmitButton("loginSubmit");
-		loginForm.submit(submitButton);
 		logger.info("Exit setUp for TC 25 Delete book with multiple copies");
 	}
 
@@ -72,31 +62,24 @@ public class TC25 extends TestCase {
 
 	public void testDeleteBookWithMultipleCopies() throws Exception {
 		logger.info("Entered TC25 ");
-		User user;
-		String parameterUserName = "MyUser" + System.currentTimeMillis();
-		user = new User("TestFirstName","TestLastName",parameterUserName,"password",Role.STUDENT);
-		 Session session = HibernateUtil.getSessionFactory().openSession();
-		 UserDao userDao = new UserDao(session);
-		 UserService userService = new UserService(userDao);
-		  userService.saveOrUpdate(user);
-		 logger.info("User added"+ user.getUsername());
-		 BookDao bookDao = new BookDao(session);
-		 BookService bookService = new BookService(bookDao);
-		 
-		 Book book = new Book(null,bookName,isbn,2);//created 2 copies
-		 bookService.saveOrUpdate(book);
-		 bookid = book.getBookid();
-		 logger.info("Bookid created is: "+bookid);
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		BookDao bookDao = new BookDao(session);
+		BookService bookService = new BookService(bookDao);
+		Book book = new Book(null, bookName, isbn, 2);// created 2 copies
+		bookService.saveOrUpdate(book);
+		bookid = book.getBookid();
+		logger.info("Bookid created is: " + bookid);
 		// now create loan for this user
-		
-
-			logger.info("trying to delete the bookiD: "+bookid);
-			WebConversation conversation = new WebConversation();
-		 WebRequest requestDeleteBook = new GetMethodWebRequest(
-				 Constant.BOOK_DELETE_URL+bookid);
-		WebResponse responseGetUser = conversation.getResponse(requestDeleteBook);
-			WebTable bookListUpdatedTable = responseGetUser.getTableWithID("bookListTable");
-			TableCell tableUpdatedCell = bookListUpdatedTable.getTableCellWithID(bookid);
+		logger.info("trying to delete the bookiD: " + bookid);
+		WebConversation conversation = new WebConversation();
+		WebRequest requestDeleteBook = new GetMethodWebRequest(
+				Constant.BOOK_DELETE_URL + bookid);
+		WebResponse responseGetUser = conversation
+				.getResponse(requestDeleteBook);
+		WebTable bookListUpdatedTable = responseGetUser
+				.getTableWithID("bookListTable");
+		TableCell tableUpdatedCell = bookListUpdatedTable
+				.getTableCellWithID(bookid);
 		assertNull(tableUpdatedCell);
 		session.close();
 		logger.info("Exited TC 25 ");
